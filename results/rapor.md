@@ -25,7 +25,10 @@ döşeme (tiling) → 3 OCR motoru (RapidOCR, EasyOCR, Tesseract) → regex + s�
   kaynaklı olduğu bulundu; düzeltme sonrası aynı sette **marka doğruluğu %56 → %100, desen %22 → %44**'e çıktı.
 - **GPU kurulumu sonrası (§6.1)** RapidOCR+EasyOCR ikisi birlikte (ensemble) kullanılabilir hale geldi —
   bu, DOT dahil çoğu alanda belirgin doğruluk artışı sağladı **ve** toplam süreyi kısalttı (bkz. §6.2, §10).
-  DOT artık en zor alan değil.
+- **İkinci Ar-Ge turunda** (§6.3): ground truth 9→30 lastiğe genişletildi; sözlük+tutarlılık
+  düzeltmeleriyle 30-GT'de toplam doğruluk %56.3→%63.2; **PP-OCRv6** modeli denendi (%71.8, ama
+  ~3× yavaş) ve **yerel VLM** (Qwen2.5-VL) denemesi yapıldı — doğru kesitte kusursuz okudu ama
+  örnekleme stratejisi yetersiz kaldı (%30.5), üretime alınmadı.
 
 ---
 
@@ -267,8 +270,88 @@ bu düşüş büyük olasılıkla örneklem gürültüsü.
 **Neden bu kadar iyileşti?** İki motorun (RapidOCR + EasyOCR) farklı hata modları var — biri bir
 tile'da/varyantta okuyamadığını diğeri okuyabiliyor; §3.3'teki oylama mekanizması bu iki bağımsız görüşü
 birleştirip tek kaynaktan gelen sonuçtan daha sağlam bir karar üretiyor. Sonuç dosyaları:
-`results/sonuclar_gpu_ensemble_final.csv` (yeni, üretimde kullanılan) vs
-`results/sonuclar_cpu_v1clahe_baseline.csv` (eski, karşılaştırma için saklandı).
+`results/sonuclar_gpu_ensemble_final.csv` (Faz 0, ilk GPU+ensemble) vs
+`results/sonuclar_cpu_v1clahe_baseline.csv` (en eski, CPU tek-motor).
+
+### 6.3 İkinci İyileştirme Turu: Doğruluk + Hız (Faz 0-3)
+
+Kullanıcının "inisiyatif al, farklı yöntemler/modeller dene, gerekirse VLM gibi ağır araçları da
+dene" isteğiyle yapılan ikinci bir Ar-Ge turu. Dört faz halinde ilerlendi; her fazın sonunda 30
+lastiklik genişletilmiş ground truth setinde ölçüm yapıldı, kazanmayan yaklaşımlar da (VLM gibi)
+dürüstçe raporlandı.
+
+**Faz 0 — Ground Truth Genişletme (9 → 30 lastik):** Önceki 9 lastiklik GT, iyileştirmeleri
+güvenilir ölçmek için yetersizdi (DOT'ta sadece 3 gerçek değer vardı). 21 yeni lastik hedefli
+seçilip elle etiketlendi: 10 Kumho (desen=None kalanlar), 5 marka=None kalan, 6 marka-çeşitliliği
++yüksek güvenli DOT adayı. İki önemli bulgu: (1) **Kumho'nun iki farklı, sık tekrar eden modeli
+var** — "EcoWing ES31" (205/55 R16) ve "Solus TA21" (185/65 R14) — ikisi de sözlükte hiç yoktu.
+(2) **5 lastik gerçekten okunamaz** (insan gözüyle de) — sistemin marka=None dönmesi hata değil
+doğru davranış.
+
+**Faz 1 — Hızlı Doğruluk Kazanımları (kod düzeltmeleri, yeni model yok):** (1) `lexicon.py`'ye
+eksik Kumho desenleri eklendi. (2) `fuse.py`'ye **marka↔desen tutarlılık cezası** eklendi — nihai
+marka biliniyorken o markanın sözlüğünde olmayan desen adayları ×0.15 cezalandırılıyor. (3)
+`extract.py`'de DOT sıkılaştırıldı — yalnız geçerli hafta+yıl formatındaki adaylar `dot`'a,
+diğer alfasayısal kodlar `ekstra_lot`'a gidiyor.
+
+| Alan | Faz 0 (30-GT) | Faz 1 (30-GT) | Fark |
+|---|---|---|---|
+| Marka | %80 | %80 | değişmedi |
+| **Desen** | %33 | **%58** | **+25 puan** |
+| **Mevsim** | %43 | **%65** | **+22 puan** |
+| DOT | %64 | %73 | +9 puan |
+| **TOPLAM (8 alan)** | **%56.3** | **%63.2** | **+6.9 puan** |
+
+Teşhis: `sonuclar.csv` analizinde "General Tire" markasına başka markaların desenlerinin (Eco
+Dynamic, Green-Max, Ventus Prime 4 — hiçbiri General Tire'ın kendi sözlüğünde yok) sık sık
+yanlışlıkla atandığı görüldü; marka↔desen tutarlılık cezasının tam hedeflediği hata türü.
+
+**Faz 2 — Model Yükseltme: PP-OCRv6 Keşfi:** Yeni nesil `rapidocr` paketi (3.9.1) denendi — eski
+`rapidocr_onnxruntime` (1.2.3, PP-OCRv3) yerine **PP-OCRv6** det/rec modelleri kullanıyor. Ayrı
+bir motor adıyla (`rapidocr_v6`) eklendi, eskisiyle yan yana durabiliyor.
+
+| Alan | Eski (PP-OCRv3) | Yeni (PP-OCRv6) | Fark |
+|---|---|---|---|
+| Ebat | %52 | **%92** | **+40 puan** |
+| Hız Grubu | %20 | **%76** | **+56 puan** |
+| Üretim Yeri | %15 | **%45** | **+30 puan** |
+| **TOPLAM (8 alan)** | **%54.6** | **%71.8** | **+17.2 puan** |
+| Hız (119, tam koşu) | ~20 sn/lastik | 54.1 sn/lastik | ~2.7× yavaş |
+
+PP-OCRv6 belirgin şekilde daha güçlü ama ~2.7-5× daha yavaş.
+
+**Faz 3 — Yerel VLM Denemesi: Qwen2.5-VL 3B (Ollama):** Ollama üzerinden Qwen2.5-VL 3B (4-bit,
+~3GB, tamamen yerel, GPU) kuruldu, yapılandırılmış JSON çıktı isteyen bir prompt ile denendi
+(`src/vlm.py`). İlk denemede boş yanıt döndü — kök neden: gri tonlamalı (tek kanal) PNG + aşırı
+geniş (2600px) görüntü. RGB'ye çevirip 1400px'e sınırlayınca:
+
+> **Tek lastikte (Continental EcoContact 6) sonuç — 4.7 saniyede:** marka=Continental ✓,
+> desen=EcoContact 6 ✓, ebat=155/70 R13 ✓, **DOT=1526 ✓** (en zor alan!), tüp=Tüpsüz ✓ —
+> 5 kritik alanın 5'i de doğru, tek bir görüntü kesitinden.
+
+Ama **30 lastiklik tam benchmark'ta genel doğruluk sadece %30.5** çıktı (marka %8, desen %25,
+ebat %44, DOT %36). Neden? Klasik pipeline her lastik için onlarca tile/varyant tarıyor; VLM
+testinde ise sadece 1 kesit/yanak (2 kesit/lastik) denendi — marka/desen yazısı çoğu lastikte bu
+tek kesitin dışında kaldı. **Bu VLM'in okuma kapasitesinin değil, örnekleme stratejisinin
+sınırı** — tire 5 örneği (doğru kesit → kusursuz okuma) bunu kanıtlıyor.
+
+*Neden üretime alınmadı:* Klasik tiling yaklaşımını VLM'e uygulamak (lastik başına 6+ çağrı ×
+~14sn) 119 lastikte ~3 saate çıkar — bütçeyi aşıyor. **Somut sonraki adım:** VLM'i tam pipeline
+yerine, klasik OCR'ın boş bıraktığı alanlar için hedefli fallback olarak kullanmak.
+
+**Nihai Karar — Üç Doğrulanmış Konfigürasyon** (119 lastiğin tamamında koşturulup 30-GT ile
+puanlanmış):
+
+| Konfigürasyon | Süre (119) | sn/lastik | Doğruluk (30-GT) |
+|---|---|---|---|
+| Faz 0 (ilk GPU+ensemble) | 39.6 dk | 20.0 | %56.3 |
+| **Faz 1-ensemble (seçilen)** | **37.7 dk** | **19.0** | **%63.2** |
+| PP-OCRv6 (tek motor, alternatif) | 107.2 dk | 54.1 | %71.8 |
+
+**Seçilen üretim konfigürasyonu: Faz 1-ensemble.** Faz 0'a göre hem daha hızlı hem daha doğru —
+net kazanç, ödünleşim yok. PP-OCRv6 daha yüksek doğruluk sunuyor ama ~2.85× yavaş; doğruluk
+önceliği süre kısıtından ağır basan senaryolar için (gece toplu işleme vb.) iyi bir alternatif —
+`results/sonuclar_v6_final.csv`'de saklandı. Tüm ara sonuçlar `results/` altında korunuyor.
 
 ---
 
@@ -324,43 +407,48 @@ birleştirip tek kaynaktan gelen sonuçtan daha sağlam bir karar üretiyor. Son
 ## 9. Sonuç — Nihai Değerler
 
 Tamamen yerel/offline motorlarla, düşük kontrastlı kabartma lastik yazısından anlamlı ölçüde bilgi
-çıkarmak **mümkün ve fizibıl**. Üretimde kullanılan güncel nihai konfigürasyonla (GPU +
-**RapidOCR＋EasyOCR ensemble**, `v4_morph`, bkz. §6.2) 119 lastiğin tamamında elde edilen son durum —
-eski tek-motor/CPU konfigürasyonuna göre **hem daha hızlı hem daha doğru**:
+çıkarmak **mümkün ve fizibıl**. İki tur Ar-Ge sonunda (§6.2, §6.3), 30 lastiklik genişletilmiş
+ground truth ile doğrulanmış üretim konfigürasyonu: **GPU + RapidOCR＋EasyOCR ensemble
+(`v4_morph`) + Faz 1 kod düzeltmeleri** (sözlük genişletme, marka↔desen tutarlılık cezası, DOT
+sıkılaştırma). İlk tura göre **hem daha hızlı hem daha doğru**; daha da yüksek doğruluk isteyen
+senaryolar için PP-OCRv6 tek-motor alternatifi de doğrulanıp saklandı.
 
 **Genel:**
-- Toplam süre (119 lastik, GPU, 2-motor ensemble): **39.6 dk** (2377 sn), ortalama **20.0 sn/lastik**
+- Toplam süre (119 lastik, GPU, 2-motor ensemble): **37.7 dk** (2260 sn), ortalama **19.0 sn/lastik**
 - Kalite kapısında elenen görüntü: **18/238 (%7.6)** (Üst 11/119, Alt 7/119)
-- 8 alan ortalama doğruluk: **%77.6** (eski konfigürasyon: %62.3)
+- 8 alan ortalama doğruluk: **%63.2** (30-GT) — ilk tur %56.3 idi
 
 **Alan bazlı sonuçlar:**
 
-| Alan | Doğruluk (9 lastiklik GT) | Kapsam (119 lastikte) |
+| Alan | Doğruluk (30 lastiklik GT) | Kapsam (119 lastikte) |
 |---|---|---|
-| Marka | 7/9 — %78 | 110/119 — %92 |
-| Desen | 5/9 — %56 | 97/119 — %82 |
-| **Ebat** | **8/9 — %89** | 96/119 — %81 |
-| Hız Grubu | 7/9 — %78 | 83/119 — %70 |
-| Mevsim | 6/9 — %67 | 86/119 — %72 |
-| **DOT (üretim tarihi)** | **3/3 — %100***| 102/119 — %86 |
-| Üretildiği Yer | 4/6 — %67 | 54/119 — %45 |
-| **Tüplü/Tüpsüz** | **6/7 — %86** | 105/119 — %88 |
+| **Marka** | **20/25 — %80** | 110/119 — %92 |
+| Desen | 14/24 — %58 | 105/119 — %88 |
+| Ebat | 18/25 — %72 | 96/119 — %81 |
+| Hız Grubu | 13/25 — %52 | 81/119 — %68 |
+| Mevsim | 15/23 — %65 | 93/119 — %78 |
+| DOT (üretim tarihi) | 8/11 — %73 | 92/119 — %77 |
+| Üretildiği Yer | 6/20 — %30 | 54/119 — %45 |
+| **Tüplü/Tüpsüz** | 16/21 — %76 | 105/119 — %88 |
 
-*örneklem küçük (çoğu GT satırında DOT "?" işaretli). "Kapsam", sistemin bir değer ürettiği oranı
-gösterir — doğru olduğu anlamına gelmez; doğruluk sütunu ground truth ile karşılaştırmadır. Eski/yeni
-konfigürasyon tam karşılaştırması ve nedeni §6.2'de.
+Ground truth 9'dan 30 lastiğe genişletildi (§6.3, Faz 0) — DOT örneklemi 3'ten 11'e çıktı, artık
+istatistiksel olarak daha anlamlı. "Kapsam", sistemin bir değer ürettiği oranı gösterir — doğru
+olduğu anlamına gelmez; doğruluk sütunu ground truth ile karşılaştırmadır.
 
-**Hız — eski (CPU, 1 motor) vs yeni (GPU, 2-motor ensemble):**
+**Üç konfigürasyonun karşılaştırması:**
 
-| Konfigürasyon | Toplam süre (119 lastik) | Lastik başına |
-|---|---|---|
-| Eski: RapidOCR, v1_clahe, CPU | 46 dk | 23.4 sn |
-| Yeni: RapidOCR+EasyOCR, v4_morph, GPU | **39.6 dk** | **20.0 sn** |
+| Konfigürasyon | Toplam süre (119) | sn/lastik | Doğruluk (30-GT) |
+|---|---|---|---|
+| Faz 0: RapidOCR-v3+EasyOCR, GPU (ilk tur) | 39.6 dk | 20.0 | %56.3 |
+| **Faz 1: RapidOCR-v3+EasyOCR, GPU + kod düzeltmeleri (seçilen)** | **37.7 dk** | **19.0** | **%63.2** |
+| PP-OCRv6 tek motor (alternatif, yüksek doğruluk) | 107.2 dk | 54.1 | %71.8 |
 
-GPU'nun sağladığı hızlanma (RapidOCR 3.1×, EasyOCR 6.4×) ikinci motoru eklemenin maliyetinden büyük
-olduğu için nihai konfigürasyon hem daha isabetli hem daha hızlı çıktı — bu, §6.2'de açıklanan otomatik
-konfigürasyon seçicisinin GPU'yu hesaba katmasının doğrudan sonucu.
+GPU'nun sağladığı hızlanma (RapidOCR 3.1×, EasyOCR 6.4×) ikinci motoru eklemenin maliyetinden
+büyük olduğu için Faz 1 konfigürasyonu Faz 0'a göre hem daha isabetli hem daha hızlı çıktı.
+PP-OCRv6 (§6.3) daha da yüksek doğruluk sunuyor ama ~2.85× yavaş — süre kısıtı gevşek olan
+senaryolar (gece toplu işleme vb.) için değerlendirilebilir.
 
-En zayıf alan üretim yeri (kapsam %45) — somut sonraki-adım önerileri §8'de (sözlük genişletme, DOT'a
-özel oval tespiti). Sistem tamamen modüler (`src/preprocess.py`, `tiling.py`, `engines/`, `extract.py`,
-`fuse.py`) olduğundan hem sözlük genişletmeye hem de yeni motor/varyant eklemeye açık.
+En zayıf alanlar üretim yeri (%30) ve hız grubu (%52) — somut sonraki-adım önerileri §8'de (sözlük
+genişletme, DOT'a özel oval tespiti, VLM tabanlı hedefli fallback §6.3). Sistem tamamen modüler
+(`src/preprocess.py`, `tiling.py`, `engines/`, `extract.py`, `fuse.py`, `vlm.py`) olduğundan hem
+sözlük genişletmeye hem de yeni motor/varyant eklemeye açık.

@@ -89,13 +89,31 @@ def pick_best_config(n_tires_full: int, max_minutes: float = 90.0, gpu_speedup: 
     return PipelineConfig(engines=chosen["engines"], variants=chosen["variants"], tile_width=2400)
 
 
+def _parse_force_config():
+    """--engines=rapidocr_v6 --variants=v1_clahe seklinde otomatik secimi atlamak icin."""
+    engines = variants = None
+    for arg in sys.argv:
+        if arg.startswith("--engines="):
+            engines = arg.split("=", 1)[1].split(",")
+        elif arg.startswith("--variants="):
+            variants = arg.split("=", 1)[1].split(",")
+    if engines and variants:
+        return PipelineConfig(engines=engines, variants=variants, tile_width=2400)
+    return None
+
+
 def main():
     os.makedirs(RESULTS_DIR, exist_ok=True)
     tire_ids = discover_tire_ids()
-    # GPU aktif (CUDA'lı torch + onnxruntime-gpu kuruldu, bkz. rapor §6.1/§11): ölçülen
-    # hızlanma RapidOCR icin 3.1x, EasyOCR icin 6.4x idi; karma motor konfigleri icin
-    # temkinli/ortak bir carpan kullaniyoruz.
-    config = pick_best_config(len(tire_ids), gpu_speedup=3.0)
+    forced = _parse_force_config()
+    if forced:
+        config = forced
+        print(f"Elle secilen konfig: motorlar={config.engines}, varyantlar={config.variants}")
+    else:
+        # GPU aktif (CUDA'lı torch + onnxruntime-gpu kuruldu, bkz. rapor §6.1/§11): ölçülen
+        # hızlanma RapidOCR icin 3.1x, EasyOCR icin 6.4x idi; karma motor konfigleri icin
+        # temkinli/ortak bir carpan kullaniyoruz.
+        config = pick_best_config(len(tire_ids), gpu_speedup=3.0)
     orientation_engine = get_engine("rapidocr")
 
     resume = "--resume" in sys.argv

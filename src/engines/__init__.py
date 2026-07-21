@@ -25,6 +25,10 @@ def get_engine(name: str):
         from .rapidocr_engine import RapidOcrEngine
 
         engine = RapidOcrEngine()
+    elif name == "rapidocr_v6":
+        from .rapidocr_v6_engine import RapidOcrV6Engine
+
+        engine = RapidOcrV6Engine()
     elif name == "easyocr":
         from .easyocr_engine import EasyOcrEngine
 
@@ -40,4 +44,4 @@ def get_engine(name: str):
     return engine
 
 
-ENGINE_NAMES = ["rapidocr", "easyocr", "tesseract"]
+ENGINE_NAMES = ["rapidocr", "rapidocr_v6", "easyocr", "tesseract"]

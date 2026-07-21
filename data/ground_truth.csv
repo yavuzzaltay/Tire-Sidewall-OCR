@@ -8,3 +8,24 @@ tire_id,ust_file,alt_file,marka,desen,ebat,hiz_grubu,mevsim,dot,uretim_yeri,tup,
 80,Ust_80.jpg,Alt_80.jpg,Continental,SportContact 7,315/35 ZR22,111Y XL,Yaz,?,?,Tüpsüz,E4 02137816,DOT "ICP 032YBU" kırpık/belirsiz; üretim yeri görülemedi
 82,Ust_82.jpg,Alt_82.jpg,Crosswind,Comfort Peak,185/65 R14,86H,Yaz,1026,Serbia,Tüpsüz,0415685 S2W2R3B | E4 026564,DOT=hafta10/2026; mevsim net değil (yaz varsayıldı); NOT: bu lastiğin Alt görüntüsünde otomatik orientasyon 180 ters seçildi (bilinen sınırlama; benchmarkta not edildi)
 110,Ust_110.jpg,Alt_110.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,004635 2013 | 021341 09 | 0415684 S2W2R3B,M+S ibaresi var; DOT bu kesitte görülemedi; Ust tarafı bu lastikte çok ince/az bilgili bant verdi
+2,Ust_2.jpg,Alt_2.jpg,Kumho,EcoWing ES31,205/55 R16,91H,Yaz,1326,Korea,Tüpsüz,02101937 | 0416192 S2W2R3B | SNI | 004629,DOT=hafta13/2026 (net görülüyor); mevsim doğrudan yazmıyor (ürün hattından çıkarım)
+3,Ust_3.jpg,Alt_3.jpg,Kumho,EcoWing ES31,205/55 R16,91H,Yaz,1326,Korea,Tüpsüz,02101937 | 0416192 S2W2R3B | SNI | 004629,tire_id 2 ile aynı fiziksel görüntü/parti (veri setinde tekrar ediyor)
+4,Ust_4.jpg,Alt_4.jpg,Kumho,EcoWing ES31,205/55 R16,91H,Yaz,1326,Korea,Tüpsüz,02101937 | 0416192 S2W2R3B | SNI | 004629,tire_id 2 ile aynı fiziksel görüntü/parti
+7,Ust_7.jpg,Alt_7.jpg,Kumho,EcoWing ES31,205/55 R16,91H,Yaz,1326,Korea,Tüpsüz,02101937 | 0416192 S2W2R3B | SNI | 004629,tire_id 2 ile aynı fiziksel görüntü/parti
+67,Ust_67.jpg,Alt_67.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,02134109 | 0415684 S2W2R3B,DOT "1Y0 9LYA8J" hafta/yıl formatına uymuyor (net değil); M+S ibaresi var; tire_id 110 ile aynı model
+72,Ust_72.jpg,Alt_72.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,02134109 | 0415684 S2W2R3B,tire_id 67 ile aynı fiziksel görüntü/parti; M+S ibaresi bu kesitte net görüldü
+108,Ust_108.jpg,Alt_108.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,,düşük güven: alt yanak tire_id 109/111 ile bayt-bayt aynı (veri setinde tekrar eden fotoğraf); üst yanak çok ince bant verdi
+109,Ust_109.jpg,Alt_109.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,,düşük güven: Üst yanak kalite kapısında UNREADABLE oldu; Alt yanak tire_id 108/111 ile aynı görüntü
+111,Ust_111.jpg,Alt_111.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,,düşük güven: tire_id 108/109 ile aynı fiziksel görüntü/parti
+112,Ust_112.jpg,Alt_112.jpg,Kumho,?,185/65 R14,?,?,?,?,?,,düşük güven: sadece KUMHO logosu net; desen adı bu kesitte okunamadı (muhtemelen yine Solus TA21)
+44,Ust_44.jpg,Alt_44.jpg,?,?,?,?,?,?,?,?,,TAMAMEN OKUNAMADI: seçilen kesitlerde hiçbir metin/logo görülmüyor (insan gözüyle de okunamıyor) — sistemin marka=None dönmesi doğru davranış
+63,Ust_63.jpg,Alt_63.jpg,?,?,?,?,?,?,?,?,,TAMAMEN OKUNAMADI: seçilen kesitlerde hiçbir metin/logo görülmüyor — sistemin marka=None dönmesi doğru davranış
+77,Ust_77.jpg,Alt_77.jpg,Crosswind,Comfort Peak,185/65 R14,86H,Yaz,1026,Serbia,Tüpsüz,LL243826 | RIM 5 1/2J,DOT=hafta10/2026; tire_id 82 ile aynı model/parti (bilinen 180° orientasyon sınırlaması burada da var; metin ters okundu ama çözülebildi); mevsim net değil (yaz varsayıldı)
+87,Ust_87.jpg,Alt_87.jpg,?,?,?,91V,?,?,?,?,E4 8214988,düşük güven: sadece ...ASS 91V ve bir E-mark numarası görülüyor; marka/desen bu kesitte okunamadı
+101,Ust_101.jpg,Alt_101.jpg,?,?,?,?,?,?,?,?,,TAMAMEN OKUNAMADI: Ust kesitinde düz doku dışında metin yok; Alt yanak kalite kapısında UNREADABLE
+85,Ust_85.jpg,Alt_85.jpg,Crosswind,Comfort Peak,185/65 R14,86H,Yaz,1026,Serbia,Tüpsüz,LL243826 | RIM 5 1/2J,DOT=hafta10/2026 (net görüldü; dairesel damga içinde); mevsim net değil (yaz varsayıldı)
+88,Ust_88.jpg,Alt_88.jpg,Waterfall,Quattro,175/65 R14,86T,4 Mevsim,0526,Turkiye,Tüpsüz,48EX 2NW2 | S2WR2 024745,DOT=hafta05/2026; "4SEASONS" ikonu + M+S ibaresi net görüldü
+74,Ust_74.jpg,Alt_74.jpg,Waterfall,Quattro,175/65 R14,86T,4 Mevsim,0526,Turkiye,Tüpsüz,48EX 2NW2 | S2WR2 024745,tire_id 88 ile aynı fiziksel görüntü/parti
+1,Ust_1.jpg,Alt_1.jpg,Continental,PremiumContact 6,205/55 R16,91H,?,?,Czech Republic,?,,marka/desen/ebat net; DOT ve tüp bilgisi bu kesitte görülemedi
+98,Ust_98.jpg,Alt_98.jpg,?,?,?,?,?,?,?,?,,düşük güven: çok ince bant; sadece belirsiz PRIME COMF... parçası görülüyor; marka/desen doğrulanamadı
+25,Ust_25.jpg,Alt_25.jpg,Lassa,Multiways 2,185/65 R14,90H,4 Mevsim,?,?,Tüpsüz,1L5 063108,4 SEASONS ibaresi + kar/bulut ikonları net; DOT ve üretim yeri bu kesitte görülemedi

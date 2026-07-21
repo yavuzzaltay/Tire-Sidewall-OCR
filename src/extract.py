@@ -77,7 +77,7 @@ def _extract_size_and_speed(text: str, base_conf: float) -> tuple[List[Candidate
         value = f"{section}/{aspect} {constr_norm}{rim}"
         size_out.append(Candidate(value=value, confidence=base_conf, evidence=m.group(0)))
 
-        tail = text[m.end(): m.end() + 25]
+        tail = text[m.end(): m.end() + 40]
         lm = LOAD_SPEED_RE.search(tail)
         matched_speed = False
         if lm:
@@ -109,29 +109,33 @@ def _extract_tube(text: str, base_conf: float) -> List[Candidate]:
     return out
 
 
-def _extract_dot(text: str, base_conf: float) -> List[Candidate]:
-    out: List[Candidate] = []
+def _extract_dot(text: str, base_conf: float) -> tuple[List[Candidate], List[Candidate]]:
+    """Dönüş: (dot adayları, ekstra_lot adayları). Sadece geçerli hafta(01-53)+yıl
+    4-hane biçimindeki tarih adayları dot alanına yazılır; DOT damgası civarındaki
+    diğer alfasayısal kodlar (parti/ölçüm no vb., ör. "1Y0 9LYA8J") ekstra_lot'a
+    taşınır — önceden bunlar ham haliyle dot alanına da yazılıyor, alanı kirletiyordu."""
+    dot_out: List[Candidate] = []
+    extra_out: List[Candidate] = []
     anchors = list(DOT_ANCHOR_RE.finditer(text))
     if anchors:
         for m in anchors:
             tail = text[m.end(): m.end() + 40]
-            codes = re.findall(r"[A-Z0-9]{2,6}", tail.upper())
-            if codes:
-                out.append(Candidate(value=" ".join(codes), confidence=base_conf, evidence="DOT " + tail[:40]))
+            for code in re.findall(r"[A-Z0-9]{2,6}", tail.upper()):
+                extra_out.append(Candidate(value=code, confidence=base_conf * 0.5, evidence="DOT civarı kod"))
             for fm in FOURDIGIT_RE.finditer(tail):
                 token = fm.group(1)
                 wk, yr = int(token[:2]), int(token[2:])
                 if 1 <= wk <= 53:
-                    out.append(Candidate(value=token, confidence=min(0.97, base_conf + 0.1),
-                                          evidence=f"DOT tarih adayı (hafta {wk:02d}, yıl 20{yr:02d})"))
+                    dot_out.append(Candidate(value=token, confidence=min(0.97, base_conf + 0.1),
+                                              evidence=f"DOT tarih adayı (hafta {wk:02d}, yıl 20{yr:02d})"))
     else:
         for fm in FOURDIGIT_RE.finditer(text):
             token = fm.group(1)
             wk, yr = int(token[:2]), int(token[2:])
             if 1 <= wk <= 53 and 15 <= yr <= 30:
-                out.append(Candidate(value=token, confidence=base_conf * 0.55,
-                                      evidence=f"bağımsız tarih adayı (hafta {wk:02d}, yıl 20{yr:02d})"))
-    return out
+                dot_out.append(Candidate(value=token, confidence=base_conf * 0.5,
+                                          evidence=f"bağımsız tarih adayı (hafta {wk:02d}, yıl 20{yr:02d})"))
+    return dot_out, extra_out
 
 
 def _extract_extra_codes(text: str, base_conf: float, exclude: set[str]) -> List[Candidate]:
@@ -248,7 +252,8 @@ def extract_from_boxes(boxes: List[OcrBox]) -> FieldCandidates:
     result["hiz_grubu"].extend(speed_c)
     result["uretim_yeri"].extend(_extract_made_in(text_u, avg_conf))
     result["tup"].extend(_extract_tube(text_u, avg_conf))
-    result["dot"].extend(_extract_dot(text_u, avg_conf))
+    dot_c, dot_extra_c = _extract_dot(text_u, avg_conf)
+    result["dot"].extend(dot_c)
 
     brand_c, pattern_c = _extract_brand_pattern(text, avg_conf)
     result["marka"].extend(brand_c)
@@ -259,6 +264,7 @@ def extract_from_boxes(boxes: List[OcrBox]) -> FieldCandidates:
     for f in ("ebat", "dot"):
         exclude.update(c.evidence.upper() for c in result[f])
     result["ekstra_lot"].extend(_extract_extra_codes(text_u, avg_conf, exclude))
+    result["ekstra_lot"].extend(dot_extra_c)
 
     return result
 

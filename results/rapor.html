@@ -98,14 +98,14 @@ orientasyon tespiti → kalite kapısı → metin bandı kırpma → 5 farklı k
 döşeme (tiling) → 3 OCR motoru → regex + sözlük tabanlı alan çıkarımı → çoklu kaynak oylaması.</p>
 
 <div class="cards">
-  <div class="card"><div class="num">%89</div><div class="lbl">Ebat doğruluğu (GPU+ensemble, 119'un tam koşusunda)</div></div>
-  <div class="card"><div class="num">%100</div><div class="lbl">DOT doğruluğu*</div></div>
-  <div class="card"><div class="num">%86</div><div class="lbl">Tüplü/Tüpsüz doğruluğu</div></div>
-  <div class="card"><div class="num">20.0sn</div><div class="lbl">Lastik başına ortalama süre (GPU)</div></div>
+  <div class="card"><div class="num">%80</div><div class="lbl">Marka doğruluğu (30 lastiklik GT, nihai konfig.)</div></div>
+  <div class="card"><div class="num">%72</div><div class="lbl">Ebat doğruluğu</div></div>
+  <div class="card"><div class="num">%76</div><div class="lbl">Tüplü/Tüpsüz doğruluğu</div></div>
+  <div class="card"><div class="num">19.0sn</div><div class="lbl">Lastik başına ortalama süre (GPU)</div></div>
 </div>
-<p style="font-size:0.8rem;color:var(--muted);margin-top:-8px">*DOT için 9 lastiklik ground truth
-setinde sadece 3 tanesinin gerçek değeri biliniyor (diğerleri "?" işaretli) — küçük örneklem, temkinli
-yorumlanmalı. Tam alan tablosu ve eski/yeni karşılaştırması: §10.</p>
+<p style="font-size:0.8rem;color:var(--muted);margin-top:-8px">Ground truth 9'dan 30 lastiğe
+genişletildi (§6.3) — DOT örneklemi de 3'ten 11'e çıktı. Tam alan tablosu ve konfigürasyon
+karşılaştırması: §10.</p>
 
 <div class="box good">
 <b>En önemli bulgular:</b>
@@ -118,8 +118,10 @@ oldu — bkz. §6.2.</li>
 <li>İlk turda desen (pattern) tanıma %22 ile en zayıf alan çıktı. Kök neden analiziyle
 (eksik sözlük markaları + gevşek fuzzy eşik) düzeltildikten sonra aynı sette
 <b>marka %56→%100, desen %22→%44</b>'e çıktı (bkz. §5).</li>
-<li><b>DOT (üretim tarihi)</b> ilk koşuda en zor alandı; GPU+ensemble konfigürasyonuna geçince 9 lastiklik
-test setinde %100'e çıktı (küçük örneklem, temkinli yorumlanmalı) — bkz. §6.2 ve §10.</li>
+<li><b>İkinci Ar-Ge turunda</b> (§6.3): sözlük+tutarlılık düzeltmeleriyle 30-GT'de toplam doğruluk
+%56.3→%63.2; ayrıca <b>PP-OCRv6</b> modeli denendi (%71.8, ama ~3× yavaş) ve <b>yerel VLM</b>
+(Qwen2.5-VL) denemesi yapıldı — doğru kesitte kusursuz okudu ama örnekleme stratejisi yetersiz kaldı
+(%30.5), üretime alınmadı.</li>
 </ul>
 </div>
 
@@ -498,6 +500,102 @@ de aynı hatayı yapma riski taşıyan) sonuçtan daha sağlam bir karar üretiy
 <code>results/sonuclar_gpu_ensemble_final.csv</code> (yeni, üretimde kullanılan) vs
 <code>results/sonuclar_cpu_v1clahe_baseline.csv</code> (eski, karşılaştırma için saklandı).</p>
 
+<h2>6.3 İkinci İyileştirme Turu: Doğruluk + Hız (Faz 0-3)</h2>
+<p>Bu bölüm, kullanıcının "inisiyatif al, farklı yöntemler/modeller dene, gerekirse VLM gibi ağır
+araçları da dene" isteğiyle yapılan ikinci bir Ar-Ge turunu özetliyor. Dört faz halinde ilerlendi;
+her fazın sonunda 30 lastiklik genişletilmiş ground truth setinde ölçüm yapıldı, kazanmayan
+yaklaşımlar da (VLM gibi) dürüstçe raporlandı.</p>
+
+<h3>Faz 0 — Ground Truth Genişletme (9 → 30 lastik)</h3>
+<p>Önceki turdaki 9 lastiklik ground truth, iyileştirmeleri güvenilir ölçmek için yetersizdi
+(özellikle DOT'ta sadece 3 gerçek değer vardı). 21 yeni lastik hedefli seçilip elle etiketlendi:
+10 Kumho (desen=None kalan lastikler), 5 marka=None kalan lastik, 6 marka-çeşitliliği+yüksek
+güvenli DOT adayı. Bu incelemede iki önemli bulgu çıktı:</p>
+<ul>
+<li><b>Kumho'nun iki farklı, sık tekrar eden modeli var</b>: "EcoWing ES31" (205/55 R16) ve
+"Solus TA21" (185/65 R14) — ikisi de sözlükte hiç yoktu (sözlükte yalnız "Solus TA31" vardı,
+rakam farkı yüzünden fuzzy eşleşme başarısız oluyordu).</li>
+<li><b>5 lastik gerçekten okunamaz</b>: özenle seçilmiş farklı kesit/varyant kombinasyonlarıyla
+bile (insan gözüyle de) hiçbir metin görülemedi. Bu, sistemin "marka=None" döndürmesinin bir
+hata değil <i>doğru davranış</i> olduğunu doğruluyor.</li>
+</ul>
+
+<h3>Faz 1 — Hızlı Doğruluk Kazanımları (kod düzeltmeleri, yeni model yok)</h3>
+<p>Üç düzeltme yapıldı: (1) <code>lexicon.py</code>'ye eksik Kumho desenleri eklendi, (2)
+<code>fuse.py</code>'ye <b>marka↔desen tutarlılık cezası</b> eklendi — nihai marka biliniyorken
+o markanın sözlüğünde olmayan desen adayları ağır cezalandırılıyor (×0.15), (3)
+<code>extract.py</code>'de DOT alanı sıkılaştırıldı — artık yalnız geçerli hafta+yıl (4 hane)
+formatındaki adaylar <code>dot</code> alanına yazılıyor, DOT damgası civarındaki diğer
+alfasayısal kodlar (ör. "1Y0 9LYA8J") <code>ekstra_lot</code>'a taşınıyor.</p>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Faz 0 (30-GT)</th><th>Faz 1 (30-GT)</th><th>Fark</th></tr>
+<tr><td>Marka</td><td>%80</td><td>%80</td><td>değişmedi</td></tr>
+<tr><td>Desen</td><td>%33</td><td class="best">%58</td><td class="best">+25 puan</td></tr>
+<tr><td>Mevsim</td><td>%43</td><td class="best">%65</td><td class="best">+22 puan</td></tr>
+<tr><td>DOT</td><td>%64</td><td class="best">%73</td><td class="best">+9 puan</td></tr>
+<tr><td><b>TOPLAM (8 alan)</b></td><td><b>%56.3</b></td><td class="best"><b>%63.2</b></td><td class="best">+6.9 puan</td></tr>
+</table></div>
+<p style="font-size:0.85rem;color:var(--muted)">Teşhis: <code>sonuclar.csv</code> analizinde "General Tire"
+markasına başka markaların desenlerinin (Eco Dynamic, Green-Max, Ventus Prime 4 — hiçbiri General
+Tire'ın kendi sözlüğünde yok) sık sık yanlışlıkla atandığı görüldü; bu tam olarak marka↔desen
+tutarlılık cezasının hedeflediği hata türüydü.</p>
+
+<h3>Faz 2 — Model Yükseltme: PP-OCRv6 Keşfi</h3>
+<p>Yeni nesil <code>rapidocr</code> paketi (3.9.1) denendi — eski <code>rapidocr_onnxruntime</code>
+(1.2.3, PP-OCRv3 modelleri) yerine <b>PP-OCRv6</b> det/rec modellerini kullanıyor. Ayrı bir motor
+adıyla (<code>rapidocr_v6</code>) sisteme eklendi, eskisiyle yan yana durabiliyor. Tek motor olarak
+(v1_clahe, GPU) 30-GT'de karşılaştırma çarpıcı çıktı:</p>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Eski (PP-OCRv3)</th><th>Yeni (PP-OCRv6)</th><th>Fark</th></tr>
+<tr><td>Ebat</td><td>%52</td><td class="best">%92</td><td class="best">+40 puan</td></tr>
+<tr><td>Hız Grubu</td><td>%20</td><td class="best">%76</td><td class="best">+56 puan</td></tr>
+<tr><td>Üretim Yeri</td><td>%15</td><td class="best">%45</td><td class="best">+30 puan</td></tr>
+<tr><td>Tüplü/Tüpsüz</td><td>%76</td><td class="best">%90</td><td class="best">+14 puan</td></tr>
+<tr><td><b>TOPLAM (8 alan)</b></td><td><b>%54.6</b></td><td class="best"><b>%71.8</b></td><td class="best">+17.2 puan</td></tr>
+<tr><td>Hız (119 lastik tam koşu)</td><td>~20 sn/lastik (ensemble içinde)</td><td class="worst">54.1 sn/lastik</td><td class="worst">~2.7× yavaş</td></tr>
+</table></div>
+<p>PP-OCRv6 belirgin şekilde daha güçlü bir metin tanıma modeli — ama <b>~2.7-5× daha yavaş</b>.
+Bu, bir sonraki bölümdeki nihai karar için temel karşılaştırma noktası oldu.</p>
+
+<h3>Faz 3 — Yerel VLM Denemesi: Qwen2.5-VL 3B (Ollama)</h3>
+<p>Kullanıcının açıkça istediği "ağır" bir deneme: Ollama üzerinden Qwen2.5-VL 3B (4-bit, ~3GB,
+tamamen yerel, GPU'da) kuruldu ve yapılandırılmış JSON çıktı isteyen bir prompt ile denendi
+(<code>src/vlm.py</code>). İlk denemede model boş yanıt döndürdü — kök neden: <b>gri tonlamalı
+(tek kanal) PNG</b> ve aşırı geniş (2600px) görüntü. RGB'ye çevirip 1400px'e sınırlayınca:</p>
+<div class="box good">
+<b>Tek lastikte (Continental EcoContact 6) sonuç — 4.7 saniyede:</b>
+marka=Continental ✓, desen=EcoContact 6 ✓, ebat=155/70 R13 ✓, <b>DOT=1526 ✓</b> (en zor alan!),
+tüp=Tüpsüz ✓ — 5 kritik alanın 5'i de doğru, tek bir görüntü kesitinden.
+</div>
+<p>Ama <b>30 lastiklik tam benchmark'ta genel doğruluk sadece %30.5</b> çıktı (marka %8, desen %25,
+ebat %44, DOT %36). Neden bu kadar düşük? Klasik pipeline her lastik için onlarca tile/varyant
+kombinasyonunu tarıyor; VLM testinde ise hız/maliyet nedeniyle sadece <b>1 kesit/yanak</b>
+(2 kesit/lastik) denendi. Marka/desen yazısı çoğu lastikte bu tek kesitin dışında kaldığından
+model doğru şeyi görmedi bile — <b>bu VLM'in okuma kapasitesinin değil, örnekleme stratejisinin
+sınırı</b>. Tire 5 örneği bunu kanıtlıyor: doğru kesit gösterildiğinde model kusursuz okudu.</p>
+<p style="font-size:0.85rem;color:var(--muted)"><b>Neden üretime alınmadı:</b> Klasik pipeline'ın
+tiling yaklaşımını VLM'e uygulamak (her lastik için 6+ VLM çağrısı × ~14sn) 119 lastikte
+~3 saate çıkar — bu turun bütçesini aşıyor. <b>Somut sonraki adım</b> (rapora not düşüldü, §9):
+VLM'i tam pipeline yerine, klasik OCR'ın boş/düşük-güvenli bıraktığı alanlar için <i>hedefli
+fallback</i> olarak kullanmak — çok daha az çağrı gerektirir ve bu turda görülen yüksek
+isabetli okuma kalitesinden faydalanır.</p>
+
+<h3>Nihai Karar: Üç Doğrulanmış Konfigürasyon</h3>
+<p>Tüm fazlar sonunda, 119 lastiğin tamamında koşturulup 30-GT ile puanlanmış üç konfigürasyon:</p>
+<div class="tblwrap"><table>
+<tr><th>Konfigürasyon</th><th>Süre (119 lastik)</th><th>sn/lastik</th><th>Doğruluk (30-GT, 8 alan)</th></tr>
+<tr><td>Faz 0 (ilk GPU+ensemble)</td><td>39.6 dk</td><td>20.0</td><td>%56.3</td></tr>
+<tr><td class="best"><b>Faz 1-ensemble (RapidOCR-v3+EasyOCR, düzeltilmiş)</b></td><td class="best"><b>37.7 dk</b></td><td class="best"><b>19.0</b></td><td class="best"><b>%63.2</b></td></tr>
+<tr><td>PP-OCRv6 (tek motor)</td><td>107.2 dk</td><td>54.1</td><td class="best">%71.8</td></tr>
+</table></div>
+<p><b>Seçilen üretim konfigürasyonu: Faz 1-ensemble.</b> Faz 0'a göre <i>hem daha hızlı hem daha
+doğru</i> — net kazanç, ödünleşim yok. PP-OCRv6 daha da yüksek doğruluk sunuyor ama ~2.85× daha
+yavaş; doğruluk önceliği süre kısıtından daha ağır basan kullanım senaryoları için (ör. gece
+toplu işleme) <b>PP-OCRv6 iyi bir alternatif</b> olarak <code>results/sonuclar_v6_final.csv</code>'de
+saklandı. Karşılaştırma için diğer tüm ara sonuçlar da <code>results/</code> altında korunuyor
+(<code>sonuclar_faz0_baseline_backup.csv</code>, <code>sonuclar_faz1_ensemble_final.csv</code>,
+<code>sonuclar_v6_final.csv</code>).</p>
+
 <h2>7. Görsel Örnekler</h2>
 <p>Aşağıda <code>Ust_5.jpg</code> (Continental EcoContact 6) için ön işleme varyantlarının bir kesiti —
 DOT kodu "266 03H536 <b>(1526)</b>" (hafta 15, 2026) çok net okunabiliyor:</p>
@@ -555,49 +653,53 @@ operatöre hızlı onay için göstermek — hibrit model, saf otomasyondan daha
 
 <h2>10. Sonuç — Nihai Değerler</h2>
 <p>Tamamen yerel/offline motorlarla, düşük kontrastlı kabartma lastik yazısından anlamlı ölçüde bilgi
-çıkarmak <b>mümkün ve fizibıl</b>. Aşağıdaki tablo, üretimde kullanılan <b>güncel nihai konfigürasyonla</b>
-(GPU + <b>RapidOCR＋EasyOCR ensemble</b>, <code>v4_morph</code>, bkz. §6.2) 119 lastiğin tamamında elde
-edilen son durumu özetliyor — eski tek-motor/CPU konfigürasyonuna göre <b>hem daha hızlı hem daha doğru</b>.</p>
+çıkarmak <b>mümkün ve fizibıl</b>. İki tur Ar-Ge sonunda (bkz. §6.2, §6.3), 30 lastiklik genişletilmiş
+ground truth setiyle doğrulanmış <b>üretim konfigürasyonu: GPU + RapidOCR＋EasyOCR ensemble
+(<code>v4_morph</code>) + Faz 1 kod düzeltmeleri</b> (sözlük genişletme, marka↔desen tutarlılık
+cezası, DOT sıkılaştırma). Bu konfigürasyon, ilk turun sonucuna göre <b>hem daha hızlı hem daha
+doğru</b>; ondan daha da yüksek doğruluk isteyen kullanım senaryoları için PP-OCRv6 tek-motor
+alternatifi de doğrulanıp saklandı (§6.3).</p>
 
 <div class="cards">
-  <div class="card"><div class="num">39.6 dk</div><div class="lbl">Toplam süre — 119 lastik (GPU, 2-motor ensemble)</div></div>
-  <div class="card"><div class="num">20.0sn</div><div class="lbl">Lastik başına ortalama</div></div>
-  <div class="card"><div class="num">%77.6</div><div class="lbl">8 alan ortalama doğruluk (eskisi %62.3 idi)</div></div>
+  <div class="card"><div class="num">37.7 dk</div><div class="lbl">Toplam süre — 119 lastik (GPU, 2-motor ensemble)</div></div>
+  <div class="card"><div class="num">19.0sn</div><div class="lbl">Lastik başına ortalama</div></div>
+  <div class="card"><div class="num">%63.2</div><div class="lbl">8 alan ortalama doğruluk (30-GT) — ilk tur %56.3 idi</div></div>
   <div class="card"><div class="num">18/238</div><div class="lbl">Kalite kapısında elenen görüntü (%7.6)</div></div>
 </div>
 
 <h3>Alan bazlı nihai sonuçlar</h3>
 <div class="tblwrap"><table>
-<tr><th>Alan</th><th>Doğruluk<br><span style="font-weight:400;color:var(--muted)">(9 lastiklik ground truth)</span></th><th>Kapsam<br><span style="font-weight:400;color:var(--muted)">(119 lastiğin kaçında bir değer üretildi)</span></th></tr>
-<tr><td>Marka</td><td>7/9 — %78</td><td>110/119 — %92</td></tr>
-<tr><td>Desen</td><td>5/9 — %56</td><td>97/119 — %82</td></tr>
-<tr><td><b>Ebat</b></td><td class="best"><b>8/9 — %89</b></td><td>96/119 — %81</td></tr>
-<tr><td>Hız Grubu</td><td>7/9 — %78</td><td>83/119 — %70</td></tr>
-<tr><td>Mevsim</td><td>6/9 — %67</td><td>86/119 — %72</td></tr>
-<tr><td><b>DOT (üretim tarihi)</b></td><td class="best"><b>3/3 — %100</b>*</td><td>102/119 — %86</td></tr>
-<tr><td>Üretildiği Yer</td><td>4/6 — %67</td><td>54/119 — %45</td></tr>
-<tr><td><b>Tüplü/Tüpsüz</b></td><td class="best"><b>6/7 — %86</b></td><td>105/119 — %88</td></tr>
+<tr><th>Alan</th><th>Doğruluk<br><span style="font-weight:400;color:var(--muted)">(30 lastiklik ground truth)</span></th><th>Kapsam<br><span style="font-weight:400;color:var(--muted)">(119 lastiğin kaçında bir değer üretildi)</span></th></tr>
+<tr><td><b>Marka</b></td><td class="best"><b>20/25 — %80</b></td><td>110/119 — %92</td></tr>
+<tr><td>Desen</td><td>14/24 — %58</td><td>105/119 — %88</td></tr>
+<tr><td>Ebat</td><td>18/25 — %72</td><td>96/119 — %81</td></tr>
+<tr><td>Hız Grubu</td><td class="worst">13/25 — %52</td><td>81/119 — %68</td></tr>
+<tr><td>Mevsim</td><td>15/23 — %65</td><td>93/119 — %78</td></tr>
+<tr><td>DOT (üretim tarihi)</td><td>8/11 — %73</td><td>92/119 — %77</td></tr>
+<tr><td>Üretildiği Yer</td><td class="worst">6/20 — %30</td><td>54/119 — %45</td></tr>
+<tr><td><b>Tüplü/Tüpsüz</b></td><td>16/21 — %76</td><td>105/119 — %88</td></tr>
 </table></div>
-<p style="font-size:0.8rem;color:var(--muted)">*örneklem küçük (çoğu GT satırında DOT "?" işaretli, gerçek değeri bilinmiyor). "Kapsam", sistemin
-bir değer ürettiği oranı gösterir — ürettiği değerin doğru olduğu anlamına gelmez, doğruluk sütunu
-ground truth ile karşılaştırmadır. Bu konfigürasyona nasıl ve neden geçildiği, eski değerlerle tam
-karşılaştırma §6.2'de.</p>
+<p style="font-size:0.8rem;color:var(--muted)">Ground truth 9'dan 30 lastiğe genişletildi (§6.3, Faz 0) —
+DOT örneklemi 3'ten 11'e çıktı, artık istatistiksel olarak daha anlamlı. "Kapsam", sistemin bir değer
+ürettiği oranı gösterir — doğru olduğu anlamına gelmez; doğruluk sütunu ground truth ile karşılaştırmadır.</p>
 
-<h3>Hız — CPU (eski) vs GPU (yeni, 2-motor ensemble)</h3>
+<h3>Üç konfigürasyonun karşılaştırması</h3>
 <div class="tblwrap"><table>
-<tr><th>Konfigürasyon</th><th>Toplam süre (119 lastik)</th><th>Lastik başına</th></tr>
-<tr><td>Eski: RapidOCR, v1_clahe, CPU, 1 motor</td><td>46 dk</td><td>23.4 sn</td></tr>
-<tr><td>Yeni: RapidOCR+EasyOCR, v4_morph, GPU, 2 motor</td><td class="best">39.6 dk</td><td class="best">20.0 sn</td></tr>
+<tr><th>Konfigürasyon</th><th>Toplam süre (119 lastik)</th><th>sn/lastik</th><th>Doğruluk (30-GT)</th></tr>
+<tr><td>Faz 0: RapidOCR-v3+EasyOCR, GPU (ilk tur)</td><td>39.6 dk</td><td>20.0</td><td>%56.3</td></tr>
+<tr><td class="best"><b>Faz 1: RapidOCR-v3+EasyOCR, GPU + kod düzeltmeleri (seçilen)</b></td><td class="best"><b>37.7 dk</b></td><td class="best"><b>19.0</b></td><td class="best"><b>%63.2</b></td></tr>
+<tr><td>PP-OCRv6 tek motor (alternatif, yüksek doğruluk)</td><td>107.2 dk</td><td>54.1</td><td class="best">%71.8</td></tr>
 </table></div>
 <p style="font-size:0.85rem;color:var(--muted)">GPU'nun sağladığı hızlanma (RapidOCR 3.1×, EasyOCR 6.4×),
-ikinci motoru devreye almanın getirdiği ek maliyetten daha büyük olduğu için nihai konfigürasyon hem daha
-isabetli hem daha hızlı çıktı — bu tesadüf değil, §6.2'de açıklanan otomatik konfigürasyon seçicisinin
-GPU'yu hesaba katmasının doğrudan sonucu.</p>
+ikinci motoru devreye almanın maliyetinden büyük olduğu için Faz 1 konfigürasyonu Faz 0'a göre hem daha
+isabetli hem daha hızlı çıktı. PP-OCRv6 (§6.3) daha da yüksek doğruluk sunuyor ama ~2.85× daha yavaş —
+süre kısıtı gevşek olan kullanım senaryoları (ör. gece toplu işleme) için değerlendirilebilir.</p>
 
-<p>En zayıf alan üretim yeri (kapsam %45) — somut sonraki-adım önerileri §9'da (sözlük genişletme, DOT'a
-özel oval tespiti). Sistem tamamen modüler (<code>src/preprocess.py</code>, <code>tiling.py</code>,
-<code>engines/</code>, <code>extract.py</code>, <code>fuse.py</code>) olduğundan hem sözlük genişletmeye
-hem yeni motor/varyant eklemeye açık.</p>
+<p>En zayıf alanlar üretim yeri (%30) ve hız grubu (%52) — somut sonraki-adım önerileri §9'da (sözlük
+genişletme, DOT'a özel oval tespiti, VLM tabanlı hedefli fallback §6.3). Sistem tamamen modüler
+(<code>src/preprocess.py</code>, <code>tiling.py</code>, <code>engines/</code>, <code>extract.py</code>,
+<code>fuse.py</code>, <code>vlm.py</code>) olduğundan hem sözlük genişletmeye hem yeni motor/varyant
+eklemeye açık.</p>
 
 <footer>
 Lastik Yanak OCR — Ar-Ge Fizibilite Raporu · Kaynak kod: <code>src/</code> · Tam sonuçlar: <code>results/sonuclar.csv</code>

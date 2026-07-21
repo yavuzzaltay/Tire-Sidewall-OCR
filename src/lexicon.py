@@ -41,7 +41,10 @@ BRAND_PATTERNS: dict[str, list[str]] = {
         "Ventus Prime 4", "Ventus S1 evo3", "Kinergy Eco2", "Kinergy 4S 2",
         "Winter i*cept RS3", "Winter i*cept evo3", "Dynapro HP2",
     ],
-    "Kumho": ["Ecsta HS51", "Ecsta PS71", "Solus TA31", "Solus 4S", "Crugen HP71"],
+    "Kumho": [
+        "Ecsta HS51", "Ecsta PS71", "Solus TA31", "Solus TA21", "Solus 4S",
+        "Crugen HP71", "EcoWing ES31", "EcoWing ES01",
+    ],
     "Falken": ["Ziex ZE310", "Ziex ZE914", "Wildpeak A/T", "Euroall Season AS210"],
     "Nokian": ["Hakkapeliitta R5", "Hakkapeliitta 10", "Weatherproof", "Nordman"],
     "Sava": ["Eskimo S3+", "Perfecta", "Intensa UHP2", "Intensa HP2", "Trenta"],

@@ -3,8 +3,10 @@ numpy
 pandas
 rapidfuzz
 rapidocr-onnxruntime
+rapidocr==3.9.1
 easyocr
 pytesseract
+requests
 
 # ---- GPU (CUDA 12.6/13.x, NVIDIA sürücü CUDA 12.6+ destekli olmalı) ----
 # EasyOCR (torch) için:
@@ -22,3 +24,7 @@ nvidia-cublas
 nvidia-cuda-runtime
 nvidia-cufft
 nvidia-cudnn-cu13
+
+# ---- Opsiyonel: yerel VLM denemesi (src/vlm.py, Faz 3) ----
+# pip paketi değil, ayrı kurulur: https://ollama.com (winget install Ollama.Ollama)
+# sonra: ollama pull qwen2.5vl:3b
