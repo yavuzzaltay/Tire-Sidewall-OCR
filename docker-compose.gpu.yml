@@ -1,0 +1,19 @@
+services:
+  lastik-ocr-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    image: lastik-ocr:gpu
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Lastik_fotolari:/app/Lastik_fotolari
+      - ./results:/app/results
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped

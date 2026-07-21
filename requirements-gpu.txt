@@ -1,0 +1,18 @@
+# GPU'lu Docker imaji icin bagimlilik listesi (Dockerfile.gpu, Linux/NVIDIA CUDA taban imaji).
+# NOT: Windows'un aksine, PyPI'daki duz "torch" Linux wheel'i CUDA runtime'ini zaten
+# kendi icinde tasiyor -- ozel bir cu126 index'i gerekmiyor. onnxruntime-gpu ise
+# taban imajin (nvidia/cuda:...-cudnn-runtime) sistem genelinde kurulu CUDA/cuDNN
+# kutuphanelerini kullaniyor (ldconfig ile kayitli), Windows'taki PATH hack'ine gerek yok.
+opencv-contrib-python==4.10.0.84
+numpy
+pandas
+rapidfuzz
+rapidocr-onnxruntime
+rapidocr==3.9.1
+easyocr
+pytesseract
+requests
+flask
+torch
+torchvision
+onnxruntime-gpu

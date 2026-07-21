@@ -7,8 +7,9 @@ tek komutla web arayüzünü ayağa kaldırabilirsin.
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows/Mac) veya
   Docker Engine + Compose (Linux)
-- GPU **gerekmez** — imaj CPU üzerinde çalışacak şekilde hazırlandı (kod GPU varsa
-  otomatik onu da kullanır, ama şart değil).
+- GPU **gerekmez** — varsayılan imaj CPU üzerinde çalışacak şekilde hazırlandı. NVIDIA
+  GPU'lu bir makinede daha hızlı çalıştırmak istersen aşağıdaki "GPU ile çalıştırma"
+  bölümüne bak (ayrı, test edilmiş bir GPU imajı var).
 
 ## Hızlı başlangıç
 
@@ -48,15 +49,58 @@ docker run -p 5000:5000 \
   lastik-ocr
 ```
 
+## GPU ile çalıştırma (arkadaşının NVIDIA GPU'lu makinesinde)
+
+Ayrı bir GPU imajı var (`Dockerfile.gpu` + `docker-compose.gpu.yml`) — **gerçekten test edildi**
+(bu makinede RTX 3060 ile build edilip çalıştırıldı: CPU'da 99.5sn süren bir lastik GPU'da
+29.7sn'de bitti, `onnxruntime` hem de `torch` tarafında CUDA doğrulandı).
+
+### Arkadaşının makinesinde gereken kurulum
+
+1. **NVIDIA GPU sürücüsü** (güncel, WSL2/CUDA destekli) — çoğu makinede zaten kurulu.
+2. **Docker Desktop** — kurulumda "Use WSL 2 based engine" seçili olmalı (varsayılan).
+   Docker Desktop 4.x sürümleri WSL2 üzerinde NVIDIA GPU'yu otomatik tanır, ekstra bir
+   "NVIDIA Container Toolkit" kurulumu **Windows'ta gerekmez** (Linux'ta gerekir, aşağıya bak).
+3. Kurulumdan sonra doğrulama: `docker run --rm --gpus all nvidia/cuda:13.0.0-base-ubuntu24.04 nvidia-smi`
+   komutu GPU bilgisini basıyorsa hazırsın.
+
+### Çalıştırma
+
+```bash
+git clone https://github.com/yavuzzaltay/LastikOCR.git
+cd LastikOCR
+# Kendi fotograflarini Lastik_fotolari/Lastigin_ustu ve Lastigin_alti klasorlerine koy
+
+docker compose -f docker-compose.gpu.yml up --build
+```
+
+İlk build biraz uzun sürer (CUDA taban imajı + torch/onnxruntime-gpu indirmesi, ~10-15dk,
+imaj boyutu ~15GB) — sonraki çalıştırmalarda `--build` gerekmez, direkt
+`docker compose -f docker-compose.gpu.yml up`.
+
+Loglarda `"GPU kullanılıyor"` yazısını görmelisin. Görmüyorsan (CPU'ya düşmüşse):
+
+```bash
+docker exec <container_adi> python3 -c "import onnxruntime as ort; print(ort.get_available_providers())"
+```
+
+çıktısında `CUDAExecutionProvider` yoksa GPU geçişi (device passthrough) çalışmıyor demektir —
+Docker Desktop ayarlarında GPU desteğinin açık olduğunu kontrol et.
+
+### Linux'ta (Docker Desktop değil, düz Docker Engine)
+
+Ek olarak [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+kurman gerekir (`nvidia-ctk runtime configure --runtime=docker` + `sudo systemctl restart docker`).
+
 ## Notlar
 
-- İmaj **CPU-uyumlu** bağımlılıklarla kurulur (`requirements-docker.txt`) — GPU'ya özel
-  `torch+cuda`/`onnxruntime-gpu` paketleri (~3-4GB) dahil değildir, bu yüzden imaj küçük
-  ve her makinede sorunsuz build olur.
-- Kod GPU'yu otomatik algılar (`src/engines/base.py:gpu_available()`). Eğer container'ı
-  NVIDIA GPU'lu bir Linux makinede, `nvidia-container-toolkit` kurulu şekilde çalıştırırsan
-  ve imajı GPU'lu `torch`/`onnxruntime-gpu` ile yeniden kurarsan (bkz. ana `requirements.txt`),
-  otomatik olarak GPU'yu kullanır — ekstra kod değişikliği gerekmez.
+- **CPU imajı** (`Dockerfile`, varsayılan `docker compose up`) **CPU-uyumlu** bağımlılıklarla
+  kurulur (`requirements-docker.txt`) — GPU'ya özel paketler dahil değildir, ~3GB, her
+  makinede GPU olmadan da sorunsuz build olur. GPU gerekmez, ama **arkadaşının GPU'suz
+  bir arkadaşı** için bu yeterli.
+- **GPU imajı** (`Dockerfile.gpu`, `docker-compose.gpu.yml`) NVIDIA'nın CUDA+cuDNN taban
+  imajını kullanır, ~15GB. Kod GPU'yu otomatik algılar (`src/engines/base.py:gpu_available()`),
+  ekstra ayar gerekmez — sadece doğru compose dosyasıyla (`-f docker-compose.gpu.yml`) build et.
 - Web arayüzü varsayılan olarak hızlı tek-motor konfigürasyonu (`RapidOCR + v1_clahe`)
   kullanır — üretim raporundaki tam ensemble değil, görsel inceleme/keşif aracıdır.
 - `Lastik_fotolari/` ve `results/` klasörleri `.gitignore`'da ve imaja dahil edilmez

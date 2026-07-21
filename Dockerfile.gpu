@@ -1,0 +1,33 @@
+# Lastik Yanak OCR — web arayuzu (GPU/CUDA). Calistirmak icin arkadasinin
+# makinesinde NVIDIA GPU + guncel surucu + NVIDIA Container Toolkit kurulu olmali.
+# Kurulum: DOCKER.md dosyasindaki "GPU ile calistirma" bolumune bak.
+FROM nvidia/cuda:13.0.0-cudnn-runtime-ubuntu24.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    libgl1 \
+    libglib2.0-0 \
+    tesseract-ocr \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements-gpu.txt .
+# Ubuntu 24.04 sistem Python'u PEP 668 ile korunuyor; container icinde izole
+# oldugumuz icin --break-system-packages guvenli.
+RUN pip install --no-cache-dir --break-system-packages -r requirements-gpu.txt
+# ONEMLI: rapidocr/rapidocr-onnxruntime duz "onnxruntime" (CPU) paketini de bagimlilik
+# olarak kurup onnxruntime-gpu'nun dosyalarinin UZERINE yaziyor (ikisi ayni modul
+# adini paylasiyor) -- sonuc: CUDAExecutionProvider sessizce kayboluyor. Son adim
+# olarak onnxruntime-gpu'yu zorla yeniden kurup kazanmasini sagliyoruz.
+RUN pip install --no-cache-dir --break-system-packages --force-reinstall --no-deps onnxruntime-gpu
+
+COPY src/ ./src/
+COPY data/ ./data/
+RUN mkdir -p Lastik_fotolari/Lastigin_ustu Lastik_fotolari/Lastigin_alti results
+
+ENV PYTHONUNBUFFERED=1
+EXPOSE 5000
+
+CMD ["python3", "src/webapp.py"]
