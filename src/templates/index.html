@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Lastik OCR — Fotoğraf Seçimi</title>
+<style>
+  :root { color-scheme: dark light; }
+  body { font-family: system-ui, sans-serif; background:#0f1115; color:#e6e6e6; margin:0; padding:0 20px 80px; }
+  h1 { font-size:1.3rem; padding:16px 0 4px; }
+  .sub { color:#9aa0aa; font-size:0.85rem; margin-bottom:14px; }
+  .toolbar { position:sticky; top:0; background:#0f1115; padding:10px 0; border-bottom:1px solid #262b33; z-index:10;
+             display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  button, .btn { background:#2f6fed; color:#fff; border:none; border-radius:6px; padding:8px 16px; font-size:0.9rem; cursor:pointer; }
+  button.secondary { background:#262b33; color:#e6e6e6; }
+  button:hover { filter:brightness(1.1); }
+  .count { color:#9aa0aa; font-size:0.85rem; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:12px; margin-top:16px; }
+  .card { background:#1a1d24; border:1px solid #262b33; border-radius:8px; padding:8px; }
+  .card.checked { border-color:#2f6fed; background:#171c2b; }
+  .card label { display:flex; align-items:center; gap:6px; font-size:0.8rem; color:#9aa0aa; margin-bottom:6px; cursor:pointer; }
+  .imgs { display:flex; gap:4px; justify-content:center; min-height:100px; align-items:center; }
+  .imgs img { max-width:48%; max-height:100px; object-fit:contain; background:#000; border-radius:4px; }
+  .missing { font-size:0.7rem; color:#555; }
+  form { margin:0; }
+</style>
+</head>
+<body>
+<form method="post" action="/process" id="mainForm">
+  <div class="toolbar">
+    <h1 style="padding:0;margin-right:auto">🔧 Lastik Yanak OCR — Fotoğraf Seç</h1>
+  </div>
+  <p class="sub">
+    {{ rows|length }} lastik bulundu (Üst + Alt yanak). İşlemek istediklerini seç, adım adım
+    ön işleme görsellerini ve performans/süre bilgisini aşağıda göreceksin.
+    Motor: <code>{{ config.engines|join(', ') }}</code>, varyant: <code>{{ config.variants|join(', ') }}</code>.
+  </p>
+  <div class="toolbar">
+    <button type="button" class="secondary" onclick="toggleAll(true)">☑ Tümünü Seç</button>
+    <button type="button" class="secondary" onclick="toggleAll(false)">☐ Seçimi Kaldır</button>
+    <span class="count" id="countLabel">0 seçili</span>
+    <button type="submit" style="margin-left:auto">▶ Seçilenleri İşle</button>
+  </div>
+
+  <div class="grid">
+    {% for row in rows %}
+    <div class="card" id="card-{{ row.tire_id }}">
+      <label>
+        <input type="checkbox" name="tire_id" value="{{ row.tire_id }}" onchange="onCheck('{{ row.tire_id }}')">
+        Lastik #{{ row.tire_id }}
+      </label>
+      <div class="imgs">
+        {% if row.ust_thumb %}<img src="{{ row.ust_thumb }}" title="Üst yanak">{% else %}<span class="missing">Üst yok</span>{% endif %}
+        {% if row.alt_thumb %}<img src="{{ row.alt_thumb }}" title="Alt yanak">{% else %}<span class="missing">Alt yok</span>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</form>
+
+<script>
+function toggleAll(state) {
+  document.querySelectorAll('input[name="tire_id"]').forEach(cb => {
+    cb.checked = state;
+    onCheck(cb.value, false);
+  });
+  updateCount();
+}
+function onCheck(tireId, update = true) {
+  const cb = document.querySelector(`input[value="${tireId}"]`);
+  const card = document.getElementById('card-' + tireId);
+  if (cb.checked) card.classList.add('checked'); else card.classList.remove('checked');
+  if (update) updateCount();
+}
+function updateCount() {
+  const n = document.querySelectorAll('input[name="tire_id"]:checked').length;
+  document.getElementById('countLabel').textContent = n + ' seçili';
+}
+document.querySelectorAll('input[name="tire_id"]').forEach(cb => cb.addEventListener('change', () => onCheck(cb.value)));
+document.getElementById('mainForm').addEventListener('submit', (e) => {
+  const n = document.querySelectorAll('input[name="tire_id"]:checked').length;
+  if (n === 0) { e.preventDefault(); alert('En az bir lastik seç.'); return; }
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.disabled = true;
+  btn.textContent = `⏳ İşleniyor... (${n} lastik, biraz sürebilir)`;
+});
+</script>
+</body>
+</html>

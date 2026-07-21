@@ -7,6 +7,7 @@ rapidocr==3.9.1
 easyocr
 pytesseract
 requests
+flask
 
 # ---- GPU (CUDA 12.6/13.x, NVIDIA sürücü CUDA 12.6+ destekli olmalı) ----
 # EasyOCR (torch) için:

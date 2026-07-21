@@ -8,3 +8,6 @@ __pycache__/
 # Gecici
 *.log
 .claude/
+
+# Web arayuzu: kucuk resim onbellegi + calisma ciktilari (yeniden uretilebilir)
+results/webapp_output/

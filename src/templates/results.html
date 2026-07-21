@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Lastik OCR — Sonuçlar</title>
+<style>
+  :root { color-scheme: dark light; }
+  body { font-family: system-ui, sans-serif; background:#0f1115; color:#e6e6e6; margin:0; padding:0 20px 80px; }
+  h1 { font-size:1.3rem; padding:16px 0 4px; }
+  a.back { color:#7aa2ff; text-decoration:none; font-size:0.85rem; }
+  .summary { display:flex; gap:24px; background:#1a1d24; border:1px solid #262b33; border-radius:8px;
+             padding:12px 18px; margin:16px 0; flex-wrap:wrap; }
+  .summary .stat b { display:block; font-size:1.3rem; }
+  .summary .stat span { font-size:0.75rem; color:#9aa0aa; }
+  .tire { background:#1a1d24; border:1px solid #262b33; border-radius:10px; padding:16px; margin-bottom:18px; }
+  .tire h2 { margin:0 0 4px; font-size:1.05rem; }
+  .tire .meta { color:#9aa0aa; font-size:0.8rem; margin-bottom:10px; }
+  .tire .meta b { color:#e6e6e6; }
+  .fields { display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap:8px; margin-bottom:14px; }
+  .field { background:#0f1115; border:1px solid #262b33; border-radius:6px; padding:6px 10px; }
+  .field .lbl { font-size:0.7rem; color:#9aa0aa; }
+  .field .val { font-size:0.9rem; font-weight:600; }
+  .field .val.empty { color:#555; font-weight:400; }
+  .side-block { margin-top:10px; }
+  .side-block h3 { font-size:0.85rem; color:#9aa0aa; margin:10px 0 6px; text-transform:uppercase; letter-spacing:0.04em; }
+  .steps { display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; }
+  .step { flex:0 0 auto; width:220px; background:#0f1115; border:1px solid #262b33; border-radius:6px; padding:6px; }
+  .step img { width:100%; border-radius:4px; background:#000; display:block; }
+  .step .stitle { font-size:0.72rem; font-weight:600; margin:6px 0 2px; }
+  .step .sdesc { font-size:0.68rem; color:#9aa0aa; }
+  .warn { color:#e0a030; font-size:0.85rem; }
+</style>
+</head>
+<body>
+<a class="back" href="/">← Fotoğraf seçimine dön</a>
+<h1>Sonuçlar</h1>
+
+{% if results %}
+<div class="summary">
+  <div class="stat"><b>{{ n }}</b><span>işlenen lastik</span></div>
+  <div class="stat"><b>{{ total_elapsed }}sn</b><span>toplam süre</span></div>
+  <div class="stat"><b>{{ (total_elapsed / n) | round(1) if n else 0 }}sn</b><span>lastik başına ortalama</span></div>
+</div>
+
+{% for r in results %}
+<div class="tire">
+  <h2>Lastik #{{ r.tire_id }}</h2>
+  <div class="meta">
+    <b>{{ r.elapsed }}sn</b> sürdü ·
+    {{ r.n_sources }} kaynaktan (tile×varyant×motor) oylandı ·
+    durum: Üst={{ r.status.get('ust', '—') }}, Alt={{ r.status.get('alt', '—') }}
+  </div>
+
+  <div class="fields">
+    {% for f in r.fields %}
+    <div class="field">
+      <div class="lbl">{{ f.field }}</div>
+      <div class="val {{ 'empty' if not f.value }}">{{ f.value or '—' }}{% if f.conf %} <span style="color:#666;font-weight:400">({{ f.conf }})</span>{% endif %}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% for side_name, side in r.sides.items() %}
+    <div class="side-block">
+      <h3>{{ side_name }} yanak {% if side.status != 'ok' %}<span class="warn">— {{ side.status }}</span>{% endif %} ({{ side.elapsed | round(1) }}sn)</h3>
+      {% if side.steps %}
+      <div class="steps">
+        {% for step in side.steps %}
+        <div class="step">
+          <img src="{{ step.url }}" alt="{{ step.title }}">
+          <div class="stitle">{{ step.title }}</div>
+          <div class="sdesc">{{ step.desc }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+{% endfor %}
+
+{% else %}
+<p>Hiçbir lastik seçilmedi.</p>
+{% endif %}
+</body>
+</html>
