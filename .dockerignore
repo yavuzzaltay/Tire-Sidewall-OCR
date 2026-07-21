@@ -1,0 +1,10 @@
+Lastik_fotolari/
+results/
+.git/
+.claude/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.log
+*.md
+requirements.txt

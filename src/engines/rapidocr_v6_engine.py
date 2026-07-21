@@ -7,14 +7,16 @@ from typing import List
 
 import numpy as np
 
-from .base import OcrBox, score_boxes
+from .base import OcrBox, gpu_available, score_boxes
 from .rapidocr_engine import _register_cuda_dll_dirs
 
 
 class RapidOcrV6Engine:
     name = "rapidocr_v6"
 
-    def __init__(self, use_cuda: bool = True):
+    def __init__(self, use_cuda: bool | None = None):
+        if use_cuda is None:
+            use_cuda = gpu_available()  # GPU yoksa (ör. CPU-only Docker) otomatik CPU'ya duser
         if use_cuda:
             _register_cuda_dll_dirs()
         from rapidocr import RapidOCR

@@ -6,7 +6,7 @@ from typing import List
 
 import numpy as np
 
-from .base import OcrBox, score_boxes
+from .base import OcrBox, gpu_available, score_boxes
 
 
 _CUDA_DLL_DIRS_REGISTERED = False
@@ -40,7 +40,9 @@ def _register_cuda_dll_dirs() -> None:
 class RapidOcrEngine:
     name = "rapidocr"
 
-    def __init__(self, use_cuda: bool = True):
+    def __init__(self, use_cuda: bool | None = None):
+        if use_cuda is None:
+            use_cuda = gpu_available()  # GPU yoksa (ör. CPU-only Docker) otomatik CPU'ya duser
         if use_cuda:
             _register_cuda_dll_dirs()
         from rapidocr_onnxruntime import RapidOCR

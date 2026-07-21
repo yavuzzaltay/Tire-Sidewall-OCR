@@ -4,15 +4,17 @@ from typing import List
 
 import numpy as np
 
-from .base import OcrBox, score_boxes
+from .base import OcrBox, gpu_available, score_boxes
 
 
 class EasyOcrEngine:
     name = "easyocr"
 
-    def __init__(self, gpu: bool = True):
+    def __init__(self, gpu: bool | None = None):
         import easyocr
 
+        if gpu is None:
+            gpu = gpu_available()  # GPU yoksa (ör. CPU-only Docker) otomatik CPU'ya duser
         self._reader = easyocr.Reader(["en"], gpu=gpu, verbose=False)
 
     def read(self, img: np.ndarray) -> List[OcrBox]:

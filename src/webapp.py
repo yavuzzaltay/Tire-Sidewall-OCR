@@ -315,5 +315,8 @@ def process():
 
 
 if __name__ == "__main__":
-    print("Web arayüzü: http://127.0.0.1:5000")
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    # 0.0.0.0: Docker container icinden host'a acilabilmesi icin. Yerelde de calisir.
+    from engines.base import gpu_available
+    port = int(os.environ.get("PORT", 5000))
+    print(f"Web arayüzü: http://127.0.0.1:{port}  (GPU {'kullanılıyor' if gpu_available() else 'yok, CPU ile çalışıyor'})")
+    app.run(host="0.0.0.0", port=port, debug=False)

@@ -1,0 +1,12 @@
+services:
+  lastik-ocr:
+    build: .
+    image: lastik-ocr:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      # Kendi lastik fotograflarini bu klasorlere koy (Ust_N.jpg / Alt_N.jpg).
+      - ./Lastik_fotolari:/app/Lastik_fotolari
+      # Sonuclar (webapp ciktilari, sonuclar.csv, rapor) container disinda da kalsin diye.
+      - ./results:/app/results
+    restart: unless-stopped
