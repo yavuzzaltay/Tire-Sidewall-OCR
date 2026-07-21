@@ -1,8 +1,15 @@
 # Docker imaji icin CPU-uyumlu bagimlilik listesi.
 # requirements.txt'ten farki: GPU'ya ozel torch/onnxruntime-gpu/nvidia-* paketleri
-# YOK -- bunlar hem cok buyuk (torch+cuda ~2.6GB) hem de GPU'suz makinelerde/paylasilan
-# Docker imajlarinda gereksiz. Kod GPU'yu otomatik algiliyor (engines/base.py:gpu_available()),
-# bu yuzden CPU'da calismasi icin hicbir ayar degistirmeye gerek yok.
+# YOK -- bunlar hem cok buyuk hem de GPU'suz makinelerde/paylasilan Docker imajlarinda
+# gereksiz. Kod GPU'yu otomatik algiliyor (engines/base.py:gpu_available()), bu yuzden
+# CPU'da calismasi icin hicbir ayar degistirmeye gerek yok.
+#
+# ONEMLI: duz PyPI'daki "torch" paketi varsayilan olarak CUDA runtime kutuphanelerini
+# de indiriyor (imaji ~9GB'a sisiriyor) -- CPU-only wheel'i acikca istemek gerekiyor:
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.13.0+cpu
+torchvision==0.28.0+cpu
+
 opencv-contrib-python==4.10.0.84
 numpy
 pandas
