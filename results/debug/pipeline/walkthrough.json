@@ -1,0 +1,102 @@
+{
+  "raw_shape": [
+    12900,
+    1116
+  ],
+  "orientation": {
+    "score_a": 54.4,
+    "score_b": 51.4,
+    "winner": "A"
+  },
+  "band_shape": [
+    622,
+    12900
+  ],
+  "n_tiles": 6,
+  "tile_width": 2400,
+  "tile_overlap": 200,
+  "ocr_tile_index": 3,
+  "ocr_box_count": 8,
+  "ocr_sample_texts": [
+    {
+      "text": "155/70R13T",
+      "conf": 0.88
+    },
+    {
+      "text": "01522",
+      "conf": 0.8
+    },
+    {
+      "text": "RADIAL",
+      "conf": 0.78
+    },
+    {
+      "text": "MAXINELATCNPRESSURE30O KPA",
+      "conf": 0.81
+    },
+    {
+      "text": "OUTSIDE-155/70R13·75T",
+      "conf": 0.84
+    },
+    {
+      "text": "4382212R3B",
+      "conf": 0.7
+    },
+    {
+      "text": "TUBELESS",
+      "conf": 0.88
+    },
+    {
+      "text": "MAXLCAD87KGS3LB",
+      "conf": 0.75
+    }
+  ],
+  "fused_summary": [
+    {
+      "field": "Ebat",
+      "value": "155/70 R13",
+      "conf": 6.26
+    },
+    {
+      "field": "Hız Grubu",
+      "value": "75T",
+      "conf": 4.94
+    },
+    {
+      "field": "Marka",
+      "value": "Continental",
+      "conf": 15.31
+    },
+    {
+      "field": "Desen",
+      "value": "EcoContact 6",
+      "conf": 8.18
+    },
+    {
+      "field": "Mevsim",
+      "value": "Yaz",
+      "conf": 7.1
+    },
+    {
+      "field": "DOT",
+      "value": "1526",
+      "conf": 3.18
+    },
+    {
+      "field": "Ekstra Lot",
+      "value": "70R13T, 70R13, OUTSIDE155",
+      "conf": null
+    },
+    {
+      "field": "Üretildiği Yer",
+      "value": null,
+      "conf": 0.0
+    },
+    {
+      "field": "Tüplü/Tüpsüz",
+      "value": "Tüpsüz",
+      "conf": 7.2
+    }
+  ],
+  "n_sources": 30
+}

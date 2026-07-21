@@ -1,0 +1,24 @@
+opencv-contrib-python==4.10.0.84
+numpy
+pandas
+rapidfuzz
+rapidocr-onnxruntime
+easyocr
+pytesseract
+
+# ---- GPU (CUDA 12.6/13.x, NVIDIA sürücü CUDA 12.6+ destekli olmalı) ----
+# EasyOCR (torch) için:
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.12.1+cu126
+torchvision==0.27.1+cu126
+
+# RapidOCR (onnxruntime) için:
+onnxruntime-gpu
+
+# onnxruntime-gpu'nun CUDAExecutionProvider'ı, torch'un aksine CUDA/cuDNN DLL'lerini
+# kendi içinde taşımıyor; bu paketler o DLL'leri (cublas, cublasLt, cufft, cudnn)
+# ayrıca sağlıyor. src/engines/rapidocr_engine.py bunları PATH'e ekliyor.
+nvidia-cublas
+nvidia-cuda-runtime
+nvidia-cufft
+nvidia-cudnn-cu13

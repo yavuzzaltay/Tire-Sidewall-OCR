@@ -1,0 +1,120 @@
+tire_id,ust_file,alt_file,ust_status,alt_status,elapsed_s,ebat,ebat_conf,hiz_grubu,hiz_grubu_conf,marka,marka_conf,desen,desen_conf,mevsim,mevsim_conf,dot,dot_conf,ekstra_lot,uretim_yeri,uretim_yeri_conf,tup,tup_conf
+base,Ust.jpg,Alt.jpg,ok,ok,23.9,155/70 R13,1.9,75T,0.96,Continental,13.52,EcoContact 6,8.2,Yaz,3.89,5122,0.78,70R13T | 24E255 | 70R1375T | 70R13 | 26603H536 | 03H536,Romania,1.01,Tüpsüz,3.65
+0,Ust_0.jpg,Alt_0.jpg,ok,ok,15.6,155/70 R13,2.5,75T,0.95,Continental,20.2,EcoContact 6,12.63,Yaz,5.32,1526,0.98,03H536 | 853LB | 70R13T | 1POLYESTER | 70R13 | L30720,,0.0,Tüpsüz,4.26
+1,Ust_1.jpg,Alt_1.jpg,ok,ok,14.7,205/55 R16,3.41,91H,0.69,Continental,13.4,PremiumContact 6,9.65,Yaz,4.98,5025,3.19,55R16 | 55R16H | 1HW032PFY | 55R1691H | 032PFY | 1HI032PFY,,0.0,Tüpsüz,5.85
+2,Ust_2.jpg,Alt_2.jpg,ok,ok,13.8,205/55 R16,1.77,,0.0,Kumho,1.76,,0.0,,0.0,127 LMYAEA 205 55R169 1H,1.0,55R1691H | 55R16 | S22R33 | 127LMYAEA | STEEL2 | 5R1691H,,0.0,Tüpsüz,3.03
+3,Ust_3.jpg,Alt_3.jpg,ok,ok,16.0,205/55 R16,1.69,,0.0,Kumho,4.48,,0.0,,0.0,1326,2.66,55R1691H | R1691H | 55R16 | D0T127 | W2R3B | STEEL2,,0.0,Tüpsüz,4.65
+4,Ust_4.jpg,Alt_4.jpg,ok,ok,16.8,205/55 R16,1.06,543RY,0.5,Kumho,2.38,,0.0,,0.0,127LMY AEA INS 6192SZ 2R3B 01937,0.98,55R1691H | 55R1691 | PA4PS | POLYESTER1 | 127LMYAEA | 6192SZ2R3B,,0.0,Tüpsüz,3.28
+5,Ust_5.jpg,Alt_5.jpg,ok,ok,16.1,155/70 R13,5.05,75T,2.57,Continental,12.95,EcoContact 6,7.6,Yaz,3.33,1526,1.4,70R13T | 26603H536 | 70R13 | 853LB | 70R1375T | KPA4PSI,,0.0,Tüpsüz,5.4
+6,Ust_6.jpg,Alt_6.jpg,ok,ok,14.2,205/55 R16,4.16,91H,2.29,Continental,22.89,PremiumContact 6,9.77,Yaz,4.28,5025,1.49,55R16H | 032PFY | 55R1691H | 55R16 | S2WZRJB | S2W2R3B,,0.0,Tüpsüz,4.93
+7,Ust_7.jpg,Alt_7.jpg,ok,ok,14.0,205/55 R16,2.11,91HJ,0.73,Kumho,0.89,,0.0,,0.0,1326,0.91,127LMYAEA | 55R169 | 300KPA144 | 55R1691H0 | R1691H | 33IPE44PSI,,0.0,Tüpsüz,3.41
+8,Ust_8.jpg,Alt_8.jpg,ok,ok,17.4,155/70 R13,3.77,75T,1.74,Continental,18.2,EcoContact 6,9.82,Yaz,3.12,1526,1.85,03H536 | 70R13T | 853LB | 70R13 | 1POLYESTER | 70R1375T,,0.0,Tüpsüz,4.45
+9,Ust_9.jpg,Alt_9.jpg,ok,ok,16.4,205/55 R16,1.48,H,0.39,Continental,20.43,PremiumContact 6,8.39,Yaz,4.07,5025,1.91,032PFY | 55R16 | IHI032PFY | 55R16H | 5R16H | LENTAL3,,0.0,Tüpsüz,3.46
+10,Ust_10.jpg,Alt_10.jpg,ok,ok,19.7,205/55 R16,1.84,,0.0,Continental,13.41,PremiumContact 6,6.31,Yaz,2.15,5025,0.92,1POLYAMIDE | 1POLYESTER | 55R16 | 97JIMAN | 03153410D | 0V3DL,,0.0,Tüpsüz,3.52
+11,Ust_11.jpg,Alt_11.jpg,ok,ok,17.4,155/70 R13,2.93,75T,0.89,Continental,19.58,EcoContact 6,10.13,Yaz,4.51,,0.0,70R1375T | 03H536 | 1POLYESTER | 70R13T | 44PSI | 2STEEL,Romania,1.06,Tüpsüz,3.02
+12,Ust_12.jpg,Alt_12.jpg,ok,ok,16.5,,0.0,,0.0,General Tire,0.93,Altimax Winter 3,0.79,Yaz,0.68,127LMY AEA INS,1.05,STEEL2 | NYLON1 | 300KPA | 44PSI | 0OLYESTER1 | 55R1691H,,0.0,Tüpsüz,2.57
+13,Ust_13.jpg,Alt_13.jpg,ok,ok,16.7,205/55 R16,0.74,,0.0,Kumho,5.97,Green-Max,0.92,,0.0,127LMY AEA BEADNE APAOO 205 55R169 ASAFET,1.05,300KPA | 55R1691H | 44PSI | POLYESTER1 | NYLON1 | 55R1691,,0.0,Tüpsüz,3.88
+14,Ust_14.jpg,Alt_14.jpg,ok,ok,17.7,205/55 R16,3.38,91H,0.91,Continental,24.46,PremiumContact 6,7.11,Yaz,3.84,5025,3.06,032PFY | 55R16H | 55R16 | 55R1691H | 032PFY5025 | S26686,,0.0,Tüpsüz,4.75
+15,Ust_15.jpg,Alt_15.jpg,ok,ok,18.3,155/70 R13,4.28,75T,1.71,Continental,19.42,EcoContact 6,12.92,Yaz,5.61,1526,0.92,1POLYESTER | 1POLYAMIDE | 03H536 | 44PSI | 2STEEL | 70R13,,0.0,Tüpsüz,4.61
+16,Ust_16.jpg,Alt_16.jpg,ok,ok,18.0,155/70 R13,1.22,M,0.61,Continental,24.47,EcoContact 6,12.07,Yaz,5.39,1526,3.27,03H536 | 1POLYESTER | 70R1375T | 2STEEL | 853LB | 44PSI,,0.0,Tüpsüz,5.33
+17,Ust_17.jpg,Alt_17.jpg,ok,ok,15.6,,0.0,,0.0,Kumho,4.23,Green-Max,0.62,,0.0,127LMY AEA 205 55R1 BEKDNE ARAOON BAUNON NNE,1.02,L0AD615KG | 13561BS | 300KPA | 44PSI | POLYESTER1 | 205755R16,,0.0,Tüpsüz,3.85
+18,Ust_18.jpg,Alt_18.jpg,ok,ok,16.9,185/65 R14,2.63,90H,0.64,Lassa,10.15,Multiways,11.18,4 Mevsim,13.81,0826,2.3,65R14 | MLTW2 | 1POLYESTER | 1323IB | 4SEASON | 4OPSI275KP,Turkey,1.06,Tüpsüz,4.97
+19,Ust_19.jpg,Alt_19.jpg,ok,ok,18.9,205/55 R16,3.2,91H,1.76,Continental,23.93,PremiumContact 6,11.0,Yaz,4.68,5025,2.12,032PFY | 1POLYESTER | 55R16H | 55R16 | 1POLYAMIDE | 1356LB,Inside,1.32,Tüpsüz,4.63
+20,Ust_20.jpg,Alt_20.jpg,ok,ok,54.5,185/65 R15,5.13,88H,0.89,General Tire,6.63,SportContact 7,5.99,Yaz,5.66,2326,2.38,65R15 | 51PSI | 1235IBS | 560KG | T394966 | 3109ABABAB,,0.0,Tüpsüz,2.7
+21,Ust_21.jpg,Alt_21.jpg,ok,ok,25.9,155/70 R13,4.69,75T,0.95,Continental,18.06,EcoContact 6,14.82,Yaz,5.95,1526,1.17,03H536 | 70R1375T | 1POLYAMIDE | 387KG | 70R13 | 70R13T,Romania,1.04,Tüpsüz,3.87
+22,Ust_22.jpg,Alt_22.jpg,ok,ok,23.2,155/70 R13,2.0,S,0.73,Continental,20.23,EcoContact 6,11.08,Yaz,4.57,1526,0.89,03H536 | 1POLYAMIDE | 1POLYESTER | 2STEEL | 70R1375T | 52W2RJB,,0.0,Tüpsüz,3.55
+23,Ust_23.jpg,Alt_23.jpg,ok,ok,24.7,155/70 R13,1.83,75T,0.93,Continental,19.63,EcoContact 6,11.07,Yaz,5.31,1526,0.89,03H536 | 1POLYESTER | 1POLYAMIDE | 853LB | 44PSI | 70R13,,0.0,Tüpsüz,2.78
+24,Ust_24.jpg,Alt_24.jpg,ok,ok,27.1,215/55 R17,1.65,94V,0.56,Continental,10.41,EcoContact 6,5.43,Yaz,2.62,2013,2.05,1POLYESTER | 43153470D | 55R1794V | JJA3N | 37JIH3 | 2STEEL,,0.0,Tüpsüz,3.79
+25,Ust_25.jpg,Alt_25.jpg,ok,ok,59.5,185/65 R14,5.04,90H,1.52,Lassa,13.19,Multiways 2,12.44,4 Mevsim,21.09,0826,3.16,65R14 | 4SEASON | MLTW2 | MULTIWAYS2 | L0AD600KG | 1323IB,Turkey,2.74,Tüpsüz,5.29
+26,Ust_26.jpg,Alt_26.jpg,ok,ok,22.2,155/70 R13,1.01,75T,0.93,Continental,16.74,AllSeasonContact 2,5.87,Yaz,2.29,1526,1.64,1POLYESTER | 70R13 | 387KG | 853LB | 4A010 | PSIQ7S,,0.0,Tüpsüz,3.62
+27,Ust_27.jpg,Alt_27.jpg,ok,ok,21.2,205/55 R16,1.03,,0.0,General Tire,1.63,Altimax Winter 3,1.42,,0.0,127LMY AEA 2R3B,0.99,127LMYAEA | 55R1691H | 205755R16 | 300KPA | 44PSI | 0AD615KG,,0.0,Tüpsüz,3.45
+28,Ust_28.jpg,Alt_28.jpg,ok,ok,18.5,155/70 R13,4.82,75T,2.31,Continental,18.43,EcoContact 6,12.43,Yaz,5.72,1526,1.06,03H536 | 70R13 | 70R13T | 2L3255 | 853LB | S2W2R3B,Romania,1.95,Tüpsüz,4.53
+29,Ust_29.jpg,Alt_29.jpg,ok,ok,19.7,215/55 R17,1.05,94V,0.97,Continental,7.62,EcoContact 6,6.84,Yaz,2.76,2013,2.17,0333TD | 55R17 | 1POLYESTER | 2STEEL | 1POLYAMIDE | MAXL0AD,,0.0,Tüpsüz,3.36
+30,Ust_30.jpg,Alt_30.jpg,ok,ok,46.6,185/65 R14,6.58,90H,0.72,Lassa,8.15,Multiways 2,10.18,4 Mevsim,15.39,0826,2.94,65R14 | 1POLYESTER | MLTW2 | MULTIWAYS2 | 4SEASON | S2WZR3B,Turkey,3.62,Tüpsüz,3.32
+31,Ust_31.jpg,Alt_31.jpg,ok,ok,19.4,155/70 R13,5.3,75T,0.92,Continental,17.85,EcoContact 6,10.41,Yaz,4.27,1526,3.64,70R13 | 2STEEL | 03H536 | 26603H536 | 1POLYESTER | S2W2R3B,Romania,1.91,Tüpsüz,5.54
+32,Ust_32.jpg,Alt_32.jpg,ok,ok,20.1,185/60 R15,4.5,88V,1.22,General Tire,8.12,Eco Dynamic,3.83,4 Mevsim,5.13,4890,9.59,60R15 | 60R1588V | 2STEEL | 1NYLON | 1POLYESTER | 50PSIMAX,Turkey,1.81,Tüpsüz,6.21
+33,Ust_33.jpg,Alt_33.jpg,ok,ok,19.7,215/55 R17,4.92,94V,2.96,Continental,19.25,EcoContact 6,7.95,Yaz,3.83,3825,1.59,1POLYESTER | 1POLYAMIDE | 0333TD | 15A010GS | 55R17 | 1477LB,Portugal,1.06,Tüpsüz,4.51
+34,Ust_34.jpg,Alt_34.jpg,ok,ok,18.1,205/55 R16,1.85,91H,2.43,Kumho,6.34,,0.0,,0.0,1326,1.38,300KPA | 44PSI | 55R1691H | D01127 | LOAD615KG | 13561BS,Korea,0.99,Tüpsüz,4.19
+35,Ust_35.jpg,Alt_35.jpg,ok,ok,16.6,185/60 R15,8.13,88V,2.78,General Tire,11.03,Eco Dynamic,3.2,Yaz,2.82,4890,4.09,60R15 | 1POLYESTER | LOAD560KG | 1235IBS | 60R1588V | S2WR2,Turkey,1.83,Tüpsüz,2.83
+36,Ust_36.jpg,Alt_36.jpg,ok,ok,18.4,155/70 R13,4.12,R,0.71,Continental,26.04,EcoContact 6,12.43,Yaz,5.54,1526,0.77,03H536 | 1OUNT | 44PSI | 2STEEL | 1POLYAMIDE | 26603H536,,0.0,Tüpsüz,6.16
+37,Ust_37.jpg,Alt_37.jpg,ok,ok,46.1,215/55 R17,2.6,94V,2.38,Continental,17.38,EcoContact 6,8.21,Yaz,3.92,1AF033 3TD,1.96,0333TD | 55R17V | 55R1794V | 15A010 | S2W2R3B | 131044S,Portugal,3.82,Tüpsüz,4.46
+38,Ust_38.jpg,Alt_38.jpg,ok,ok,17.5,185/65 R14,0.99,,0.0,Lassa,5.76,Multiways 2,7.12,4 Mevsim,5.85,1730,0.49,MLTW2 | MULTIWAYS2 | 65R14 | 1L5063108 | 1323IB | VLAS9,,0.0,Tüpsüz,3.5
+39,Ust_39.jpg,Alt_39.jpg,ok,ok,18.3,155/70 R13,4.55,75T,1.74,Continental,24.13,EcoContact 6,11.5,Yaz,4.73,1526,1.0,03H536 | 1POLYESTER | 853LB | 70R1375T | OUTSIDE155 | 70R13,Romania,1.95,Tüpsüz,5.13
+40,Ust_40.jpg,Alt_40.jpg,ok,ok,17.9,155/70 R13,2.66,75T,1.73,Continental,7.73,EcoContact 6,5.12,Yaz,2.28,1526,0.45,03H536 | 853LB | OUTSIDE155 | 70R13 | 70R13T | 1POLYESTER,Romania,0.98,Tüpsüz,1.5
+41,Ust_41.jpg,Alt_41.jpg,ok,ok,17.7,155/70 R13,2.12,,0.0,Continental,18.98,EcoContact 6,10.13,Yaz,4.44,,0.0,03H536 | 1POLYESTER | 2STEEL | 1POLYAMIDE | 853LB | 70R13T,Romania,1.92,Tüpsüz,2.98
+42,Ust_42.jpg,Alt_42.jpg,ok,ok,17.5,155/70 R13,3.55,75T,1.74,Continental,21.33,EcoContact 6,13.63,Yaz,6.8,1522,1.9,03H536 | 44PSI | 387KG | 1POLYESTER | OUTSIDE155 | 70R13,Romania,2.79,Tüpsüz,4.19
+43,Ust_43.jpg,Alt_43.jpg,ok,ok,18.9,155/70 R13,3.75,75T,1.76,Continental,16.75,EcoContact 6,10.98,Yaz,5.18,1526,1.02,1POLYESTER | 03H536 | 2STEEL | 1POLYAMIDE | 853LB | 44PSI,Romania,1.93,Tüpsüz,7.42
+44,Ust_44.jpg,Alt_44.jpg,ok,ok,22.0,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+45,Ust_45.jpg,Alt_45.jpg,ok,ok,60.8,185/65 R15,2.45,88H,0.86,Goodyear,4.75,EfficientGrip Performance 2,2.84,Yaz,1.22,,0.0,B391856 | 65R15 | 3109ABABAB | 1POLYESTER | 185165R15 | 3109AASAB,Turkey,1.91,Tüpsüz,1.78
+46,Ust_46.jpg,Alt_46.jpg,ok,ok,54.2,185/65 R15,4.98,83H,0.65,Goodyear,5.9,EagleF1 Asymmetric 6,10.67,Yaz,5.38,1426,1.76,65R15 | LOAD560KG | 1235IBS | B394966 | POLYESIER2 | 350KPE,Turkey,1.94,Tüpsüz,2.49
+47,Ust_47.jpg,Alt_47.jpg,ok,ok,51.1,185/65 R15,3.17,83H,0.76,Goodyear,4.65,EagleF1 Asymmetric 6,3.42,Yaz,2.5,1426,1.83,65R15 | CO1AD | 3109ABABAB | B394966 | 51PSI | 3SOKPA,,0.0,Tüpsüz,3.25
+48,Ust_48.jpg,Alt_48.jpg,ok,ok,49.1,185/65 R15,5.6,B,0.69,Goodyear,3.05,EagleF1 Asymmetric 6,6.36,Yaz,1.85,1720,0.91,65R15 | B391856 | 185165R15 | 3T09ABABAB | 120S2W2R3B | MAXLOAD560,Turkey,1.86,Tüpsüz,2.57
+49,Ust_49.jpg,Alt_49.jpg,ok,ok,47.0,205/55 R16,2.29,L,0.35,Continental,13.29,PremiumContact 6,8.0,Yaz,3.82,5025,0.49,1POLYESTER | 1POLYAMIDE | 55R16H | 55R16 | 2STEEL | 55R1691H,Czech,1.05,Tüpsüz,3.57
+50,Ust_50.jpg,Alt_50.jpg,ok,ok,16.9,155/70 R13,1.46,75T,0.88,Continental,17.8,EcoContact 6,11.9,Yaz,6.08,1526,1.51,03H536 | 1POLYESTER | 2STEEL | 1POLYAMIDE | 853LB | 70R13T,Romania,1.96,Tüpsüz,3.02
+51,Ust_51.jpg,Alt_51.jpg,ok,ok,17.0,155/70 R13,3.79,75T,1.69,Continental,15.17,EcoContact 6,9.94,Yaz,4.3,1526,0.49,26603H536 | 1POLYESTER | 1POLYAMIDE | 853LB | 70R13 | 70R13T,Romania,1.93,Tüpsüz,5.58
+52,Ust_52.jpg,Alt_52.jpg,ok,ok,16.4,185/60 R15,6.81,M,1.82,Waterfall,4.87,Eco Dynamic,5.96,4 Mevsim,3.28,0726,1.55,60R15 | 1NYLON | AT340KPA | S2WR2 | 1235LBS | 1POLYESTER,Turkey,2.38,Tüpsüz,4.68
+53,Ust_53.jpg,Alt_53.jpg,ok,ok,16.9,185/60 R15,3.98,A,0.84,General Tire,5.11,Eco Dynamic,3.02,4 Mevsim,3.22,4890,6.72,60R15 | 340KPA | 50PSI | LOAD560KG | 1235IBS | D0T4890,Turke,1.02,Tüpsüz,5.63
+54,Ust_54.jpg,Alt_54.jpg,ok,ok,16.7,185/60 R15,3.33,88V,1.49,General Tire,5.13,Eco Dynamic,2.76,4 Mevsim,4.08,4890,4.34,60R15 | 1235IBS | LOAD560KG | 60R1588V | 1POLYESTER | KPA50SIMAX,Turkey,2.7,Tüpsüz,4.61
+55,Ust_55.jpg,Alt_55.jpg,ok,ok,15.4,185/60 R15,5.28,A,0.81,Waterfall,3.1,Eco Dynamic,7.32,Yaz,3.25,4890,6.08,60R15 | LOAD560KG | 1235IBS | 60R1588V | 7331S | S3I7D,Turkey,2.66,Tüpsüz,1.07
+56,Ust_56.jpg,Alt_56.jpg,okunamadi,okunamadi,0.3,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+57,Ust_57.jpg,Alt_57.jpg,ok,ok,17.9,155/70 R13,0.87,75T,0.44,Continental,9.59,EcoContact 6,5.35,Yaz,2.48,2320,0.54,70R1375T | 853LB | 1POLYESTER | 70R13T | 03H536 | 50V38,Romania,1.05,Tüpsüz,3.71
+58,Ust_58.jpg,Alt_58.jpg,ok,ok,15.8,185/60 R15,6.6,88V,1.3,General Tire,8.06,Eco Dynamic,3.7,4 Mevsim,3.26,4890,3.77,60R15 | 1POLYESTER | LOAD560KG | S2WR2 | 1NYLON | 60R1588V,Turkey,3.26,Tüpsüz,4.64
+59,Ust_59.jpg,Alt_59.jpg,ok,ok,19.3,,0.0,,0.0,Continental,6.07,PremiumContact 6,2.09,Yaz,0.8,5025,0.9,55R16H | 1HI032PFY | MCONTACT7 | S1PSI | 1POLYESTER | 032PFY5025,,0.0,Tüpsüz,0.98
+60,Ust_60.jpg,Alt_60.jpg,ok,ok,16.0,185/65 R14,1.87,90H,1.73,Lassa,5.25,Multiways 2,7.05,4 Mevsim,8.36,,0.0,MLTW2 | 65R14 | WAYS2 | 7VIAVA | LOAD600KG | 1323IB,Turkey,2.64,Tüpsüz,4.75
+61,Ust_61.jpg,Alt_61.jpg,ok,ok,17.5,185/65 R14,4.12,H,0.96,Lassa,6.78,Multiways 2,9.42,4 Mevsim,13.25,0826,3.05,65R14 | MLTW2 | 1POLYESTER | 4SEASON | MULTIWAYS2 | 2STEEL,Turkey,2.6,Tüpsüz,3.14
+62,Ust_62.jpg,Alt_62.jpg,ok,ok,17.0,205/55 R16,2.94,H,0.7,Continental,11.37,PremiumContact 6,4.73,Yaz,2.54,0126,2.75,032PFY | 55R16H | 615KG | 1POLYESTER | 2STEEL | 1POLYAMIDE,Czech,1.05,Tüpsüz,2.4
+63,Ust_63.jpg,Alt_63.jpg,ok,ok,38.0,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+64,Ust_64.jpg,Alt_64.jpg,ok,ok,17.8,175/65 R14,3.12,86T,0.96,Waterfall,4.69,Quattro,2.72,4 Mevsim,3.22,48EX2N W2 QUATTR EASONS 175,0.95,65R14 | 65R1486T | 1NYLON | 1168IBS | SS373901 | 8317D,Turkiye,1.95,Tüpsüz,4.52
+65,Ust_65.jpg,Alt_65.jpg,okunamadi,ok,6.8,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+66,Ust_66.jpg,Alt_66.jpg,okunamadi,ok,7.5,,0.0,,0.0,Petlas,0.3,Snowmaster W651,0.91,Kış,0.31,,0.0,,,0.0,,0.0
+67,Ust_67.jpg,Alt_67.jpg,ok,ok,13.1,185/65 R14,0.97,86H,0.89,Kumho,8.66,,0.0,4 Mevsim,1.02,1Y0 9LYA8J,1.04,9LYA8J | 65R1486H | 9LYABJ | DOT1Y0 | SOLLSTA21 | USTA21,,0.0,Tüpsüz,0.96
+68,Ust_68.jpg,Alt_68.jpg,ok,ok,14.2,195/50 R15,2.67,R,0.59,Kumho,6.76,Solus TA31,1.93,4 Mevsim,2.51,1Y0 9LYA8J SAFETY KUMHO,1.0,50R15 | 9LYA8J | R1486H | DOT1Y0 | SOLUSTA21 | 9LYA8,Turkiye,2.02,Tüpsüz,2.91
+69,Ust_69.jpg,Alt_69.jpg,ok,ok,14.2,195/50 R15,2.44,,0.0,Kumho,7.65,Ventus Prime 4,0.99,4 Mevsim,1.43,1YO,1.03,50R15 | 65R1480 | DOT1YO | OLUSTA21 | 118565F | 9LYA8J,Turkiye,2.83,Tüpsüz,5.78
+70,Ust_70.jpg,Alt_70.jpg,ok,ok,13.1,,0.0,,0.0,Kumho,4.03,Solus TA31,1.79,4 Mevsim,1.88,1Y0 9LYA8J,1.0,9LYA8J | 65R1486H | D0T1Y0 | SOLUSTA21 | LISTA21 | LTP588851,,0.0,Tüpsüz,2.79
+71,Ust_71.jpg,Alt_71.jpg,ok,ok,13.2,,0.0,,0.0,Kumho,5.34,Solus TA31,0.82,4 Mevsim,2.19,1Y0 9LYA8J SAF KUMIHO,1.0,9LYA8J | 5R1486H | SOLLSTA21 | SOLUST421 | E3DESEE | WARNING5,,0.0,Tüpsüz,2.49
+72,Ust_72.jpg,Alt_72.jpg,ok,ok,40.3,,0.0,,0.0,Kumho,1.84,,0.0,,0.0,1Y09LY A8J SAFET SERIOU SIN,1.03,51PSI | 350KPA | 9LYA8J | 1168LBS | L0AD530KG | STEEL2,,0.0,Tüpsüz,1.51
+73,Ust_73.jpg,Alt_73.jpg,ok,ok,16.9,205/55 R16,2.71,,0.0,Bridgestone,6.79,,0.0,4 Mevsim,2.51,2825,0.72,BLK61Z | 55R16 | 0278KX569 | PSI275 | BLK612 | 1356IB,,0.0,Tüpsüz,4.12
+74,Ust_74.jpg,Alt_74.jpg,ok,ok,22.0,175/65 R14,2.81,86T,0.73,Waterfall,2.62,Quattro,4.78,4 Mevsim,1.65,0526,4.32,65R14 | 65R1486T | 3731H34 | 7VONVM | 1POLYESTER | 1NYLON,Turkiye,1.07,Tüpsüz,4.64
+75,Ust_75.jpg,Alt_75.jpg,ok,ok,22.0,205/55 R16,4.33,91H,0.77,General Tire,8.88,Altimax Winter 3,4.14,4 Mevsim,3.3,,0.0,55R16 | BLK61Z | 2STEEL | 1POLYESTER | PSIL275 | AT350KPA,,0.0,Tüpsüz,4.34
+76,Ust_76.jpg,Alt_76.jpg,ok,ok,50.2,,0.0,,0.0,Kumho,1.51,Green-Max,0.9,4 Mevsim,1.0,1Y09LY A8J 864,0.96,1168LBS | 350KPA | 51PSI | L0AD530KG | LOAD530KG | 1486H,Korea,0.71,Tüpsüz,1.72
+77,Ust_77.jpg,Alt_77.jpg,ok,ok,10.7,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+78,Ust_78.jpg,Alt_78.jpg,ok,ok,15.7,205/55 R16,3.16,91V,1.6,Nexen,1.7,Winguard Sport 2,2.09,Yaz,0.6,0226,1.52,55R16 | 8KX082 | 20555R16 | S2W2R3B | TU3ELESS | AT350KPAC,,0.0,Tüpsüz,2.52
+79,Ust_79.jpg,Alt_79.jpg,ok,ok,29.4,185/65 R14,2.84,86H,0.74,General Tire,6.36,Green-Max,0.89,,0.0,1026,5.39,LL243826 | 65R14 | 6LL410 | 44PSI | RIM51 | 4INCHRIM,Serbia,1.91,Tüpsüz,4.75
+80,Ust_80.jpg,Alt_80.jpg,ok,ok,17.0,315/35 ZR22,6.79,Y,1.15,Continental,11.9,SportContact 7,7.93,Yaz,4.52,IC,1.76,032YBU | 35ZR22 | 1POLYESTER | 1POLYAMIDE | L0AD1090KG | 2403LB,,0.0,Tüpsüz,2.69
+81,Ust_81.jpg,Alt_81.jpg,ok,ok,20.1,185/65 R14,2.78,86H,0.94,Crosswind,4.02,Comfort Peak,2.96,,0.0,1026,2.53,65R14 | LL243826 | 6LL410 | RIM51 | S89STV0 | 1NYLON,Serbia,1.92,Tüpsüz,3.65
+82,Ust_82.jpg,Alt_82.jpg,ok,ok,19.7,185/65 R14,1.62,86H,0.55,Crosswind,2.97,Comfort Peak,3.37,Yaz,0.39,1026,1.43,6LL410 | LL243826 | 65R14 | RIM51 | SS3738N1 | 4INCH,Serbia,2.79,Tüpsüz,2.79
+83,Ust_83.jpg,Alt_83.jpg,ok,ok,20.1,175/65 R14,3.6,86T,1.61,General Tire,5.31,Vector 4Seasons Gen-3,1.74,4 Mevsim,3.25,0526,1.47,65R14 | DOT48EX | 2NW20526 | 65R1486T | 37J1H34 | A33OX3,Turkiye,1.88,Tüpsüz,4.66
+84,Ust_84.jpg,Alt_84.jpg,ok,ok,18.4,185/65 R14,1.62,86H,1.5,General Tire,4.38,Comfort-Life 2,2.77,,0.0,1026,2.76,LL243826 | 6LL410 | 65R14 | 44PSI | RIM51 | S2W2R3B,Serbia,2.78,Tüpsüz,6.49
+85,Ust_85.jpg,Alt_85.jpg,ok,ok,18.6,185/65 R14,0.47,86H,0.45,General Tire,4.36,Comfort-Life 2,3.19,Yaz,0.81,1026,7.07,LL243826 | 6LL410 | RIM51 | 65R14 | 1168IBS | S2W2R3B,Serbia,3.75,Tüpsüz,5.03
+86,Ust_86.jpg,Alt_86.jpg,ok,ok,16.9,185/65 R14,3.25,86H,2.99,Semperit,2.76,Comfort-Life 2,8.2,,0.0,1026,2.81,LL243826 | 65R14 | RIM51 | S2W2R3B | 6LL410 | 6LL4101026,Serbia,1.92,Tüpsüz,6.0
+87,Ust_87.jpg,Alt_87.jpg,ok,ok,16.3,185/65 R14,1.07,,0.0,,0.0,,0.0,,0.0,OUTSID S2W2R3,1.02,LL243826 | 2STEEL | 65R14 | RIM51 | 1NYLON | 44PSI,Serbia,1.03,Tüpsüz,3.71
+88,Ust_88.jpg,Alt_88.jpg,ok,ok,19.0,185/65 R14,5.43,86H,3.71,Crosswind,3.04,Comfort Peak,5.51,,0.0,1026,4.53,65R14 | RIM51 | LL243826 | 44PSI | 1NYLON | V2R3B,Serbia,1.91,Tüpsüz,4.69
+89,Ust_89.jpg,Alt_89.jpg,okunamadi,ok,12.0,195/50 R15,3.41,82V,3.13,General Tire,1.52,Ventus Prime 4,1.01,Yaz,0.91,1926,1.35,50R15 | LOAD475KG | 1047LBS | 3C0IKCA | S2W2R3B | WBE0EEE,Turkiye,1.88,Tüpsüz,2.87
+90,Ust_90.jpg,Alt_90.jpg,ok,ok,18.4,175/65 R14,3.16,86T,1.45,General Tire,6.17,Quattro,2.1,4 Mevsim,1.93,48EX UATTRO 2NW2 ASEASO NS 175 65R148 6T,1.03,65R14 | 65R1486T | 50R15 | 2STEEL | 1NYLON | LOAD530KG,Tuf,1.03,Tüpsüz,1.93
+91,Ust_91.jpg,Alt_91.jpg,ok,ok,19.0,175/65 R14,4.69,86T,2.88,Lassa,4.08,Quattro,3.05,4 Mevsim,1.65,0226,2.78,65R14 | 8KX082 | 205155R16 | 55R16 | 2NW20526 | 2STEEL,,0.0,Tüpsüz,4.83
+92,Ust_92.jpg,Alt_92.jpg,ok,ok,18.5,,0.0,,0.0,Continental,4.08,AllSeasonContact 2,3.91,4 Mevsim,1.34,0526,0.95,60R15HX | 60R1583H | ICN034ULT | OOTS1VO | 60R15HXL | 60R1588H,,0.0,Tüpsüz,1.9
+93,Ust_93.jpg,Alt_93.jpg,ok,okunamadi,9.7,185/60 R88,0.61,,0.0,Continental,9.92,AllSeasonContact 2,6.81,4 Mevsim,5.17,,0.0,034ULT | ICN034ULT | S2H2R3B | 60R158 | 1CN034ULT | NTINENTAL3,,0.0,Tüpsüz,1.64
+94,Ust_94.jpg,Alt_94.jpg,ok,ok,21.0,185/60 R15,0.64,88H,0.6,Continental,12.94,AllSeasonContact 2,5.95,4 Mevsim,4.95,0526,3.12,034ULT | 60R1588H | 60R15HXL | CN034UL | ICN034ULT | ONTACT2,,0.0,Tüpsüz,1.03
+95,Ust_95.jpg,Alt_95.jpg,ok,ok,14.4,185/60 R15,3.18,88H,1.06,Continental,12.65,AllSeasonContact 2,9.83,4 Mevsim,6.07,0526,3.1,60R15HXL | 60R1588H | 034ULT | 60R15HZ | 60R15H2 | ICN034ULT,,0.0,Tüpsüz,1.67
+96,Ust_96.jpg,Alt_96.jpg,ok,ok,18.5,185/60 R15,2.52,88H,1.55,Continental,16.34,AllSeasonContact 2,11.26,4 Mevsim,7.45,NTINEN TALS 04 02,0.98,S2W2R3B | 034ULT | 60R1588H | 60R15HXL | CN034ULT | 60R1588HM,,0.0,Tüpsüz,3.63
+97,Ust_97.jpg,Alt_97.jpg,ok,okunamadi,9.4,185/60 R15,1.59,88H,1.46,Continental,8.28,AllSeasonContact 2,3.47,4 Mevsim,2.84,2825,0.48,60R1588H | 60R15HXL | TINENTAL3 | ICN034ULT | 034ULT | D70247949,,0.0,Tüpsüz,1.92
+98,Ust_98.jpg,Alt_98.jpg,ok,ok,21.1,195/50 R15,2.25,82V,2.07,Hankook,0.59,Ventus Prime 4,1.27,Yaz,0.61,1526,2.93,50R15 | L0AD475KG | 3047LBS | A300KFA | AT300KFA | S2M2RJB,,0.0,Tüpsüz,2.65
+99,Ust_99.jpg,Alt_99.jpg,okunamadi,ok,4.8,,0.0,,0.0,Nexen,0.36,Winguard Sport 2,0.79,,0.0,,0.0,,,0.0,,0.0
+100,Ust_100.jpg,Alt_100.jpg,okunamadi,ok,7.5,205/55 R16,1.65,A,0.48,Nexen,3.32,AllSeasonContact 2,0.64,4 Mevsim,0.58,0226,2.79,8KX082 | 55R16 | 155R16 | T350KPO | RA2IAAL | I55R16,,0.0,Tüpsüz,1.77
+101,Ust_101.jpg,Alt_101.jpg,ok,okunamadi,4.8,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+102,Ust_102.jpg,Alt_102.jpg,ok,ok,14.4,205/55 R16,6.8,91V,1.53,Lassa,5.74,Competus H/L 2,1.42,,0.0,0226,2.82,55R16 | 8KX082 | 0278KX082 | 8KX08Z | 1PCLYESTER | S2H2R3B,,0.0,Tüpsüz,2.99
+103,Ust_103.jpg,Alt_103.jpg,okunamadi,ok,8.6,205/55 R16,2.46,,0.0,Nexen,3.53,Winguard Sport 2,2.24,,0.0,0226,2.73,8KX082 | 55R16 | 1POLYESTER | LOAD615K9 | 1356IB | TPE4D,,0.0,Tüpsüz,1.67
+104,Ust_104.jpg,Alt_104.jpg,ok,ok,15.5,205/55 R16,5.1,91V,0.97,Lassa,9.26,Multiways 2,1.42,,0.0,0226,2.94,55R16 | 8KX082 | 8KX08Z | 13561B | 2W2R3B | T350KP0,,0.0,Tüpsüz,3.31
+105,Ust_105.jpg,Alt_105.jpg,ok,okunamadi,6.6,205/55 R16,3.76,T,0.63,Lassa,1.93,Multiways 2,0.79,,0.0,,0.0,55R16 | 8KX082 | 389S2W2R38 | 02718KX082 | 4389S2W2R3 | 6ALIICI,,0.0,Tüpsüz,1.49
+106,Ust_106.jpg,Alt_106.jpg,ok,ok,20.0,195/50 R15,2.13,82V,1.96,Lassa,6.31,Snoways 3,2.84,Yaz,1.61,1926,2.45,8KX082 | 1047LBS | 50R15 | 55R16 | S2W2R3B | AT3OO,Turkiye,1.92,Tüpsüz,3.97
+107,Ust_107.jpg,Alt_107.jpg,okunamadi,ok,8.0,195/50 R15,4.53,,0.0,Hankook,1.97,Ventus Prime 4,4.65,Yaz,2.05,5015,0.9,50R15 | SEDU5,,0.0,Tüpsüz,5.76
+108,Ust_108.jpg,Alt_108.jpg,ok,ok,21.1,,0.0,,0.0,Kumho,2.45,,0.0,,0.0,2013,2.16,DOT1Y0 | 65R148 | POLYESTER1 | 1168LBS | 65R14 | 5541592D,,0.0,,0.0
+109,Ust_109.jpg,Alt_109.jpg,okunamadi,ok,24.5,,0.0,,0.0,Kumho,2.45,,0.0,,0.0,2013,2.16,DOT1Y0 | 65R148 | POLYESTER1 | 1168LBS | 65R14 | 5541592D,,0.0,,0.0
+110,Ust_110.jpg,Alt_110.jpg,ok,ok,15.4,,0.0,,0.0,Kumho,2.45,,0.0,,0.0,2013,2.16,DOT1Y0 | 65R148 | POLYESTER1 | 1168LBS | 65R14 | 5541592D,,0.0,,0.0
+111,Ust_111.jpg,Alt_111.jpg,ok,ok,10.8,,0.0,,0.0,Kumho,2.45,,0.0,,0.0,2013,2.16,DOT1Y0 | 65R148 | POLYESTER1 | 1168LBS | 65R14 | 5541592D,,0.0,,0.0
+112,Ust_112.jpg,Alt_112.jpg,ok,ok,11.2,185/65 R14,0.97,86H,0.9,Kumho,8.86,,0.0,4 Mevsim,1.57,1Y09LY A8J,1.07,9LYA8J | 65R1486H | 51PSI | CTA21 | LOAD530KG | 1168IBS,Wwwkumhotie,0.8,Tüpsüz,1.57
+113,Ust_113.jpg,Alt_113.jpg,ok,ok,11.4,,0.0,,0.0,Kumho,7.33,Solus TA31,2.8,4 Mevsim,0.9,1Y0 SLYA8J SAFETY WA KUMHO,1.05,65R1486H | STA21 | SLYA8J | 65R1486 | DOT1Y0 | R146R,,0.0,Tüpsüz,1.46
+114,Ust_114.jpg,Alt_114.jpg,okunamadi,okunamadi,0.2,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0
+115,Ust_115.jpg,Alt_115.jpg,ok,ok,14.1,185/65 R14,4.47,86H,2.06,Crosswind,3.74,Comfort Peak,6.16,,0.0,1026,2.11,65R14 | LL243826 | RIM51 | 6LL410 | 1L243826 | 1NYLON,Serbia,2.85,Tüpsüz,6.07
+116,Ust_116.jpg,Alt_116.jpg,ok,ok,53.0,195/50 R15,3.47,82V,3.18,Hankook,1.04,Ventus Prime 4,4.29,Yaz,1.07,1926,2.14,50R15 | S2W2R3B | LOAD475KG | 1047LBS | 1027LBS | 8S2W2R3B,Turkiye,1.01,Tüpsüz,3.1
+117,Ust_117.jpg,Alt_117.jpg,okunamadi,okunamadi,0.3,,0.0,,0.0,,0.0,,0.0,,0.0,,0.0,,,0.0,,0.0

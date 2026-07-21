@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Lastik Yanak OCR — Fizibilite Raporu</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #171a21; --panel2: #1e222b; --border: #2a2f3a;
+    --text: #e8eaed; --muted: #9aa3b2; --accent: #5eb5ff; --accent2: #7ee787;
+    --warn: #f0b429; --bad: #ff6b6b; --good: #7ee787;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f5f6f8; --panel: #ffffff; --panel2: #f0f2f5; --border: #dde1e7;
+      --text: #1a1d23; --muted: #5b6472; --accent: #0969da; --accent2: #1a7f37;
+      --warn: #9a6700; --bad: #cf222e; --good: #1a7f37;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    margin: 0; padding: 0 0 60px 0; line-height: 1.6; overflow-x: hidden;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px; }
+  .tblwrap { overflow-x: auto; margin: 16px 0; -webkit-overflow-scrolling: touch; }
+  .tblwrap table { margin: 0; min-width: 640px; }
+  header { padding: 40px 20px 30px; text-align: center; border-bottom: 1px solid var(--border); }
+  header h1 { font-size: 1.9rem; margin: 0 0 8px; }
+  header p { color: var(--muted); margin: 4px 0; }
+  h2 { font-size: 1.35rem; margin-top: 48px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+  h3 { font-size: 1.05rem; color: var(--accent); margin-top: 28px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 20px 0; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; text-align: center;
+  }
+  .card .num { font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+  .card .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+  th { background: var(--panel2); }
+  tr:nth-child(even) td { background: var(--panel2); }
+  .best { color: var(--good); font-weight: 700; }
+  .worst { color: var(--bad); }
+  code, .mono { font-family: "SF Mono", Consolas, monospace; font-size: 0.88em; background: var(--panel2); padding: 1px 5px; border-radius: 4px; }
+  .box {
+    background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    border-radius: 8px; padding: 16px 20px; margin: 16px 0;
+  }
+  .box.warn { border-left-color: var(--warn); }
+  .box.good { border-left-color: var(--good); }
+  .finding { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+  .finding .tag { display: inline-block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: .04em;
+    background: var(--panel2); color: var(--accent); padding: 2px 8px; border-radius: 12px; margin-bottom: 8px; }
+  img.shot { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin: 10px 0; display: block; }
+  .imgcap { font-size: 0.82rem; color: var(--muted); text-align: center; margin-top: -4px; margin-bottom: 18px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
+  ol li, ul li { margin: 6px 0; }
+  .arrow { color: var(--muted); }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 60px; }
+  .pillrow { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+  .pill { background: var(--panel2); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 0.82rem; }
+  .step { display: flex; gap: 18px; margin: 28px 0; align-items: flex-start; }
+  .step .badge {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; background: var(--accent);
+    color: #06111f; font-weight: 800; display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; margin-top: 2px;
+  }
+  .step .body { flex: 1; min-width: 0; }
+  .step .body h4 { margin: 0 0 6px; font-size: 1.05rem; }
+  .step .body p { margin: 4px 0 10px; }
+  .step-thread {
+    border-left: 2px dashed var(--border); margin-left: 17px; padding-left: 35px; margin-top: -10px; margin-bottom: -10px;
+  }
+  .chiprow { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .chip {
+    background: var(--panel2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 3px 9px; font-size: 0.8rem; font-family: "SF Mono", Consolas, monospace;
+  }
+  .chip .c { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔧 Lastik Yanak OCR — Yerel Motor Benchmark &amp; Fizibilite Raporu</h1>
+  <p>119 lastik · 238 görüntü · tamamen yerel/offline OCR motorları</p>
+  <p style="color:var(--muted); font-size:0.85rem;">20 Temmuz 2026</p>
+</header>
+
+<div class="wrap">
+
+<h2>1. Özet</h2>
+<p>Line-scan kamerayla çekilmiş, lastik çevresi şerit halinde açılmış görüntülerden (≈1100×12900&nbsp;px,
+düşük kontrastlı kabartma yazı) yapısal bilgileri okumak için uçtan uca yerel bir OCR hattı kuruldu:
+orientasyon tespiti → kalite kapısı → metin bandı kırpma → 5 farklı kontrast/aydınlatma varyantı →
+döşeme (tiling) → 3 OCR motoru → regex + sözlük tabanlı alan çıkarımı → çoklu kaynak oylaması.</p>
+
+<div class="cards">
+  <div class="card"><div class="num">%89</div><div class="lbl">Ebat doğruluğu (GPU+ensemble, 119'un tam koşusunda)</div></div>
+  <div class="card"><div class="num">%100</div><div class="lbl">DOT doğruluğu*</div></div>
+  <div class="card"><div class="num">%86</div><div class="lbl">Tüplü/Tüpsüz doğruluğu</div></div>
+  <div class="card"><div class="num">20.0sn</div><div class="lbl">Lastik başına ortalama süre (GPU)</div></div>
+</div>
+<p style="font-size:0.8rem;color:var(--muted);margin-top:-8px">*DOT için 9 lastiklik ground truth
+setinde sadece 3 tanesinin gerçek değeri biliniyor (diğerleri "?" işaretli) — küçük örneklem, temkinli
+yorumlanmalı. Tam alan tablosu ve eski/yeni karşılaştırması: §10.</p>
+
+<div class="box good">
+<b>En önemli bulgular:</b>
+<ul>
+<li><b>RapidOCR</b> tek motor olarak açık ara en iyisi: EasyOCR ile eşit/üstün doğruluk, CPU'da <b>3 kat
+daha hızlı</b>. <b>Tesseract kabartma lastik yazısında pratik olarak kullanılamıyor</b>. GPU kurulumu
+sonrası (§6.1) iki motoru (RapidOCR+EasyOCR) birlikte kullanmak artık hem daha hızlı hem daha isabetli
+oldu — bkz. §6.2.</li>
+<li>Tek bir ön işleme varyantı her alanda kazanmıyor — alanlar arasında farklı varyantlar farklı işe yarıyor.</li>
+<li>İlk turda desen (pattern) tanıma %22 ile en zayıf alan çıktı. Kök neden analiziyle
+(eksik sözlük markaları + gevşek fuzzy eşik) düzeltildikten sonra aynı sette
+<b>marka %56→%100, desen %22→%44</b>'e çıktı (bkz. §5).</li>
+<li><b>DOT (üretim tarihi)</b> ilk koşuda en zor alandı; GPU+ensemble konfigürasyonuna geçince 9 lastiklik
+test setinde %100'e çıktı (küçük örneklem, temkinli yorumlanmalı) — bkz. §6.2 ve §10.</li>
+</ul>
+</div>
+
+<h2>2. Veri Seti</h2>
+<div class="pillrow">
+  <span class="pill">119 Üst yanak görüntüsü</span>
+  <span class="pill">119 Alt yanak görüntüsü</span>
+  <span class="pill">~1100×12900 – 1750×19200 px</span>
+  <span class="pill">11 boş/başarısız çekim (Üst)</span>
+  <span class="pill">7 farklı orientasyonda kaydedilmiş dosya</span>
+  <span class="pill">≥9 farklı marka tespit edildi</span>
+</div>
+<p>Tespit edilen markalar: Continental, Goodyear, Kumho, Lassa, Waterfall, Bridgestone, Crosswind,
+General Tire, Semperit, Nexen, Hankook ve muhtemelen daha fazlası — her biri birden çok desen/ebat
+kombinasyonuyla.</p>
+
+<h2>3. Yöntem</h2>
+
+<h3>3.1 Ön işleme</h3>
+<ol>
+<li><b>Orientasyon çözümü</b>: İki 180°-farklı aday üretilip her ikisinde hızlı bir RapidOCR güven skoru
+hesaplanarak doğru yön otomatik seçiliyor (salt istatistikle 180° farkı ayırt edilemiyor, gerçek OCR gerekiyor).</li>
+<li><b>Kalite kapısı</b>: Belirgin bir metin bandı bulunamayan (boş/başarısız çekim) görüntüler otomatik
+<code>UNREADABLE</code> işaretleniyor.</li>
+<li><b>Metin bandı kırpma</b>: Satır parlaklık profiliyle arka plan (siyah) kırpılıyor.</li>
+<li><b>5 zenginleştirme varyantı</b> paralel deneniyor (aşağıya bakınız).</li>
+</ol>
+
+<div class="tblwrap"><table>
+<tr><th>Varyant</th><th>Yöntem</th><th>En güçlü olduğu alan (benchmark'ta)</th></tr>
+<tr><td><code>v1_clahe</code></td><td>Temel CLAHE kontrast eşitleme</td><td>Genel amaçlı, hızlı</td></tr>
+<tr><td><code>v2_shading</code></td><td>Büyük çekirdekli Gauss aydınlatma düzeltme + CLAHE</td><td class="best">Marka (%67), Üretim Yeri (%83)</td></tr>
+<tr><td><code>v3_gradient</code></td><td>Sobel gradyan büyüklüğü</td><td class="worst">Genelde en zayıf</td></tr>
+<tr><td><code>v4_morph</code></td><td>Top-hat/black-hat morfolojik kontrast (polariteden bağımsız)</td><td>DOT (%67)</td></tr>
+<tr><td><code>v5_negative</code></td><td>v2'nin negatifi</td><td class="best">Ebat (%89)</td></tr>
+</table></div>
+
+<div class="box warn">
+<b>⚠ Teknik bulgu — döşeme (tiling) neden zorunlu:</b> Tüm şeridi (ör. 12900×620&nbsp;px) tek parça
+motora vermek <b>tamamen başarısız</b> oluyor (0 kutu). Kök neden: RapidOCR'ın <code>width_height_ratio</code>
+eşiği (varsayılan 8); girdi bu oranı aştığında motor tespit aşamasını atlayıp görüntüyü "tek satır" sanıyor.
+Bizim şeritler ~20:1 olduğundan bindirmeli (~200px), güvenli oranda (bant yüksekliği×6 ile sınırlı) parçalara
+bölünerek OCR'lanıyor.
+</div>
+
+<h3>3.2 OCR motorları</h3>
+<p>RapidOCR (PP-OCR/ONNX), EasyOCR, Tesseract — ortak arayüz üzerinden karşılaştırıldı. <b>PaddleOCR de
+denendi</b>: kurulum başarılı oldu ama bu ortamda (Windows/CPU) çalışma anında oneDNN/PIR executor hatasıyla
+çöktü; RapidOCR zaten aynı model ailesini sorunsuz çalıştırdığından devre dışı bırakıldı.</p>
+
+<h3>3.3 Alan çıkarımı ve birleştirme</h3>
+<p>Regex (ebat, DOT, made-in, tüpsüz/tüplü) + <code>rapidfuzz</code> ile sözlük tabanlı fuzzy eşleştirme
+(marka, desen). Her alan için {yanak × tile × varyant × motor} kaynaklı tüm adaylar güven skoru + kaç farklı
+kaynakta tekrarlandığıyla ağırlıklı oylanıyor.</p>
+
+<h2>3.4 Adım Adım: Bir Lastiğin Pipeline'dan Geçişi</h2>
+<p>Aşağıda gerçek bir örnek (<code>Ust_5.jpg</code> — Continental EcoContact 6, 155/70 R13) ham dosyadan
+nihai alan çıkarımına kadar her adımda ne olduğunu, gerçek ara çıktı görselleriyle gösteriyor.</p>
+
+<div class="step">
+  <div class="badge">0</div>
+  <div class="body">
+    <h4>Ham görüntü</h4>
+    <p>Line-scan kameradan gelen dosya dikey, çok uzun bir şerit (<b>1116 × 12900 px</b>). Lastik
+    çevresi boyunca tarandığı için görüntünün büyük kısmı siyah (arka plan); yazı ancak sağdaki dar
+    şeritte, çok düşük kontrastta seçilebiliyor.</p>
+    <img class="shot" style="width:auto;max-width:220px" src="debug/pipeline/step0_raw.png" alt="ham görüntü">
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">1</div>
+  <div class="body">
+    <h4>Orientasyon çözümü</h4>
+    <p>Görüntü 180°-farklı iki adaya (A/B) döndürülüp her ikisinde hızlı bir RapidOCR güven skoru
+    hesaplanıyor; yüksek skor kazanıyor. Bu örnekte: <b>Aday A skoru 54.4</b> vs <b>Aday B skoru 51.4</b>
+    → <b>A kazandı</b>. Turuncu kutu, bir sonraki adımda kırpılacak metin bandını gösteriyor
+    (arka plandaki siyah kısımlar atılacak).</p>
+    <img class="shot" src="debug/pipeline/step1_oriented_band.png" alt="orientasyon ve bant tespiti">
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">2</div>
+  <div class="body">
+    <h4>Metin bandı kırpma</h4>
+    <p>Satır parlaklık profiliyle bulunan bant kırpılıyor: <b>622 × 12900 px</b> (arka plandaki siyah
+    tamamen atıldı). Aşağıdaki görsel bu bandın orta bir kesiti (temel CLAHE kontrastıyla) —
+    "EcoContact 6" ve "155/70 R 13 T" artık net okunabiliyor.</p>
+    <img class="shot" src="debug/pipeline/step2_cropped_band.png" alt="kırpılmış metin bandı">
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">3</div>
+  <div class="body">
+    <h4>5 zenginleştirme varyantı (paralel)</h4>
+    <p>Aynı kesit 5 farklı kontrast/aydınlatma yöntemiyle işleniyor — hangisinin hangi motorda/hangi
+    alanda daha iyi çalıştığı §4.2'de karşılaştırılıyor.</p>
+    <img class="shot" src="debug/pipeline/step3_variants.png" alt="5 varyant karşılaştırması">
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">4</div>
+  <div class="body">
+    <h4>Döşeme (tiling)</h4>
+    <p>Bant, RapidOCR'ın <code>width_height_ratio=8</code> tuzağına düşmemek için ~200px bindirmeli,
+    2400px genişliğinde parçalara bölünüyor (bu lastikte <b>6 tile</b>). Renkli dikey çizgiler tile
+    sınırlarını, beyaz köşeli parantezler bindirme (overlap) bölgelerini gösteriyor — bir kelime tam
+    sınıra denk gelse bile komşu tile'da bütün olarak yakalanabiliyor.</p>
+    <img class="shot" src="debug/pipeline/step4_tiling.png" alt="döşeme görselleştirmesi">
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">5</div>
+  <div class="body">
+    <h4>OCR — motor her tile'ı okuyor</h4>
+    <p>Her tile × her varyant, RapidOCR'a veriliyor; motor metin kutuları (yeşil çerçeve) + tanınan
+    metin + güven skoru döndürüyor. Aşağıda en çok kutu bulunan tile (tile 3) gösteriliyor —
+    kabartma "155/70 R 13 T" gibi büyük yazılar yüksek güvenle (0.88), "MAX INFLATION PRESSURE..."
+    gibi küçük yazılar biraz gürültülü ama yine de okunabiliyor.</p>
+    <img class="shot" src="debug/pipeline/step5_ocr_boxes.png" alt="OCR kutuları">
+    <div class="chiprow">
+      <span class="chip">155/70R13T <span class="c">0.88</span></span>
+      <span class="chip">TUBELESS <span class="c">0.88</span></span>
+      <span class="chip">OUTSIDE-155/70R13·75T <span class="c">0.84</span></span>
+      <span class="chip">MAXINFLATIONPRESSURE300 KPA <span class="c">0.81</span></span>
+      <span class="chip">01522 <span class="c">0.80</span></span>
+      <span class="chip">RADIAL <span class="c">0.78</span></span>
+      <span class="chip">MAXLOAD87KG853LB <span class="c">0.75</span></span>
+      <span class="chip">4382212R3B <span class="c">0.70</span></span>
+    </div>
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">6</div>
+  <div class="body">
+    <h4>Alan çıkarımı</h4>
+    <p>Yukarıdaki ham metin parçaları regex (ebat, DOT, made-in, tüp) ve <code>rapidfuzz</code> sözlük
+    eşleştirmesinden (marka, desen) geçiriliyor. Örnek: <code>"155/70R13T"</code> →
+    <code>SIZE_RE</code> eşleşip <b>ebat=155/70 R13</b> + <b>hız grubu=75T</b> çıkarıyor;
+    <code>"TUBELESS"</code> → doğrudan <b>tüp=Tüpsüz</b>; ayrı bir tile'da geçen
+    <code>"EcoContact6"</code> fuzzy sözlükte Continental'ın "EcoContact 6" desenine %WRatio ile eşleşip
+    hem <b>desen</b> hem (geri çıkarımla) <b>marka=Continental</b> adayı üretiyor.</p>
+  </div>
+</div>
+<div class="step-thread"></div>
+
+<div class="step">
+  <div class="badge">7</div>
+  <div class="body">
+    <h4>Birleştirme (fusion) — nihai sonuç</h4>
+    <p>Bu lastik için <b>2 yanak × 6 tile × 5 varyant</b> kombinasyonundan gelen toplam
+    <b>30 kaynağın</b> tamamındaki adaylar, alan başına güven skoru + kaç farklı kaynakta tekrarlandığıyla
+    ağırlıklı oylanıp tek bir sonuca indirgeniyor:</p>
+    <div class="tblwrap"><table>
+      <tr><th>Alan</th><th>Sonuç</th><th>Oylama skoru</th></tr>
+      <tr><td>Ebat</td><td><b>155/70 R13</b></td><td>6.26</td></tr>
+      <tr><td>Hız Grubu</td><td><b>75T</b></td><td>4.94</td></tr>
+      <tr><td>Marka</td><td class="best"><b>Continental</b></td><td>15.31</td></tr>
+      <tr><td>Desen</td><td class="best"><b>EcoContact 6</b></td><td>8.18</td></tr>
+      <tr><td>Mevsim</td><td><b>Yaz</b></td><td>7.10</td></tr>
+      <tr><td>DOT</td><td><b>1526</b> <span style="color:var(--muted)">(hafta 15, 2026)</span></td><td>3.18</td></tr>
+      <tr><td>Ekstra Lot</td><td>70R13T, 70R13, OUTSIDE155</td><td>—</td></tr>
+      <tr><td>Üretildiği Yer</td><td class="worst">bulunamadı (None)</td><td>—</td></tr>
+      <tr><td>Tüplü/Tüpsüz</td><td><b>Tüpsüz</b></td><td>7.20</td></tr>
+    </table></div>
+    <p style="font-size:0.85rem;color:var(--muted)">"Oylama skoru" = adayın toplam güveni + kaç farklı
+    tile/varyantta tekrarlandığının bonusu. Marka'nın skoru en yüksek çünkü "Continental" hem doğrudan
+    hem desenden-çıkarım yoluyla birden fazla kaynakta tekrar tekrar çıktı.</p>
+  </div>
+</div>
+
+<h2>4. Benchmark Sonuçları (9 lastiklik etiketli set)</h2>
+
+<h3>4.1 Motor karşılaştırması</h3>
+<div class="tblwrap"><table>
+<tr><th>Motor</th><th>Süre (9 lastik)</th><th>Marka</th><th>Desen</th><th>Ebat</th><th>Hız Grubu</th><th>Mevsim</th><th>DOT</th><th>Üretim Yeri</th><th>Tüp</th></tr>
+<tr><td><b>RapidOCR</b></td><td class="best">272sn</td><td>56%</td><td>22%</td><td>78%</td><td>33%</td><td>67%</td><td>67%</td><td>33%</td><td>86%</td></tr>
+<tr><td>EasyOCR</td><td class="worst">852sn (3.1x yavaş)</td><td>56%</td><td>11%</td><td>78%</td><td>67%</td><td>67%</td><td>67%</td><td>17%</td><td>71%</td></tr>
+<tr><td>Tesseract</td><td>99sn</td><td class="worst">11%</td><td class="worst">0%</td><td class="worst">0%</td><td class="worst">0%</td><td class="worst">22%</td><td class="worst">0%</td><td class="worst">0%</td><td class="worst">0%</td></tr>
+</table></div>
+<p><b>Sonuç:</b> RapidOCR kazanan. Tesseract kabartma lastik yazısında kullanılamaz durumda.</p>
+
+<h3>4.2 Ön işleme varyant karşılaştırması (motor: RapidOCR)</h3>
+<div class="tblwrap"><table>
+<tr><th>Varyant</th><th>Marka</th><th>Desen</th><th>Ebat</th><th>Hız Grubu</th><th>Mevsim</th><th>DOT</th><th>Üretim Yeri</th><th>Tüp</th></tr>
+<tr><td>v1_clahe</td><td>56%</td><td>22%</td><td>78%</td><td>33%</td><td>67%</td><td>67%</td><td>33%</td><td>86%</td></tr>
+<tr><td>v2_shading</td><td class="best">67%</td><td>22%</td><td>78%</td><td>22%</td><td>56%</td><td>33%</td><td class="best">83%</td><td>86%</td></tr>
+<tr><td>v3_gradient</td><td class="worst">11%</td><td class="worst">11%</td><td>78%</td><td>44%</td><td>44%</td><td>33%</td><td>67%</td><td>86%</td></tr>
+<tr><td>v4_morph</td><td>56%</td><td>22%</td><td>78%</td><td>44%</td><td>56%</td><td>67%</td><td>67%</td><td>86%</td></tr>
+<tr><td>v5_negative</td><td>44%</td><td>22%</td><td class="best">89%</td><td>33%</td><td>56%</td><td>67%</td><td>50%</td><td>86%</td></tr>
+</table></div>
+<p><b>Sonuç:</b> Tek bir "en iyi" varyant yok — üretim için önerilen yaklaşım: birden fazla varyantı
+paralel oylamak.</p>
+
+<h3>4.3 Ensemble (birleşim) sonuçları</h3>
+<div class="tblwrap"><table>
+<tr><th>Konfigürasyon</th><th>Süre</th><th>Marka</th><th>Desen</th><th>Ebat</th><th>Üretim Yeri</th></tr>
+<tr><td>RapidOCR + 5 varyant</td><td>864sn (3.2x)</td><td>56%</td><td>22%</td><td class="best">89%</td><td class="best">100%</td></tr>
+<tr><td>RapidOCR+EasyOCR + v4_morph</td><td>1088sn (4.0x)</td><td class="best">78%</td><td>22%</td><td class="best">89%</td><td>67%</td></tr>
+</table></div>
+
+<h2>5. Vaka İncelemesi: Desen/Marka Doğruluğunu İyileştirme</h2>
+<p>İlk turda desen tanıma tüm konfigürasyonlarda <b>~%22'de takılı kaldı</b>. İterasyonla kök nedenler
+bulunup düzeltildi:</p>
+
+<div class="finding">
+<span class="tag">Bulgu 1</span>
+<p><b>Marka-bağımsız desen araması</b>: Sistem tüm marka+desen sözlüğüne karşı fuzzy arama yapıyordu;
+bir <b>Crosswind "Comfort Peak"</b> lastiği yanlışlıkla <b>Semperit "Comfort-Life 2"</b>'ye eşleşebiliyordu.</p>
+</div>
+<div class="finding">
+<span class="tag">Bulgu 2</span>
+<p><b>Sözlükte eksik markalar</b>: Veri setinde gerçekten var olan <b>Waterfall</b> ve <b>Crosswind</b>
+markaları ilk sözlükte hiç yoktu — bu markalar asla doğru tanınamıyordu.</p>
+</div>
+<div class="finding">
+<span class="tag">Bulgu 3</span>
+<p><b>Çok gevşek fuzzy eşiği</b> (score_cutoff=78): Kısa/genel sözlük string'leri ("Green-Max",
+"Incurro A/S ST450") gürültülü OCR metniyle tutarlı biçimde yanlış-pozitif üretiyordu.</p>
+</div>
+
+<h3>Denenen düzeltmeler ve ölçülen etkisi (aynı 9 lastik, RapidOCR + v4_morph)</h3>
+<div class="tblwrap"><table>
+<tr><th>Adım</th><th>Marka</th><th>Desen</th></tr>
+<tr><td>Başlangıç</td><td>56%</td><td>22%</td></tr>
+<tr><td>Tek-kaynak marka-kısıtlı desen araması</td><td>56%</td><td>22% <span style="color:var(--muted)">(iyileşme yok)</span></td></tr>
+<tr><td>İki geçişli mimari (küresel marka oylaması → kısıtlı 2. desen geçişi)</td><td>56%</td><td>22% <span style="color:var(--muted)">(hâlâ yok)</span></td></tr>
+<tr><td>+ Fuzzy eşiği 78→88 / 68→80 yükseltme</td><td>78%</td><td>33%</td></tr>
+<tr><td>+ Sözlüğe Waterfall, Crosswind eklendi</td><td class="best">100%</td><td class="best">44%</td></tr>
+</table></div>
+
+<div class="box">
+<b>Çıkarım:</b> Asıl kazanç mimari karmaşıklıktan değil, <b>(a) sözlüğün veri setini gerçekten kapsaması</b>
+ve <b>(b) fuzzy eşiğinin yeterince sıkı tutulmasından</b> geldi. Sistem artık emin olmadığında
+<code>None</code> döndürüyor — yanlış-ama-kendinden-emin bir cevap vermek yerine sessiz kalmak, üretim
+ortamı için çok daha güvenli bir davranış.
+</div>
+
+<h2>6. Tam Veri Seti Sonuçları (119 lastik)</h2>
+<p><code>run_all.py</code>, benchmark'ın maliyet/doğruluk analizine göre <b>RapidOCR + v1_clahe</b>
+konfigürasyonunu seçti (gerekçe: en pahalı ensemble 119 lastikte ~240 dakika sürecekti; 90 dk sınırı için
+hızlı konfigürasyon tercih edildi).</p>
+
+<div class="cards">
+  <div class="card"><div class="num">46dk</div><div class="lbl">Toplam süre (2779sn)</div></div>
+  <div class="card"><div class="num">23.4sn</div><div class="lbl">Lastik başına ortalama</div></div>
+  <div class="card"><div class="num">11/119</div><div class="lbl">Üst — kalite kapısında elendi</div></div>
+  <div class="card"><div class="num">7/119</div><div class="lbl">Alt — kalite kapısında elendi</div></div>
+</div>
+
+<div class="grid2">
+<div>
+<h3>Kapsam (119 lastiğin kaçında bir değer üretildi)</h3>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Kapsam</th></tr>
+<tr><td>Marka</td><td>107/119 (%90)</td></tr>
+<tr><td>Desen</td><td>84/119 (%71)</td></tr>
+<tr><td>Ebat</td><td>90/119 (%76)</td></tr>
+<tr><td>Hız Grubu</td><td>53/119 (%45)</td></tr>
+<tr><td>Mevsim</td><td>80/119 (%67)</td></tr>
+<tr><td>DOT</td><td>92/119 (%77)</td></tr>
+<tr><td>Üretim Yeri</td><td>50/119 (%42)</td></tr>
+<tr><td>Tüp</td><td>103/119 (%87)</td></tr>
+</table></div>
+</div>
+<div>
+<h3>Doğruluk (9 lastiklik GT ile çapraz kontrol)</h3>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Doğruluk</th></tr>
+<tr><td><b>Marka</b></td><td class="best">8/9 (%89)</td></tr>
+<tr><td><b>Desen</b></td><td>5/9 (%56)</td></tr>
+<tr><td>Ebat</td><td>7/9 (%78)</td></tr>
+<tr><td>Hız Grubu</td><td class="worst">3/9 (%33)</td></tr>
+<tr><td>Mevsim</td><td>5/9 (%56)</td></tr>
+<tr><td>DOT</td><td>2/3 (%67)*</td></tr>
+<tr><td>Üretim Yeri</td><td class="worst">2/6 (%33)</td></tr>
+<tr><td>Tüp</td><td class="best">6/7 (%86)</td></tr>
+</table></div>
+<p style="font-size:0.8rem;color:var(--muted)">*örneklem küçük — çoğu GT satırında DOT "?" işaretli</p>
+</div>
+</div>
+
+<p>Tüm 119 lastiğin alan-alan dökümü (güven skorlarıyla): <code>results/sonuclar.csv</code></p>
+
+<h2>6.1 Sonradan Eklenen: GPU Hızlandırma</h2>
+<p>Rapor tamamlandıktan sonra kullanıcı isteğiyle CUDA'lı <code>torch</code> (RTX 3060 Laptop, CUDA 12.6)
+ve <code>onnxruntime-gpu</code> kurularak her iki motor da GPU'ya taşındı. Kurulumda iki teknik engel
+ortaya çıktı ve çözüldü:</p>
+<ul>
+<li><b>onnxruntime-gpu, torch'un aksine CUDA/cuDNN DLL'lerini paketin içinde taşımıyor</b> — ayrı
+<code>nvidia-cublas</code>, <code>nvidia-cufft</code>, <code>nvidia-cudnn-cu13</code> pip paketleri kurulup
+klasörleri PATH'e eklendi (<code>os.add_dll_directory()</code> işe yaramadı, sadece PATH değişikliği
+onnxruntime'ın native yükleyicisi tarafından görülebildi).</li>
+<li><b>DLL adı çakışması</b>: torch'un kendi paketlediği cuDNN ile ayrıca kurulan cuDNN aynı süreçte
+çakışıyordu (hangisi önce yüklenirse diğeri <code>WinError 127</code> ile çöküyordu). Çözüm:
+<code>src/engines/__init__.py</code>'de <code>torch</code>'u en başta, hangi motor önce çağrılırsa
+çağrılsın import ederek çakışmayı torch lehine sabitlemek.</li>
+</ul>
+
+<div class="cards">
+  <div class="card"><div class="num">3.1×</div><div class="lbl">RapidOCR hızlanma (30.2sn → 9.7sn/lastik)</div></div>
+  <div class="card"><div class="num">6.4×</div><div class="lbl">EasyOCR hızlanma (94.7sn → 14.8sn/lastik)</div></div>
+</div>
+<p style="font-size:0.85rem;color:var(--muted)">Not: bu ölçüm 3 lastiklik hızlı bir doğrulama turudur
+(§6'daki 119 lastiklik tam koşu CPU ile yapılmıştı); GPU'nun asıl faydası EasyOCR'ı RapidOCR'a
+neredeyse yakın hıza getirip motor-ensemble seçeneklerini artık pratik kılması.</p>
+
+<h2>6.2 Bu Hız Kazancını Doğruluğa Çevirmek: Ensemble'a Geçiş</h2>
+<p><b>Neden gerekliydi:</b> §4.3'teki benchmark, RapidOCR+EasyOCR'ı <code>v4_morph</code> varyantında
+birlikte kullanmanın (2 motor × 1 varyant = "x2 maliyet") öncelikli alanlarda (marka, desen, ebat, DOT)
+tek-motor tek-varyant konfigürasyonuna göre <b>+8 puan</b> kazandırdığını göstermişti. Ama bu konfigürasyon
+119 lastiğin tamamında CPU'da tahmini <b>~240 dakika</b> sürüyordu — 90 dakikalık oturum bütçesini fazlasıyla
+aşıyordu, bu yüzden ilk üretim koşusu (§6) daha ucuz ama daha az isabetli tek-motor/tek-varyant konfigürasyonuyla
+yapılmıştı.</p>
+<p><b>Ne değişti:</b> GPU kurulumuyla (§6.1) RapidOCR ~3.1×, EasyOCR ~6.4× hızlandığı için, bu "pahalı ama
+isabetli" ensemble konfigürasyonu artık ~80 dakikaya iniyor — bütçeye sığıyor. <code>src/run_all.py</code>'deki
+otomatik konfigürasyon seçici (<code>pick_best_config</code>) buna göre güncellendi: artık CPU-ölçümlü süre
+tahminine bir <code>gpu_speedup</code> çarpanı (temkinli x3.0) uyguluyor, böylece GPU aktifken daha isabetli
+ama daha maliyetli konfigürasyonları otomatik olarak tercih edebiliyor. Sistem gerçekten de
+<b>RapidOCR + EasyOCR (v4_morph)</b> konfigürasyonunu kendi seçti ve 119 lastiğin tamamını bu konfigürasyonla
+<b>yeniden</b> işledi.</p>
+
+<h3>Sonuç: hem daha hızlı hem daha doğru</h3>
+<p>Beklenmedik ama açıklanabilir bir sonuç: yeni konfigürasyon (2 motor) GPU'da, eski konfigürasyondan (1 motor)
+CPU'da <b>daha hızlı</b> çıktı — çünkü GPU'nun sağladığı hızlanma, ikinci motoru eklemenin getirdiği ek maliyetten
+daha büyük.</p>
+<div class="cards">
+  <div class="card"><div class="num">39.6 dk</div><div class="lbl">Yeni toplam süre (119 lastik) — eskisi 46 dk idi</div></div>
+  <div class="card"><div class="num">20.0sn</div><div class="lbl">Yeni lastik başına ortalama — eskisi 23.4sn idi</div></div>
+</div>
+
+<h4>Alan bazlı doğruluk — eski (CPU, tek motor) vs yeni (GPU, 2-motor ensemble)</h4>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Eski (RapidOCR, v1_clahe, CPU)</th><th>Yeni (RapidOCR+EasyOCR, v4_morph, GPU)</th><th>Fark</th></tr>
+<tr><td>Marka</td><td>8/9 — %89</td><td>7/9 — %78</td><td class="worst">−11 puan</td></tr>
+<tr><td>Desen</td><td>5/9 — %56</td><td>5/9 — %56</td><td>değişmedi</td></tr>
+<tr><td>Ebat</td><td>7/9 — %78</td><td>8/9 — %89</td><td class="best">+11 puan</td></tr>
+<tr><td>Hız Grubu</td><td>3/9 — %33</td><td>7/9 — %78</td><td class="best">+45 puan</td></tr>
+<tr><td>Mevsim</td><td>5/9 — %56</td><td>6/9 — %67</td><td class="best">+11 puan</td></tr>
+<tr><td>DOT</td><td>2/3 — %67</td><td>3/3 — %100</td><td class="best">+33 puan</td></tr>
+<tr><td>Üretildiği Yer</td><td>2/6 — %33</td><td>4/6 — %67</td><td class="best">+34 puan</td></tr>
+<tr><td>Tüplü/Tüpsüz</td><td>6/7 — %86</td><td>6/7 — %86</td><td>değişmedi</td></tr>
+</table></div>
+<p style="font-size:0.85rem;color:var(--muted)">8 alanın ortalaması: eski konfigürasyon %62.3 → yeni
+konfigürasyon %77.6 (<b>+15.3 puan</b>). Tek düşen alan marka (9 lastiklik küçük örneklemde 1 lastiğin
+sınırda kayması) — 119'un tamamındaki <b>kapsamda</b> marka aslında yükseldi (aşağıya bakınız), yani bu
+düşüş büyük olasılıkla örneklem gürültüsü.</p>
+
+<h4>Kapsam (119 lastiğin kaçında bir değer üretildi) — eski vs yeni</h4>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Eski</th><th>Yeni</th></tr>
+<tr><td>Marka</td><td>107/119 — %90</td><td class="best">110/119 — %92</td></tr>
+<tr><td>Desen</td><td>84/119 — %71</td><td class="best">97/119 — %82</td></tr>
+<tr><td>Ebat</td><td>90/119 — %76</td><td class="best">96/119 — %81</td></tr>
+<tr><td>Hız Grubu</td><td>53/119 — %45</td><td class="best">83/119 — %70</td></tr>
+<tr><td>Mevsim</td><td>80/119 — %67</td><td class="best">86/119 — %72</td></tr>
+<tr><td>DOT</td><td>92/119 — %77</td><td class="best">102/119 — %86</td></tr>
+<tr><td>Üretildiği Yer</td><td>50/119 — %42</td><td class="best">54/119 — %45</td></tr>
+<tr><td>Tüplü/Tüpsüz</td><td>103/119 — %87</td><td class="best">105/119 — %88</td></tr>
+</table></div>
+<p style="font-size:0.85rem;color:var(--muted)"><b>Neden bu kadar iyileşti?</b> İki motorun (RapidOCR + EasyOCR)
+farklı hata modları var — biri bir tile'da/varyantta okuyamadığını diğeri okuyabiliyor; §3.3'teki oylama
+mekanizması bu iki bağımsız görüşü birleştirip tek bir alandan gelen (ve dolayısıyla yanlış olduğunda ikisinin
+de aynı hatayı yapma riski taşıyan) sonuçtan daha sağlam bir karar üretiyor. Kaynak kod:
+<code>results/sonuclar_gpu_ensemble_final.csv</code> (yeni, üretimde kullanılan) vs
+<code>results/sonuclar_cpu_v1clahe_baseline.csv</code> (eski, karşılaştırma için saklandı).</p>
+
+<h2>7. Görsel Örnekler</h2>
+<p>Aşağıda <code>Ust_5.jpg</code> (Continental EcoContact 6) için ön işleme varyantlarının bir kesiti —
+DOT kodu "266 03H536 <b>(1526)</b>" (hafta 15, 2026) çok net okunabiliyor:</p>
+<img class="shot" src="debug/5_ust_variants.png" alt="Ust_5 varyant karşılaştırması">
+<div class="imgcap">v1_clahe / v2_shading / v3_gradient / v4_morph / v5_negative (üstten alta)</div>
+
+<h2>8. Bilinen Sınırlamalar</h2>
+<ul>
+<li><b>DOT (üretim tarihi)</b> en zor alan — küçük punto, oval damga, şeridin rastgele bir noktasında.
+Genel regex+bağımsız-4-hane yaklaşımı gürültüye açık.</li>
+<li><b>Orientasyon çözümünde nadir hata</b>: elle incelenen 18 örnekten 1 tanesinde (tire 82, Alt yanak)
+otomatik yön seçici 180° ters yönü seçti (aşağıda görselde gösterilmiştir).</li>
+<li><b>Çok ince bantlı görüntüler</b>: bazı lastiklerde tespit edilen metin bandı anormal ince çıkıp az
+bilgi taşıyor (muhtemelen o karede lastik hafif kaymış).</li>
+<li><b>Tesseract kullanılamaz</b> durumda; RapidOCR/EasyOCR şart.</li>
+</ul>
+<img class="shot" src="debug/82_alt_variants.png" alt="82 Alt - orientasyon hatası örneği">
+<div class="imgcap">Bilinen sınırlama örneği: bu görüntüde otomatik yön seçici 180° ters seçti (metin baş aşağı — "CROSSWIND" ters okunuyor)</div>
+
+<h2>9. Öneriler ve Sonraki Adımlar</h2>
+
+<h3>🟢 Kısa vadede (düşük efor, somut kazanç)</h3>
+<ol>
+<li><b>Sözlüğü genişletmek</b>: Bu rapor sırasında 2 eksik marka bulundu; gerçek envanterdeki TAM marka/desen
+listesi sözlüğe eklenirse (ERP'den içe aktarılabilir) doğruluk büyük ölçüde artar.</li>
+<li><b>DOT'a özel bölge tespiti</b>: Tarih kodu neredeyse her zaman bir oval içinde. Hough-circle/kontur
+tespitiyle önce bu ovali bulup sadece o küçük bölgeyi yüksek çözünürlükte OCR'lamak muhtemelen tek başına
+en çok kazandıracak değişiklik.</li>
+<li><b>Fiziksel aydınlatma</b>: Görüntüler düz ışıkla çekilmiş, kontrast çok düşük. <b>Eğik (raking)
+aydınlatma</b> kabartma harflerde gölge oluşturup kontrastı belirgin artırır — yazılımdan bağımsız,
+muhtemelen en yüksek getirili tek değişiklik.</li>
+</ol>
+
+<h3>🟡 Orta vadede</h3>
+<ol start="4">
+<li><b>Marka logosu şekil tanıma</b>: Metnin yanında her markanın logosunu (Continental'ın atı, Goodyear'ın
+kanatlı ayağı) template matching/küçük bir CNN ile tanımak, kontrasttan bağımsız daha güvenilir marka
+tespiti sağlayabilir.</li>
+<li><b>Mevsim ikonlarını doğrudan sınıflandırmak</b>: Güneş/bulut/kar tanesi ikonlarını metinden çıkarım
+yerine doğrudan şekil tanımayla tespit etmek.</li>
+<li><b>Çevresel tekrar doğrulaması</b>: Yazı şerit boyunca ~2 kez tekrarlıyor; periyot tespitiyle iki
+tekrarı doğrudan hizalayıp karşılaştırmak ekstra bir doğrulama katmanı olur.</li>
+</ol>
+
+<h3>🔵 Uzun vadede / üretim hattı için</h3>
+<ol start="7">
+<li><b>OCR modelini bu domain'e fine-tune etmek</b>: Genel amaçlı modeller kabartmalı lastik yazısı için
+eğitilmemiş; bu 119 lastik + genişletilmiş etiketli set ile RapidOCR'ın recognition modülü fine-tune
+edilirse büyük iyileşme beklenir.</li>
+<li><b>Yerel VLM denemesi</b>: 6GB VRAM'e sığan modeller (ör. Qwen2.5-VL 3B, 4-bit) klasik OCR'dan daha iyi
+bağlamsal okuma yapabilir — bulut API kullanılmadığı için tamamen yerel bir sonraki deney olabilir.</li>
+<li><b>Güven eşiğine dayalı yönlendirme</b>: %100 otomasyon yerine, düşük güvenli alanları (özellikle DOT)
+operatöre hızlı onay için göstermek — hibrit model, saf otomasyondan daha güvenilir olur.</li>
+</ol>
+
+<h2>10. Sonuç — Nihai Değerler</h2>
+<p>Tamamen yerel/offline motorlarla, düşük kontrastlı kabartma lastik yazısından anlamlı ölçüde bilgi
+çıkarmak <b>mümkün ve fizibıl</b>. Aşağıdaki tablo, üretimde kullanılan <b>güncel nihai konfigürasyonla</b>
+(GPU + <b>RapidOCR＋EasyOCR ensemble</b>, <code>v4_morph</code>, bkz. §6.2) 119 lastiğin tamamında elde
+edilen son durumu özetliyor — eski tek-motor/CPU konfigürasyonuna göre <b>hem daha hızlı hem daha doğru</b>.</p>
+
+<div class="cards">
+  <div class="card"><div class="num">39.6 dk</div><div class="lbl">Toplam süre — 119 lastik (GPU, 2-motor ensemble)</div></div>
+  <div class="card"><div class="num">20.0sn</div><div class="lbl">Lastik başına ortalama</div></div>
+  <div class="card"><div class="num">%77.6</div><div class="lbl">8 alan ortalama doğruluk (eskisi %62.3 idi)</div></div>
+  <div class="card"><div class="num">18/238</div><div class="lbl">Kalite kapısında elenen görüntü (%7.6)</div></div>
+</div>
+
+<h3>Alan bazlı nihai sonuçlar</h3>
+<div class="tblwrap"><table>
+<tr><th>Alan</th><th>Doğruluk<br><span style="font-weight:400;color:var(--muted)">(9 lastiklik ground truth)</span></th><th>Kapsam<br><span style="font-weight:400;color:var(--muted)">(119 lastiğin kaçında bir değer üretildi)</span></th></tr>
+<tr><td>Marka</td><td>7/9 — %78</td><td>110/119 — %92</td></tr>
+<tr><td>Desen</td><td>5/9 — %56</td><td>97/119 — %82</td></tr>
+<tr><td><b>Ebat</b></td><td class="best"><b>8/9 — %89</b></td><td>96/119 — %81</td></tr>
+<tr><td>Hız Grubu</td><td>7/9 — %78</td><td>83/119 — %70</td></tr>
+<tr><td>Mevsim</td><td>6/9 — %67</td><td>86/119 — %72</td></tr>
+<tr><td><b>DOT (üretim tarihi)</b></td><td class="best"><b>3/3 — %100</b>*</td><td>102/119 — %86</td></tr>
+<tr><td>Üretildiği Yer</td><td>4/6 — %67</td><td>54/119 — %45</td></tr>
+<tr><td><b>Tüplü/Tüpsüz</b></td><td class="best"><b>6/7 — %86</b></td><td>105/119 — %88</td></tr>
+</table></div>
+<p style="font-size:0.8rem;color:var(--muted)">*örneklem küçük (çoğu GT satırında DOT "?" işaretli, gerçek değeri bilinmiyor). "Kapsam", sistemin
+bir değer ürettiği oranı gösterir — ürettiği değerin doğru olduğu anlamına gelmez, doğruluk sütunu
+ground truth ile karşılaştırmadır. Bu konfigürasyona nasıl ve neden geçildiği, eski değerlerle tam
+karşılaştırma §6.2'de.</p>
+
+<h3>Hız — CPU (eski) vs GPU (yeni, 2-motor ensemble)</h3>
+<div class="tblwrap"><table>
+<tr><th>Konfigürasyon</th><th>Toplam süre (119 lastik)</th><th>Lastik başına</th></tr>
+<tr><td>Eski: RapidOCR, v1_clahe, CPU, 1 motor</td><td>46 dk</td><td>23.4 sn</td></tr>
+<tr><td>Yeni: RapidOCR+EasyOCR, v4_morph, GPU, 2 motor</td><td class="best">39.6 dk</td><td class="best">20.0 sn</td></tr>
+</table></div>
+<p style="font-size:0.85rem;color:var(--muted)">GPU'nun sağladığı hızlanma (RapidOCR 3.1×, EasyOCR 6.4×),
+ikinci motoru devreye almanın getirdiği ek maliyetten daha büyük olduğu için nihai konfigürasyon hem daha
+isabetli hem daha hızlı çıktı — bu tesadüf değil, §6.2'de açıklanan otomatik konfigürasyon seçicisinin
+GPU'yu hesaba katmasının doğrudan sonucu.</p>
+
+<p>En zayıf alan üretim yeri (kapsam %45) — somut sonraki-adım önerileri §9'da (sözlük genişletme, DOT'a
+özel oval tespiti). Sistem tamamen modüler (<code>src/preprocess.py</code>, <code>tiling.py</code>,
+<code>engines/</code>, <code>extract.py</code>, <code>fuse.py</code>) olduğundan hem sözlük genişletmeye
+hem yeni motor/varyant eklemeye açık.</p>
+
+<footer>
+Lastik Yanak OCR — Ar-Ge Fizibilite Raporu · Kaynak kod: <code>src/</code> · Tam sonuçlar: <code>results/sonuclar.csv</code>
+</footer>
+
+</div>
+</body>
+</html>

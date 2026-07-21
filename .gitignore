@@ -1,0 +1,10 @@
+# Buyuk goruntu verisi (353MB) — repo disi tutulur
+Lastik_fotolari/
+
+# Python
+__pycache__/
+*.pyc
+
+# Gecici
+*.log
+.claude/

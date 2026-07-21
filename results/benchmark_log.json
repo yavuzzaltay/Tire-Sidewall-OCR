@@ -1,0 +1,2653 @@
+[
+  {
+    "name": "motor=rapidocr",
+    "engines": [
+      "rapidocr"
+    ],
+    "variants": [
+      "v1_clahe"
+    ],
+    "accuracy": {
+      "marka": 0.5555555555555556,
+      "desen": 0.2222222222222222,
+      "ebat": 0.7777777777777778,
+      "hiz_grubu": 0.3333333333333333,
+      "mevsim": 0.6666666666666666,
+      "dot": 0.6666666666666666,
+      "uretim_yeri": 0.3333333333333333,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 5,
+      "desen": 2,
+      "ebat": 7,
+      "hiz_grubu": 3,
+      "mevsim": 6,
+      "dot": 2,
+      "uretim_yeri": 2,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 271.9,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 22.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 22.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "SportContact 7",
+          "ebat": "185/65 R15",
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 27.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "90H",
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": false,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 27.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Starmaxx",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "M",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 34.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "Green-Max",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "1326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 34.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 30.5,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "111Y",
+          "mevsim": "Yaz",
+          "dot": "1CP032 YBU",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 30.5,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Semperit",
+          "desen": "Comfort-Life 2",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "O5H",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 41.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "AS-1",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "2013",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "motor=easyocr",
+    "engines": [
+      "easyocr"
+    ],
+    "variants": [
+      "v1_clahe"
+    ],
+    "accuracy": {
+      "marka": 0.5555555555555556,
+      "desen": 0.1111111111111111,
+      "ebat": 0.7777777777777778,
+      "hiz_grubu": 0.6666666666666666,
+      "mevsim": 0.6666666666666666,
+      "dot": 0.6666666666666666,
+      "uretim_yeri": 0.16666666666666666,
+      "tup": 0.7142857142857143
+    },
+    "correct": {
+      "marka": 5,
+      "desen": 1,
+      "ebat": 7,
+      "hiz_grubu": 6,
+      "mevsim": 6,
+      "dot": 2,
+      "uretim_yeri": 1,
+      "tup": 5
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 851.6,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 91.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "Green-Max",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 105.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Wildpeak A/T",
+          "ebat": "185/65 R15",
+          "hiz_grubu": "G",
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 116.5,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Lassa",
+          "desen": "AllSeasonContact 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "90H",
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 107.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "General Tire",
+          "desen": "AllSeasonContact 2",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "88V",
+          "mevsim": "Yaz",
+          "dot": "4890",
+          "uretim_yeri": "Turrev",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 106.6,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Lassa",
+          "desen": "AS-1",
+          "ebat": "205/55 R16",
+          "hiz_grubu": "91H",
+          "mevsim": "Yaz",
+          "dot": "1326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 88.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Bridgestone",
+          "desen": "Incurro A/S ST450",
+          "ebat": "205/55 R16",
+          "hiz_grubu": "91H",
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 66.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "Y",
+          "mevsim": "Yaz",
+          "dot": "0125",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 120.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Michelin",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "OSH C7 T5ATA5 PEAK 6LL41O 1O26 RADIAL",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": false,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 49.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "motor=tesseract",
+    "engines": [
+      "tesseract"
+    ],
+    "variants": [
+      "v1_clahe"
+    ],
+    "accuracy": {
+      "marka": 0.1111111111111111,
+      "desen": 0.0,
+      "ebat": 0.0,
+      "hiz_grubu": 0.0,
+      "mevsim": 0.2222222222222222,
+      "dot": 0.0,
+      "uretim_yeri": 0.0,
+      "tup": 0.0
+    },
+    "correct": {
+      "marka": 1,
+      "desen": 0,
+      "ebat": 0,
+      "hiz_grubu": 0,
+      "mevsim": 2,
+      "dot": 0,
+      "uretim_yeri": 0,
+      "tup": 0
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 99.2,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 9.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": null,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 10.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Hankook",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 12.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Lassa",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "1323",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 10.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Hankook",
+          "desen": "Winter i*cept RS3",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 10.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 14.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "All-Terrain T/A KO2",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 11.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Lassa",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 13.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Hankook",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 7.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "Wildpeak A/T",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "varyant=v2_shading (motor=rapidocr)",
+    "engines": [
+      "rapidocr"
+    ],
+    "variants": [
+      "v2_shading"
+    ],
+    "accuracy": {
+      "marka": 0.6666666666666666,
+      "desen": 0.2222222222222222,
+      "ebat": 0.7777777777777778,
+      "hiz_grubu": 0.2222222222222222,
+      "mevsim": 0.5555555555555556,
+      "dot": 0.3333333333333333,
+      "uretim_yeri": 0.8333333333333334,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 6,
+      "desen": 2,
+      "ebat": 7,
+      "hiz_grubu": 2,
+      "mevsim": 5,
+      "dot": 1,
+      "uretim_yeri": 5,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 279.0,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 25.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": false,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 26.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "SportContact 7",
+          "ebat": "185/65 R15",
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 26.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "90H",
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 25.5,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Starmaxx",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "N",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 30.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "Green-Max",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "1326",
+          "uretim_yeri": "Korea",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 39.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Bridgestone",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 35.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "11IY",
+          "mevsim": "Yaz",
+          "dot": "1CP032 YBU012 E4",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 31.6,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Semperit",
+          "desen": "Comfort-Life 2",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": "PEAK O5H 6LL410 1026 RADIAL TUBELE SS LL24",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 37.5,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "Snoways 4",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": "1Y0 AREADN EARAGO NRACTI ONNNEM PERSTO RE 201",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "varyant=v3_gradient (motor=rapidocr)",
+    "engines": [
+      "rapidocr"
+    ],
+    "variants": [
+      "v3_gradient"
+    ],
+    "accuracy": {
+      "marka": 0.1111111111111111,
+      "desen": 0.1111111111111111,
+      "ebat": 0.7777777777777778,
+      "hiz_grubu": 0.4444444444444444,
+      "mevsim": 0.4444444444444444,
+      "dot": 0.3333333333333333,
+      "uretim_yeri": 0.6666666666666666,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 1,
+      "desen": 1,
+      "ebat": 7,
+      "hiz_grubu": 4,
+      "mevsim": 4,
+      "dot": 1,
+      "uretim_yeri": 4,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 257.4,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 27.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": "Romana",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 31.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "General Tire",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/65 R15",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 31.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "AllSeasonContact 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "90H",
+          "mevsim": "4 Mevsim",
+          "dot": "1323",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 27.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "AS-1",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "88V",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 26.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "General Tire",
+          "desen": "Green-Max",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "127 LMYAEA",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 35.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 28.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "General Tire",
+          "desen": "Incurro A/S ST450",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "111Y",
+          "mevsim": "Kış",
+          "dot": "0125",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 23.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Semperit",
+          "desen": "Comfort-Life 2",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "05H 6LL410 01026 RADIAL TUBELE SS 243826",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 26.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Nankang",
+          "desen": "AS-1",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "2013",
+          "uretim_yeri": "Korea",
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "varyant=v4_morph (motor=rapidocr)",
+    "engines": [
+      "rapidocr"
+    ],
+    "variants": [
+      "v4_morph"
+    ],
+    "accuracy": {
+      "marka": 0.5555555555555556,
+      "desen": 0.2222222222222222,
+      "ebat": 0.7777777777777778,
+      "hiz_grubu": 0.4444444444444444,
+      "mevsim": 0.5555555555555556,
+      "dot": 0.6666666666666666,
+      "uretim_yeri": 0.6666666666666666,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 5,
+      "desen": 2,
+      "ebat": 7,
+      "hiz_grubu": 4,
+      "mevsim": 5,
+      "dot": 2,
+      "uretim_yeri": 4,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 265.4,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 22.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 29.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "SportContact 7",
+          "ebat": "185/65 R15",
+          "hiz_grubu": "88H",
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 22.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "AllSeasonContact 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 21.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Starmaxx",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "M",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 23.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "Green-Max",
+          "ebat": "205/55 R10",
+          "hiz_grubu": "91H",
+          "mevsim": "4 Mevsim",
+          "dot": "127 LMYAEA SAFE 205 55R169 1H RIG",
+          "uretim_yeri": "Korea",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 39.6,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Lassa",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 36.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "111Y",
+          "mevsim": "Yaz",
+          "dot": "1CP032 YBU",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 33.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Linglong",
+          "desen": "Green-Max",
+          "ebat": "185/65 R14",
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": "O5H6LL 410102 RADIAL TUBELE SS LL2438 26",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 36.6,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "AS-1",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "2013",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "varyant=v5_negative (motor=rapidocr)",
+    "engines": [
+      "rapidocr"
+    ],
+    "variants": [
+      "v5_negative"
+    ],
+    "accuracy": {
+      "marka": 0.4444444444444444,
+      "desen": 0.2222222222222222,
+      "ebat": 0.8888888888888888,
+      "hiz_grubu": 0.3333333333333333,
+      "mevsim": 0.5555555555555556,
+      "dot": 0.6666666666666666,
+      "uretim_yeri": 0.5,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 4,
+      "desen": 2,
+      "ebat": 8,
+      "hiz_grubu": 3,
+      "mevsim": 5,
+      "dot": 2,
+      "uretim_yeri": 3,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 281.3,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 27.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "R",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 23.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "SportContact 7",
+          "ebat": "185/65 R15",
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 32.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "90HE",
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 28.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Rotalla",
+          "desen": "Setula S-Race",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "M",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 28.3,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "Green-Max",
+          "ebat": "205/55 R16",
+          "hiz_grubu": "91H",
+          "mevsim": null,
+          "dot": "127 LMYAEA 205 55R169 1H",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 37.6,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 33.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "111Y",
+          "mevsim": "Yaz",
+          "dot": "1CP032 YBU J0125 E4",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 31.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Semperit",
+          "desen": "Comfort-Life 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "PEA 05H6LL 410102 RADIAL TUBELE SS LL243S",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 39.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Nankang",
+          "desen": "AS-1",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": null,
+          "dot": "2013",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "ensemble: motor=rapidocr + tüm varyantlar",
+    "engines": [
+      "rapidocr"
+    ],
+    "variants": [
+      "v1_clahe",
+      "v2_shading",
+      "v3_gradient",
+      "v4_morph",
+      "v5_negative"
+    ],
+    "accuracy": {
+      "marka": 0.5555555555555556,
+      "desen": 0.2222222222222222,
+      "ebat": 0.8888888888888888,
+      "hiz_grubu": 0.5555555555555556,
+      "mevsim": 0.5555555555555556,
+      "dot": 0.6666666666666666,
+      "uretim_yeri": 1.0,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 5,
+      "desen": 2,
+      "ebat": 8,
+      "hiz_grubu": 5,
+      "mevsim": 5,
+      "dot": 2,
+      "uretim_yeri": 6,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 864.1,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 90.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": "Romana",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 81.5,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "SportContact 7",
+          "ebat": "185/65 R15",
+          "hiz_grubu": "88H",
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 76.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "AllSeasonContact 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "90H",
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 75.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Starmaxx",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "M",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 83.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "Green-Max",
+          "ebat": "205/55 R16",
+          "hiz_grubu": "91H",
+          "mevsim": "4 Mevsim",
+          "dot": "1326",
+          "uretim_yeri": "Korea",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 116.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": null,
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 108.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "111Y",
+          "mevsim": "Yaz",
+          "dot": "0125",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 94.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Semperit",
+          "desen": "Comfort-Life 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": "O5H",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 136.2,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "AS-1",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Kış",
+          "dot": "2013",
+          "uretim_yeri": "Korea",
+          "tup": null
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "ensemble: motor=rapidocr+easyocr, varyant=v4_morph",
+    "engines": [
+      "rapidocr",
+      "easyocr"
+    ],
+    "variants": [
+      "v4_morph"
+    ],
+    "accuracy": {
+      "marka": 0.7777777777777778,
+      "desen": 0.2222222222222222,
+      "ebat": 0.8888888888888888,
+      "hiz_grubu": 0.5555555555555556,
+      "mevsim": 0.6666666666666666,
+      "dot": 0.6666666666666666,
+      "uretim_yeri": 0.6666666666666666,
+      "tup": 0.8571428571428571
+    },
+    "correct": {
+      "marka": 7,
+      "desen": 2,
+      "ebat": 8,
+      "hiz_grubu": 5,
+      "mevsim": 6,
+      "dot": 2,
+      "uretim_yeri": 4,
+      "tup": 6
+    },
+    "total": {
+      "marka": 9,
+      "desen": 9,
+      "ebat": 9,
+      "hiz_grubu": 9,
+      "mevsim": 9,
+      "dot": 3,
+      "uretim_yeri": 6,
+      "tup": 7
+    },
+    "elapsed_s": 1088.1,
+    "per_tire": [
+      {
+        "tire_id": "5",
+        "elapsed_s": 85.8,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "EcoContact 6",
+          "ebat": "155/70 R13",
+          "hiz_grubu": "75T",
+          "mevsim": "Yaz",
+          "dot": "1526",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "20",
+        "elapsed_s": 139.9,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "SportContact 7",
+          "ebat": "185/65 R15",
+          "hiz_grubu": "88H",
+          "mevsim": "Yaz",
+          "dot": "2326",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "30",
+        "elapsed_s": 143.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Lassa",
+          "desen": "AllSeasonContact 2",
+          "ebat": "185/65 R14",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": "0826",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": true,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "32",
+        "elapsed_s": 130.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "General Tire",
+          "desen": "Incurro A/S ST450",
+          "ebat": "185/60 R15",
+          "hiz_grubu": "M",
+          "mevsim": "4 Mevsim",
+          "dot": "4890",
+          "uretim_yeri": "Turkey",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "34",
+        "elapsed_s": 139.0,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "AS-1",
+          "ebat": "205/55 R16",
+          "hiz_grubu": "91H",
+          "mevsim": "4 Mevsim",
+          "dot": "1326",
+          "uretim_yeri": "Korea",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": true,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "73",
+        "elapsed_s": 130.7,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Bridgestone",
+          "desen": "Vector 4Seasons Gen-3",
+          "ebat": "205/55 R16",
+          "hiz_grubu": null,
+          "mevsim": "4 Mevsim",
+          "dot": "2825",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": null
+        }
+      },
+      {
+        "tire_id": "80",
+        "elapsed_s": 97.1,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Continental",
+          "desen": "SportContact 7",
+          "ebat": "315/35 ZR22",
+          "hiz_grubu": "Y",
+          "mevsim": "Yaz",
+          "dot": "1CP032 YBU",
+          "uretim_yeri": null,
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": true,
+          "desen": true,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": null,
+          "uretim_yeri": null,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "82",
+        "elapsed_s": 142.4,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Goodyear",
+          "desen": "AS-1",
+          "ebat": "185/65 R14",
+          "hiz_grubu": "86H",
+          "mevsim": "Yaz",
+          "dot": "O5H6LL 410102 RADIAL TUBELE SS LL2438 26",
+          "uretim_yeri": "Serbia",
+          "tup": "Tüpsüz"
+        },
+        "scores": {
+          "marka": false,
+          "desen": false,
+          "ebat": true,
+          "hiz_grubu": true,
+          "mevsim": true,
+          "dot": false,
+          "uretim_yeri": true,
+          "tup": true
+        }
+      },
+      {
+        "tire_id": "110",
+        "elapsed_s": 79.6,
+        "status": {
+          "ust": "ok",
+          "alt": "ok"
+        },
+        "predicted": {
+          "marka": "Kumho",
+          "desen": "AS-1",
+          "ebat": null,
+          "hiz_grubu": null,
+          "mevsim": "Yaz",
+          "dot": "2013",
+          "uretim_yeri": null,
+          "tup": null
+        },
+        "scores": {
+          "marka": true,
+          "desen": false,
+          "ebat": false,
+          "hiz_grubu": false,
+          "mevsim": false,
+          "dot": null,
+          "uretim_yeri": false,
+          "tup": false
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+tire_id,ust_file,alt_file,marka,desen,ebat,hiz_grubu,mevsim,dot,uretim_yeri,tup,ekstra_lot,notlar
+5,Ust_5.jpg,Alt_5.jpg,Continental,EcoContact 6,155/70 R13,75T,Yaz,1526,?,Tüpsüz,S-243255 | 266 03H536 | E4 02101522,DOT=hafta15/2026; üretim yeri bu kesitte görülemedi
+20,Ust_20.jpg,Alt_20.jpg,Goodyear,Eagle Sport 2,185/65 R15,88H,Yaz,?,?,Tüpsüz,0426120S2W2R3B | E13,desen adı kısmen kırpık ("Eagle Sport" + ayrı "2"); DOT kodu kesitte tam okunamadı
+30,Ust_30.jpg,Alt_30.jpg,Lassa,Multiways 2,185/65 R14,90H,4 Mevsim,0826,Turkey,Tüpsüz,MLTW2 40366-2 | 245072 S2W2R3B | E4,DOT=hafta08/2026; EXTRA LOAD; net okunabilir
+32,Ust_32.jpg,Alt_32.jpg,Waterfall,Eco Dynamic,185/60 R15,88V,4 Mevsim,?,Turkey,Tüpsüz,KYN-5006-04 | E8 024722,DOT "4890 HYBL..." kırpık/belirsiz; M+S ibaresi var; EXTRA LOAD
+34,Ust_34.jpg,Alt_34.jpg,Kumho,EcoWing ES31,205/55 R16,91H,Yaz,?,Korea,?,02101937 | 0416192 S2W2R3B | SNI,DOT "127 LMYAEA" belirsiz parse; mevsim doğrudan yazmıyor (desenden çıkarım)
+73,Ust_73.jpg,Alt_73.jpg,Bridgestone,Blizzak,205/55 R16,91H,Kış,?,Turkey,?,40629-3 | BLK61Z | 027 8KX569,tam desen adı (LM005 vb.) kesitte kırpıldı; DOT bu kesitte görülemedi
+80,Ust_80.jpg,Alt_80.jpg,Continental,SportContact 7,315/35 ZR22,111Y XL,Yaz,?,?,Tüpsüz,E4 02137816,DOT "ICP 032YBU" kırpık/belirsiz; üretim yeri görülemedi
+82,Ust_82.jpg,Alt_82.jpg,Crosswind,Comfort Peak,185/65 R14,86H,Yaz,1026,Serbia,Tüpsüz,0415685 S2W2R3B | E4 026564,DOT=hafta10/2026; mevsim net değil (yaz varsayıldı); NOT: bu lastiğin Alt görüntüsünde otomatik orientasyon 180 ters seçildi (bilinen sınırlama; benchmarkta not edildi)
+110,Ust_110.jpg,Alt_110.jpg,Kumho,Solus TA21,185/65 R14,86H,4 Mevsim,?,Korea,Tüpsüz,004635 2013 | 021341 09 | 0415684 S2W2R3B,M+S ibaresi var; DOT bu kesitte görülemedi; Ust tarafı bu lastikte çok ince/az bilgili bant verdi
