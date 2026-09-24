@@ -1,208 +1,210 @@
-# Lastik Yanak OCR — Tire Sidewall OCR
+# Tire Sidewall OCR — LastikOCR
 
-Line-scan kamerayla çekilmiş lastik çevresi görüntülerinden (**düşük kontrastlı kabartma yazı**)
-yapısal bilgi çıkaran, **tamamen yerel/offline** çalışan uçtan uca bir OCR hattı + görsel web arayüzü.
+An end-to-end, **fully local/offline** OCR pipeline + visual web interface that extracts
+structured information from line-scan tire images (**low-contrast embossed sidewall lettering**).
 
-Staj kapsamında geliştirildi: 119 lastik (238 görüntü) üzerinde doğrulandı, motor/varyant benchmark'ları
-ve fizibilite raporuyla birlikte teslim edildi.
+Developed during an internship: validated on 119 tires (238 images), delivered with
+engine/variant benchmarks and a feasibility report.
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![OCR](https://img.shields.io/badge/OCR-RapidOCR%20%7C%20EasyOCR%20%7C%20PP--OCRv6-green)
 ![Docker](https://img.shields.io/badge/Docker-CPU%20%2B%20GPU-blue)
-![Offline](https://img.shields.io/badge/offline-tamamen%20yerel-lightgrey)
+![Offline](https://img.shields.io/badge/offline-fully%20local-lightgrey)
 
 ---
 
-## Neden iyi bir proje?
+## Why this is a strong project
 
-- **Gerçek bir problemi çözüyor:** Kabartma lastik yazısı; klasik OCR'ın en zorlandığı alanlardan biri
-  (düşük kontrast, ışık/gölge bağımlılığı, kavisli yüzey). Genel amaçlı OCR'ı doğrudan sürmek **%0 sonuç**
-  veriyor — bu proje o sorunu mühendislikle aşıyor.
-- **Ölçüme dayalı mühendislik:** 3 OCR motoru × 5 ön işleme varyantı etiketli sette karşılaştırıldı,
-  kazananlar veriye göre seçildi. İki tur Ar-Ge sonunda doğruluk **%56.3 → %63.2** (30 lastiklik sette),
-  alternatif konfigürasyonda **%71.8**.
-- **Gerçek hız kazanımı:** GPU taşıma sonrası RapidOCR **3.1×**, EasyOCR **6.4×** hızlandı; iki motorlu
-  ensemble CPU'daki tek motordan bile **daha hızlı** hale geldi (19.0 sn/lastik).
-- **Tek komutla demo:** Docker imajı sayesinde kurulum derdi yok — `docker compose up` ile web arayüzü
-  açılır, fotoğraf seçilir, adım adım sonuç görülür.
-- **Üretime hazır düşünülmüş:** Kalite kapısı (boş çekim eleme), güven skorları, "emin değilsem sus"
-  politikası, modüler motor/varyant mimarisi, detaylı rapor ve sonraki-adım önerileri dahil.
+- **Solves a real problem:** embossed tire lettering is one of the hardest targets for classical OCR
+  (low contrast, light/shadow dependence, curved surface). Running a generic OCR engine on it
+  directly yields **~0% usable output** — this project overcomes that with engineering.
+- **Measurement-driven engineering:** 3 OCR engines × 5 preprocessing variants compared on a labeled
+  set, winners picked from data. Two R&D rounds took accuracy from **56.3% → 63.2%** (30-tire set),
+  with an alternative configuration at **71.8%**.
+- **Real speedup:** after moving to GPU, RapidOCR got **3.1×** faster and EasyOCR **6.4×** faster;
+  the two-engine ensemble ended up **faster than the single engine on CPU** (19.0 s/tire).
+- **One-command demo:** no setup hassle thanks to the Docker image — `docker compose up` starts the
+  web UI, you pick photos and see step-by-step results.
+- **Built with production in mind:** quality gate (rejects empty captures), confidence scores,
+  "stay silent when unsure" policy, modular engine/variant architecture, full report and
+  concrete next steps included.
 
 ---
 
-## Çalışırken — gerçek çıktılar
+## In action — real outputs
 
-Aşağıdaki görseller pipeline'ın gerçek bir lastik (`Ust_5.jpg`, Continental EcoContact 6) üzerindeki
-adım adım çıktısıdır. Sistem bu lastikte **8 kritik alanın 7'sini doğru** okudu
-(ebat, hız grubu, marka, desen, mevsim, DOT, tüpsüz).
+The images below are the pipeline's step-by-step output on a real tire (`Ust_5.jpg`,
+Continental EcoContact 6). On this tire the system correctly read **7 of 8 key fields**
+(size, speed rating, brand, pattern, season, DOT, tubeless).
 
-### 1. Ham görüntü → metin bandı tespiti
+### 1. Raw image → text-band detection
 
-| Ham görüntü (temsili kesit, tam boyut 1116×12900 px) | Tespit edilen metin bandı (622 px) |
+| Raw image (representative crop, full size 1116×12900 px) | Detected text band (622 px) |
 |---|---|
-| ![Ham görüntü](assets/screenshots/01-ham-goruntu.png) | ![Bant tespiti](assets/screenshots/02-orientasyon-bant.png) |
+| ![Raw image](assets/screenshots/01-ham-goruntu.png) | ![Band detection](assets/screenshots/02-orientasyon-bant.png) |
 
-Otomatik orientasyon (iki 180° adayın OCR-güven skoruyla oylanması) + satır parlaklık profiliyle
-arka plan kırpma. Boş/başarısız çekimler kalite kapısında eleniyor (11/119 üst görüntüde doğru çalıştı).
+Automatic orientation (two 180° candidates voted by OCR-confidence score) + background cropping via
+row-brightness profile. Empty/failed captures are rejected by the quality gate (correctly triggered
+on 11/119 upper images).
 
-### 2. Kontrast artırma — 5 varyant
+### 2. Contrast enhancement — 5 variants
 
-![5 ön işleme varyantı](assets/screenshots/04-bes-varyant.png)
+![5 preprocessing variants](assets/screenshots/04-bes-varyant.png)
 
-`v1_clahe` · `v2_shading` (aydınlatma düzeltme) · `v3_gradient` (kabartma kenarları) ·
-`v4_morph` (morfolojik) · `v5_negative`. Tek varyant her alanda kazanmıyor — o yüzden
-ensemble oylaması yapılıyor. Kırpma sonrası tek kesit:
+`v1_clahe` · `v2_shading` (illumination correction) · `v3_gradient` (emboss edges) ·
+`v4_morph` (morphological) · `v5_negative`. No single variant wins on every field — hence
+ensemble voting. Single crop after cropping:
 
-![Kırpma + CLAHE](assets/screenshots/03-kirpma-clahe.png)
+![Crop + CLAHE](assets/screenshots/03-kirpma-clahe.png)
 
-### 3. Döşeme (tiling) — kritik teknik bulgu
+### 3. Tiling — the key technical finding
 
 ![Tiling](assets/screenshots/05-tiling.png)
 
-Şerit (~20:1 en/boy) doğrudan motora verilince RapidOCR tespiti **tamamen atlıyor** (0 kutu) —
-sebebi `width_height_ratio` eşiği (varsayılan 8). Çözüm: bindirmeli parçalara bölme
-(`bant_yüksekliği × 6` güvenlik payıyla). Bu düzeltme okumayı sıfırdan normale döndürdü.
+Feeding the strip (~20:1 aspect ratio) directly to the engine makes RapidOCR **skip detection
+entirely** (0 boxes) — caused by the `width_height_ratio` threshold (default 8). Fix: split into
+overlapping tiles (safety margin of `band_height × 6`). This fix took reading from zero back to normal.
 
-### 4. OCR kutuları + alan çıkarımı
+### 4. OCR boxes + field extraction
 
-![OCR kutuları](assets/screenshots/06-ocr-kutulari.png)
+![OCR boxes](assets/screenshots/06-ocr-kutulari.png)
 
-Örnek ham okuma: `155/70R13T` (0.88) · `RADIAL` (0.78) · `OUTSIDE-155/70R13·75T` (0.84) ·
-`TUBELESS` (0.88). Regex + sözlük (rapidfuzz fuzzy) ile 9 alana dönüştürülüp
-yanak × tile × varyant × motor kaynaklarından **ağırlıklı oylama** ile birleştiriliyor.
+Sample raw reads: `155/70R13T` (0.88) · `RADIAL` (0.78) · `OUTSIDE-155/70R13·75T` (0.84) ·
+`TUBELESS` (0.88). Converted into 9 fields via regex + dictionary (rapidfuzz fuzzy matching),
+then fused with **weighted voting** across sidewall × tile × variant × engine sources.
 
-### 5. Varyant karşılaştırma (3 örnek lastik)
+### 5. Variant comparison (3 sample tires)
 
-![Varyant karşılaştırma](assets/screenshots/07-varyant-karsilastirma.png)
+![Variant comparison](assets/screenshots/07-varyant-karsilastirma.png)
 
 ---
 
-## Sonuçlar (119 lastik, 30 lastiklik etiketli sette doğrulandı)
+## Results (119 tires, verified on a 30-tire labeled set)
 
-| Konfigürasyon | Süre (119 lastik) | sn/lastik | Doğruluk (30-GT, 8 alan ort.) |
+| Configuration | Time (119 tires) | s/tire | Accuracy (30-GT, 8-field avg.) |
 |---|---|---|---|
-| Faz 0: RapidOCR+EasyOCR, GPU (ilk ensemble) | 39.6 dk | 20.0 | %56.3 |
-| **Faz 1: + sözlük/tutarlılık/DOT düzeltmeleri (seçilen)** | **37.7 dk** | **19.0** | **%63.2** |
-| PP-OCRv6 tek motor (yüksek-doğruluk alternatifi) | 107.2 dk | 54.1 | %71.8 |
+| Phase 0: RapidOCR+EasyOCR, GPU (first ensemble) | 39.6 min | 20.0 | 56.3% |
+| **Phase 1: + lexicon/consistency/DOT fixes (selected)** | **37.7 min** | **19.0** | **63.2%** |
+| PP-OCRv6 single engine (high-accuracy alternative) | 107.2 min | 54.1 | 71.8% |
 
-Alan bazında (seçilen konfigürasyon):
+Per field (selected configuration):
 
-| Alan | Doğruluk (30-GT) | Kapsam (119 lastik) |
+| Field | Accuracy (30-GT) | Coverage (119 tires) |
 |---|---|---|
-| Marka | %80 | %92 |
-| Desen | %58 | %88 |
-| Ebat | %72 | %81 |
-| Hız grubu | %52 | %68 |
-| Mevsim | %65 | %78 |
-| DOT (üretim tarihi) | %73 | %77 |
-| Üretildiği yer | %30 | %45 |
-| Tüplü/Tüpsüz | %76 | %88 |
+| Brand | 80% | 92% |
+| Pattern | 58% | 88% |
+| Size | 72% | 81% |
+| Speed rating | 52% | 68% |
+| Season | 65% | 78% |
+| DOT (production date) | 73% | 77% |
+| Made in | 30% | 45% |
+| Tube type | 76% | 88% |
 
-Motor karşılaştırması (9 lastik, sabit varyant): **RapidOCR** (272 sn) ≈ EasyOCR doğruluğunda ama
-**3× hızlı**; Tesseract kabartma yazıda pratikte işe yaramıyor (%0–11). Detay: [`docs/RAPOR.md`](docs/RAPOR.md).
+Engine comparison (9 tires, fixed variant): **RapidOCR** (272 s) matches EasyOCR accuracy but is
+**3× faster**; Tesseract is practically unusable on embossed text (0–11%). Details:
+[`docs/RAPOR.md`](docs/RAPOR.md) (Turkish).
 
 ---
 
-## Hızlı başlangıç
+## Quick start
 
-### Seçenek A — Docker (önerilen, kurulum derdi yok)
+### Option A — Docker (recommended, zero setup)
 
 ```bash
 git clone https://github.com/yavuzzaltay/LastikOCR.git
 cd LastikOCR
 
-# Kendi lastik fotoğraflarını bu klasörlere koy:
+# Put your own tire photos in these folders:
 #   Lastik_fotolari/Lastigin_ustu/Ust_1.jpg, Ust_2.jpg, ...
 #   Lastik_fotolari/Lastigin_alti/Alt_1.jpg, Alt_2.jpg, ...
 
 docker compose up --build
 ```
 
-Tarayıcıda **http://localhost:5000** — fotoğraf seç, "Seçilenleri İşle"ye bas,
-adım adım görseller + çıkarılan alanlar + süre bilgisini gör. Detay: [`docs/DOCKER.md`](docs/DOCKER.md)
-(GPU ile çalıştırma dahil).
+Open **http://localhost:5000** — select photos, hit process, see step-by-step visuals +
+extracted fields + timing. Details: [`docs/DOCKER.md`](docs/DOCKER.md) (includes GPU run).
 
-### Seçenek B — Yerel Python
+### Option B — Local Python
 
 ```bash
-pip install -r requirements.txt   # GPU yoksa: requirements-docker.txt önerilir
+pip install -r requirements.txt   # without GPU: requirements-docker.txt is recommended
 
-python src/webapp.py              # web arayüzü → http://127.0.0.1:5000
-python src/benchmark.py           # motor × varyant karşılaştırması (etiketli set)
-python src/run_all.py             # 119 lastiğin tamamını işle → results/sonuclar.csv
-python src/run_all.py --engines=rapidocr_v6 --variants=v1_clahe  # PP-OCRv6 alternatifi
+python src/webapp.py              # web UI → http://127.0.0.1:5000
+python src/benchmark.py           # engine × variant comparison (labeled set)
+python src/run_all.py             # process all 119 tires → results/sonuclar.csv
+python src/run_all.py --engines=rapidocr_v6 --variants=v1_clahe  # PP-OCRv6 alternative
 ```
 
-> Not: `Lastik_fotolari/` (~350 MB) `.gitignore`'dadır, repoda yoktur. Kendi görüntülerinle
-> aynı dosya adlarıyla (`Ust_N.jpg` / `Alt_N.jpg`) çalıştırabilirsin.
+> Note: `Lastik_fotolari/` (~350 MB) is git-ignored and not in the repo. You can run it with your
+> own images using the same file names (`Ust_N.jpg` / `Alt_N.jpg`).
 
 ---
 
-## Proje yapısı
+## Project structure
 
 ```
 LastikOCR/
 ├── src/
-│   ├── preprocess.py      # orientasyon, kalite kapısı, bant kırpma, 5 varyant
-│   ├── tiling.py          # bindirmeli döşeme (width/height oranı tuzağının çözümü)
-│   ├── engines/           # ortak arayüz: rapidocr, rapidocr_v6, easyocr, tesseract
-│   │   └── base.py        # GPU otomatik algılama (gpu_available)
-│   ├── extract.py         # regex + fuzzy sözlük ile alan çıkarımı
-│   ├── lexicon.py         # marka/desen/mevsim sözlükleri
-│   ├── fuse.py            # çok kaynaklı ağırlıklı oylama + marka↔desen tutarlılığı
-│   ├── pipeline.py        # uçtan uca hat (benchmark + run_all + webapp paylaşır)
-│   ├── scoring.py         # GT karşılaştırma
-│   ├── benchmark.py       # motor × varyant karşılaştırması
-│   ├── run_all.py         # tam veri seti koşumu (otomatik konfig seçimi)
-│   ├── vlm.py             # yerel VLM denemesi (Qwen2.5-VL, fallback önerisi)
-│   ├── webapp.py          # Flask arayüzü (foto seçimi + adım adım görselleştirme)
-│   ├── templates/         # web arayüzü şablonları
-│   ├── gen_pipeline_walkthrough.py  # README'deki adım görsellerini üretir
-│   └── gen_debug_images.py          # örnek varyant görsellerini üretir
+│   ├── preprocess.py      # orientation, quality gate, band crop, 5 variants
+│   ├── tiling.py          # overlapping tiling (fixes the width/height-ratio trap)
+│   ├── engines/           # unified interface: rapidocr, rapidocr_v6, easyocr, tesseract
+│   │   └── base.py        # automatic GPU detection (gpu_available)
+│   ├── extract.py         # regex + fuzzy-dictionary field extraction
+│   ├── lexicon.py         # brand/pattern/season dictionaries
+│   ├── fuse.py            # multi-source weighted voting + brand↔pattern consistency
+│   ├── pipeline.py        # end-to-end pipeline (shared by benchmark + run_all + webapp)
+│   ├── scoring.py         # ground-truth comparison
+│   ├── benchmark.py       # engine × variant comparison
+│   ├── run_all.py         # full-dataset run (automatic config selection)
+│   ├── vlm.py             # local VLM experiment (Qwen2.5-VL, fallback proposal)
+│   ├── webapp.py          # Flask UI (photo selection + step-by-step visualization)
+│   ├── templates/         # web UI templates
+│   ├── gen_pipeline_walkthrough.py  # generates the step images used in this README
+│   └── gen_debug_images.py          # generates sample variant images
 ├── tests/
-│   └── test_preprocess_manual.py    # hızlı görsel doğrulama
+│   └── test_preprocess_manual.py    # quick visual verification
 ├── data/
-│   └── ground_truth.csv   # 30 lastiklik etiketli set
+│   └── ground_truth.csv   # 30-tire labeled set
 ├── results/
-│   ├── sonuclar.csv       # seçilen konfigürasyonun 119 lastiklik çıktısı
+│   ├── sonuclar.csv       # 119-tire output of the selected configuration
 │   ├── benchmark_results.csv / benchmark_log.json
-│   ├── rapor.md / rapor.html       # tam fizibilite raporu
-│   ├── debug/pipeline/    # adım adım görseller + walkthrough.json
-│   └── archive/           # ara konfigürasyon çıktıları
+│   ├── rapor.md / rapor.html       # full feasibility report (Turkish)
+│   ├── debug/pipeline/    # step-by-step images + walkthrough.json
+│   └── archive/           # intermediate configuration outputs
 ├── docs/
-│   ├── RAPOR.md           # fizibilite raporu (kopya)
-│   └── DOCKER.md          # Docker ile çalıştırma (CPU + GPU)
-├── assets/screenshots/    # README görselleri
+│   ├── RAPOR.md           # feasibility report copy (Turkish)
+│   └── DOCKER.md          # running with Docker, CPU + GPU (Turkish)
+├── assets/screenshots/    # README images
 ├── Dockerfile / Dockerfile.gpu / docker-compose.yml / docker-compose.gpu.yml
 └── requirements.txt / requirements-docker.txt / requirements-gpu.txt
 ```
 
 ---
 
-## Yöntem (kısa)
+## Method (short)
 
-1. **Orientasyon:** dikey/yatay + 180° belirsizliği, iki adayın OCR-güven skoruyla oylanması.
-2. **Kalite kapısı:** satır parlaklık profilinde bant yoksa `UNREADABLE` (boş çekimleri eliyor).
-3. **Bant kırpma + 5 kontrast varyantı** (CLAHE, aydınlatma düzeltme, gradyan, morfoloji, negatif).
-4. **Bindirmeli tiling** ile OCR motorlarına uygun parça boyutu.
-5. **3 OCR motoru** (RapidOCR, EasyOCR, Tesseract) + PP-OCRv6 alternatifi, ortak arayüzden.
-6. **Alan çıkarımı:** regex (ebat, DOT, üretim yeri, tüp) + fuzzy sözlük (marka, desen) + 3 kaynaklı mevsim.
-7. **Birleştirme:** güven + tekrar sayısıyla ağırlıklı oylama, marka↔desen tutarlılık cezası.
-
----
-
-## Bilinen sınırlamalar & sonraki adımlar
-
-- **DOT** en zor alan: oval damga tespiti (Hough-circle) + hedefli yüksek çözünürlüklü OCR öneriliyor.
-- **Sözlük genişletme** en ucuz kazanç: envanterdeki tüm marka/desen listesi içe aktarılabilir.
-- **VLM fallback:** Qwen2.5-VL doğru kesitte kusursuz okudu (DOT dahil) — klasik OCR'ın boş bıraktığı
-  alanlara hedefli fallback olarak öneriliyor, tam pipeline olarak değil.
-- Fiziksel tarafta **eğik (raking) aydınlatma** kontrastı en çok artıracak tek değişiklik.
-
-Detaylı analiz: [`docs/RAPOR.md`](docs/RAPOR.md).
+1. **Orientation:** portrait/landscape + 180° ambiguity resolved by voting two candidates with OCR-confidence scores.
+2. **Quality gate:** no band in the row-brightness profile → `UNREADABLE` (filters empty captures).
+3. **Band crop + 5 contrast variants** (CLAHE, illumination correction, gradient, morphology, negative).
+4. **Overlapping tiling** to fit OCR engines' input size.
+5. **3 OCR engines** (RapidOCR, EasyOCR, Tesseract) + PP-OCRv6 alternative behind one interface.
+6. **Field extraction:** regex (size, DOT, made-in, tube type) + fuzzy dictionary (brand, pattern) + 3-source season.
+7. **Fusion:** weighted voting by confidence + recurrence, with brand↔pattern consistency penalty.
 
 ---
 
-## Lisans
+## Known limitations & next steps
 
-MIT — detay için `LICENSE` dosyasına bakın.
+- **DOT** is the hardest field: oval-stamp detection (Hough circles) + targeted high-resolution OCR recommended.
+- **Lexicon expansion** is the cheapest win: import the full brand/pattern list from inventory.
+- **VLM fallback:** Qwen2.5-VL read perfectly on the right crop (DOT included) — proposed as a targeted
+  fallback for fields classical OCR leaves blank, not as a full pipeline.
+- On the physical side, **raking (oblique) lighting** is the single change that would boost contrast most.
+
+Full analysis: [`docs/RAPOR.md`](docs/RAPOR.md) (Turkish).
+
+---
+
+## License
+
+MIT — see `LICENSE`.
