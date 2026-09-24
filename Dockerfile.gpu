@@ -1,5 +1,5 @@
-# Lastik Yanak OCR — web arayuzu (GPU/CUDA). Calistirmak icin arkadasinin
-# makinesinde NVIDIA GPU + guncel surucu + NVIDIA Container Toolkit kurulu olmali.
+# Lastik Yanak OCR — web arayuzu (GPU/CUDA). Calistirmak icin hedef makinede
+# NVIDIA GPU + guncel surucu + NVIDIA Container Toolkit kurulu olmali.
 # Kurulum: DOCKER.md dosyasindaki "GPU ile calistirma" bolumune bak.
 FROM nvidia/cuda:13.0.0-cudnn-runtime-ubuntu24.04
 

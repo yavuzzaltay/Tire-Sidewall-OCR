@@ -49,13 +49,13 @@ docker run -p 5000:5000 \
   lastik-ocr
 ```
 
-## GPU ile çalıştırma (arkadaşının NVIDIA GPU'lu makinesinde)
+## GPU ile çalıştırma (NVIDIA GPU'lu makinede)
 
-Ayrı bir GPU imajı var (`Dockerfile.gpu` + `docker-compose.gpu.yml`) — **gerçekten test edildi**
-(bu makinede RTX 3060 ile build edilip çalıştırıldı: CPU'da 99.5sn süren bir lastik GPU'da
-29.7sn'de bitti, `onnxruntime` hem de `torch` tarafında CUDA doğrulandı).
+Ayrı bir GPU imajı var (`Dockerfile.gpu` + `docker-compose.gpu.yml`) — **gerçek donanımda test edildi**
+(RTX 3060: CPU'da 99.5 sn süren tek lastik işlemi GPU'da 29.7 sn'ye indi, `onnxruntime` ve
+`torch` tarafında CUDA doğrulandı).
 
-### Arkadaşının makinesinde gereken kurulum
+### GPU'lu makinede gereken kurulum
 
 1. **NVIDIA GPU sürücüsü** (güncel, WSL2/CUDA destekli) — çoğu makinede zaten kurulu.
 2. **Docker Desktop** — kurulumda "Use WSL 2 based engine" seçili olmalı (varsayılan).
@@ -95,9 +95,8 @@ kurman gerekir (`nvidia-ctk runtime configure --runtime=docker` + `sudo systemct
 ## Notlar
 
 - **CPU imajı** (`Dockerfile`, varsayılan `docker compose up`) **CPU-uyumlu** bağımlılıklarla
-  kurulur (`requirements-docker.txt`) — GPU'ya özel paketler dahil değildir, ~3GB, her
-  makinede GPU olmadan da sorunsuz build olur. GPU gerekmez, ama **arkadaşının GPU'suz
-  bir arkadaşı** için bu yeterli.
+   kurulur (`requirements-docker.txt`) — GPU'ya özel paketler dahil değildir, ~3GB,
+   GPU olmayan makinelerde de sorunsuz build olur.
 - **GPU imajı** (`Dockerfile.gpu`, `docker-compose.gpu.yml`) NVIDIA'nın CUDA+cuDNN taban
   imajını kullanır, ~15GB. Kod GPU'yu otomatik algılar (`src/engines/base.py:gpu_available()`),
   ekstra ayar gerekmez — sadece doğru compose dosyasıyla (`-f docker-compose.gpu.yml`) build et.

@@ -1,13 +1,17 @@
-# Buyuk goruntu verisi (353MB) — repo disi tutulur
+# Buyuk goruntu verisi (~350MB) — repo disi tutulur, README'deki gibi ayri saglanir
 Lastik_fotolari/
 
 # Python
 __pycache__/
 *.pyc
+*.pyo
+.venv/
+venv/
+.env
 
 # Gecici
 *.log
 .claude/
 
-# Web arayuzu: kucuk resim onbellegi + calisma ciktilari (yeniden uretilebilir)
+# Web arayuzu calisma ciktilari (yeniden uretilebilir: kucuk resimler + kosu kayitlari)
 results/webapp_output/
