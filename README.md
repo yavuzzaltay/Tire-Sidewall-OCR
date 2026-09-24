@@ -1,4 +1,4 @@
-# Tire Sidewall OCR — LastikOCR
+# Tire Sidewall OCR 
 
 An end-to-end, **fully local/offline** OCR pipeline + visual web interface that extracts
 structured information from line-scan tire images (**low-contrast embossed sidewall lettering**).
